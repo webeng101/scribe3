@@ -1,0 +1,757 @@
+<SettingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgb: .91, .91, .91
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 50
+            spacing: 10
+            padding: 15, 5, 5, 0
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'baseline_settings_black_48dp.png'
+                size: 32, 32
+                size_hint: None, None
+            BlackLabel:
+                text: '[b]Options[/b]'
+                font_size: '27dp'
+                pos_hint: {'center_x':.5}
+                size_hint: (.95, None)
+                height: 50
+                markup: True
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 20
+            BoxLayout:
+                id: tab_container
+                size_hint_x: None
+                width: 220
+                orientation: 'vertical'
+                spacing: 5
+                padding: [10, 0, 0, 0]
+                canvas.before:
+                    Color:
+                        rgb: 1, 1, 1
+                    Rectangle:
+                        size: 13, self.height
+                        pos: self.right-13, self.y
+                Label:
+                    #fill space
+                    text: ''
+                    size_hint_y: .2
+                HoverButton:
+                    id: btn_about
+                    on_release: root.btn_about()
+                    info: 'about'
+                HoverButton:
+                    id: btn_relnotes
+                    info: 'changelog'
+                    on_release: root.show_release_notes()
+                HoverButton:
+                    id: btn_general
+                    on_release: root.btn_general()
+                    info: 'general'
+                HoverButton:
+                    id: btn_collections
+                    info: 'collections'
+                    on_release: root.btn_collection()
+                HoverButton:
+                    id: btn_camera
+                    info: 'cameras'
+                    on_release: root.btn_camera()
+                HoverButton:
+                    id: btn_update
+                    info: 'update'
+                    on_release: root.btn_update()
+                HoverButton:
+                    id: btn_c2
+                    info: 'c2'
+                    on_release: root.btn_c2()
+                Label:
+                    #fill space
+                    text: ''
+                    size_hint_y: .2
+                HoverButton:
+                    id: btn_calibrate
+                    info: 'calibrate'
+                    on_release: root.btn_calibrate()
+                Label:
+                    #fill space
+                    text: ''
+                    size_hint_y: 2
+
+            ScreenManager:
+                canvas.before:
+                    Color:
+                        rgb: 1, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+#                    Rectangle:
+#                        source: "images/tts_bg/png"
+#                        pos: self.pos
+#                        size: self.size
+                size_hint_x: 1
+                spacing: 5
+                padding: 10
+                id: sm
+
+<HoverButton>:
+    size_hint: (.78, None)
+    height: 40
+    pos_hint: {'center_x':.5}
+    HoverImage:
+        id: _img
+        info: self.parent.info
+        y: self.parent.y
+        x: self.parent.x
+        size: self.parent.width, self.parent.height
+        allow_stretch: True
+
+
+<TooltipBoxLayout@TooltipControl+BoxLayout>
+
+
+<AboutSettingsScreen>:
+    BoxLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: self.parent.width - _box_help.width
+            padding: 20
+            spacing: 20
+            BoxLayout:
+                id: _about_header
+                size_hint_y: None
+                height: 70
+                canvas.before:
+                    Rectangle:
+                        pos: self.x + self.width / 10, self.y + self.height - 80
+                        size: 100, 100
+                        source: "images/dslr-camera.png"
+                Label:
+                    font_size: 30
+                    color: 0, 0, 0, 1
+                    text: '[b]About your Scribe[/b]'
+                    markup: True
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    size_hint_y: None
+                    height: 50
+                    spacing: 2
+                    canvas.before:
+                        Color:
+                            rgba: .8, .8, .8, .8
+                        Rectangle:
+                            pos: self.x, self.y
+                            size: self.width - 30, 1
+                    Label:
+                        text: 'Scribe3 Software version'
+                        font_size: '17sp'
+                        color: 0, 0, 0, 1
+                        size_hint_x: 0.66
+                        text_size: self.size
+                        valign: 'middle'
+                    TooltipBoxLayout:
+                        size_hint_x: 0.34
+                        CopyLabel:
+                            id: lb_version
+                            color: 0, 0, 0, 1
+                            font_size: '16sp'
+                            bold: True
+                            size_hint_max_x: '60dp' if len(self.text) < 5 else '200dp'
+                        Widget:
+                GridLayout:
+                    cols: 2
+                    size_hint_y: 2.2
+                    canvas.before:
+                        Color:
+                            rgba: .8, .8, .8, .8
+                        Rectangle:
+                            pos: self.x, self.y
+                            size: self.width - 30, 1
+                    Label:
+                        text: 'Scribe Metadata'
+                        color: 0, 0, 0, 1
+                        font_size: 17
+                        size_hint_max_x: '120dp'
+                        text_size: self.size
+                        valign: 'top'
+                    SimpleGridLayout:
+                        id: _metadata
+                        cols: 2
+                        size_hint_y: 2.2
+                        spacing: 5
+                        padding: 0, '10dp'
+                        BlackLabel:
+                            text: 'Language:'
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            valign: 'middle'
+                            size_hint_x: .6
+                        MetadataLabel:
+                            id: language_input
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            metadata_key: 'language'
+                            text_size: self.size
+                            valign: 'middle'
+                            bold: True
+                        BlackLabel:
+                            text: 'Scanning center:'
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            valign: 'middle'
+                            shorten: False
+                            size_hint_x: .6
+                        MetadataLabel:
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            metadata_key: 'scanningcenter'
+                            text_size: self.size
+                            valign: 'middle'
+                            bold: True
+                        BlackLabel:
+                            text: 'Scanner:'
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            valign: 'middle'
+                            size_hint_x: .6
+                        MetadataLabel:
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            metadata_key: 'scanner'
+                            text_size: self.size
+                            valign: 'middle'
+                            bold: True
+                        BlackLabel:
+                            text: 'Sponsor:'
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            valign: 'middle'
+                            size_hint_x: .6
+                        MetadataLabel:
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            metadata_key: 'sponsor'
+                            text_size: self.size
+                            valign: 'middle'
+                            bold: True
+                        BlackLabel:
+                            text: 'Contributor:'
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            valign: 'middle'
+                            size_hint_x: .6
+                        MetadataLabel:
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            metadata_key: 'contributor'
+                            text_size: self.size
+                            valign: 'middle'
+                            bold: True
+                        BlackLabel:
+                            text: 'Operator:'
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            valign: 'middle'
+                            size_hint_x: .6
+                        MetadataLabel:
+                            size_hint_y: None
+                            height: 24
+                            font_size: 16
+                            metadata_key: 'operator'
+                            text_size: self.size
+                            valign: 'middle'
+                            bold: True
+                            shorten: True
+                GridLayout:
+                    orientation: 'vertical'
+                    cols: 2
+                    size_hint_y: None
+                    height: 50
+                    canvas.before:
+                        Color:
+                            rgba: .8, .8, .8, .8
+                        Rectangle:
+                            pos: self.x, self.y
+                            size: self.width - 30, 1
+                GridLayout:
+                    orientation: 'vertical'
+                    cols: 2
+                    size_hint_y: None
+                    height: 50
+                    canvas.before:
+                        Color:
+                            rgba: .8, .8, .8, .8
+                        Rectangle:
+                            pos: self.x, self.y
+                            size: self.width - 30, 1
+                    Label:
+                        text: 'Collection Sets'
+                        font_size: 17
+                        color: 0, 0, 0, 1
+                        size_hint_x: .5
+                        text_size: self.size
+                        valign: 'middle'
+                    Label:
+                        font_size: 16
+                        color: 0, 0, 0, 1
+                        text: ''
+                        id: lb_col_num
+                        bold: True
+                GridLayout:
+                    orientation: 'vertical'
+                    cols: 2
+                    size_hint_y: 3
+                    canvas.before:
+                        Color:
+                            rgba: .8, .8, .8, .1
+                        Rectangle:
+                            pos: self.x, self.y
+                            size: self.width - 30, 1
+                Widget
+        BoxLayout:
+            id: _box_help
+            size_hint_x: None
+            width: 400
+            padding: 10, 30, 10, 30
+            canvas.before:
+                Color:
+                    rgba: .8, .8, .8, .7
+                Rectangle:
+                    pos: self.pos
+                    size: self.width, self.height
+            ScrollableLabel:
+                bar_width: 5
+                BlackLabel:
+                    id: lb_help
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    markup: True
+                    shorten: False
+
+<CatalogsWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_x: None
+            width: 1000
+            pos_hint: {'center_x': .5}
+            padding: 20
+            orientation: 'vertical'
+            BlackLabel:
+                text: 'Library Catalogs'
+                font_size: '24dp'
+                pos_hint: {'center_x':.5}
+                size_hint: (1, None)
+                height: 40
+                canvas.after:
+                    Color:
+                        rgb: .75,.75,.75
+                    Line:
+                        points: self.x,self.y-3,self.x+self.width,self.y-3
+                        width: 1
+            BoxLayout:
+                id: _buttons_grid_layout
+                orientation: 'horizontal'
+                height: 60
+                size_hint_y: None
+                spacing: 5
+                padding: 10
+                ColorButton:
+                    text: 'Add a Catalog'
+                    height: 40
+                    size_hint_y: None
+                    on_press: root.create_cat_layout('', True)
+
+                ColorButton:
+                    text: 'Save Changes'
+                    #size_hint: (None, None)
+                    #size: (150, 40)
+                    height: 40
+                    size_hint_y: None
+                    on_press: root.save_catalogs()
+
+                ColorButton:
+                    text: 'Reload Catalog List'
+                    height: 40
+                    size_hint_y: None
+                    on_press: root.update_catalogs()
+
+            ScrollViewWithBars:
+                GridLayout:
+                    id: _grid_layout
+                    size_hint_y: None
+                    cols: 1
+                    height: self.minimum_height#sum(x.height for x in self.children) + 65
+                    spacing: 15
+                    padding: 30
+
+
+<C2Screen>:
+    BoxLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: self.parent.width - _box_help.width
+            GridLayout:
+                cols: 1
+                size_hint_max_y: '50dp'
+                canvas.after:
+                    Color:
+                        rgb: .75,.75,.75
+                    Line:
+                        points: self.x,self.y-3,self.x+self.width,self.y-3
+                        width: 1
+
+                BlackLabel:
+                    text: 'Command and control system'
+                    font_size: '22dp'
+                    bold: False
+                    shorten: False
+            C2Widget:
+                id: c2_widget
+        BoxLayout:
+            id: _box_help
+            size_hint_x: None
+            width: 400
+            padding: 10, 30, 10, 30
+            canvas.before:
+                Color:
+                    rgba: .8, .8, .8, .7
+                Rectangle:
+                    pos: self.pos
+                    size: self.width, self.height
+            ScrollableLabel:
+                bar_width: 5
+                BlackLabel:
+                    id: lb_help
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    markup: True
+                    shorten: False
+                    text: root.c2_help_text
+
+
+<RelNotesWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+#        canvas.before:
+#            Rectangle:
+#                pos: self.x, self.y+50
+#                size: self.width, self.height-100
+#                source: "images/tts_bg.png"
+        BlackLabel:
+            text: 'Release notes'
+            font_size: '24dp'
+            pos_hint: {'center_x':.5}
+            size_hint: (.95, None)
+            height: 40
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y-3,self.x+self.width,self.y-3
+                    width: 1
+        SimpleGridLayout:
+            cols: 1
+            size_hint_y: 1
+            size_hint_x: 1
+            spacing: 5
+            padding: [32, 10, 20, 5]
+            GridLayout:
+                rows: 1
+                size_hint: (1, 1)
+                ScrollableLabel:
+                    size: self.size
+                    pos: 10, 10
+                    bar_width: 5
+                    BlackLabel:
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        text_size: self.width, None
+                        markup: True
+                        shorten: False
+                        text: root.changelog
+                        on_ref_press: root.handle_ref(*args)
+
+<GeneralSettingsScreen>:
+    BoxLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: self.parent.width
+            GridLayout:
+                cols: 1
+                size_hint_max_y: '50dp'
+                canvas.after:
+                    Color:
+                        rgb: .75,.75,.75
+                    Line:
+                        points: self.x,self.y-3,self.x+self.width,self.y-3
+                        width: 1
+
+                BlackLabel:
+                    text: 'General settings'
+                    font_size: '22dp'
+                    bold: False
+                    shorten: False
+            GridLayout:
+                cols: 1
+                padding: 0, '10dp', '10dp', 0
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: ['50dp', '20dp', '50dp', '20dp']
+                    spacing: '15dp'
+                    size_hint_max_x: '900dp'
+                    ScrollView:
+                        do_scroll_x: False
+                        bar_width: '10dp'
+                        bar_color: [0, 0, 0, 1]
+                        bar_inactive_color: [0.7, 0.7, 0.7, 1]
+                        scroll_type: ['bars']
+                        effect_cls: 'ScrollEffect'
+                        GridLayout:
+                            id: _metadata
+                            cols: 1
+                            spacing: '5dp'
+                            padding: [0, '10dp', '20dp', '20dp']
+                            size_hint_y: None
+                            height: self.minimum_height
+                            SettingsSwitch:
+                                label: 'Enable real-time camera telemetry'
+                                metadata_key: 'enable_camera_telemetry'
+                            SettingsSwitch:
+                                label: 'Enable notifications for all book events'
+                                metadata_key: 'show_book_notifications'
+                            SettingsSwitch:
+                                label: 'Enable notifications for book errors'
+                                metadata_key: 'show_book_errors_notifications'
+                            SettingsSwitch:
+                                label: 'Enable notifications for library events'
+                                metadata_key: 'show_library_notifications'
+                            SettingsSwitch:
+                                label: 'Display lower resolution preview images (faster performance):'
+                                metadata_key: 'low_res_proxies'
+                            SettingsSwitch:
+                                label: 'Allow transfer of items to non-Foldout Scribes:'
+                                metadata_key: 'send_to_all_stations'
+                            SettingsSwitch:
+                                label: 'Disable mandatory boxid field in supercenters:'
+                                metadata_key: 'disable_mandatory_fields_in_dwwi'
+                            SettingsSwitch:
+                                label: 'Mimic Foldout Scribe exposure'
+                                metadata_key: 'ffs_color_correction'
+                            SettingsSwitch:
+                                label: 'Skip contrast enhancement:'
+                                metadata_key: 'postprocess_instructions/skipContrastEnhancement'
+                            SettingsSwitch:
+                                label: 'Attach icc profile:'
+                                metadata_key: 'postprocess_instructions/attachIccProfile'
+                            SettingsSwitch:
+                                label: 'Color tone correction:'
+                                metadata_key: 'postprocess_instructions/correctToneColor'
+                            SettingsSwitch:
+                                label: 'Skip blur detection:'
+                                metadata_key: 'skip_blur_detection'
+                            SettingsSwitch:
+                                label: 'Autofill language:'
+                                metadata_key: 'prefill_language'
+                            SettingsSwitch:
+                                label: 'Set items to no-index by default:'
+                                metadata_key: 'set_noindex'
+                            SettingsSwitch:
+                                label: 'Do not auto-logout from capture screens:'
+                                metadata_key: 'do_not_logout_from_capture_screens'
+                            SettingsInputBox:
+                                id: txt_compression_threads
+                                label: 'Number of compression threads'
+                                metadata_key: 'compression_threads'
+                                hint_text: '1'
+                                description: '1-4'
+                                focus_next: txt_periodic_move_along_interval
+                            SettingsInputBox:
+                                id: txt_periodic_move_along_interval
+                                label: 'Periodic move along every'
+                                metadata_key: 'periodic_move_along_interval'
+                                hint_text: 'seconds'
+                                description: 'How often books are synced'
+                                focus_next: txt_sound_delay
+                            SettingsInputBox:
+                                id: txt_sound_delay
+                                label: "Shooting Audio Cue delay: "
+                                metadata_key: "sound_delay"
+                                hint_text: '0.1'
+                                description: 'A negative value disables shooting sound'
+                                focus_next: txt_delete_identifier_reserved_older_than
+                            SettingsInputBox:
+                                id: txt_delete_identifier_reserved_older_than
+                                label: "Delay deletion of books in trash for:"
+                                metadata_key: 'defer_delete_by'
+                                hint_text: '48'
+                                description: 'Hours'
+                                focus_next: txt_logout_timeout
+                            SettingsInputBox:
+                                id: txt_logout_timeout
+                                label: "Automatically log out after:"
+                                metadata_key: 'logout_timeout'
+                                hint_text: '300'
+                                description: 'seconds'
+                                focus_next: txt_default_single_camera_rotation
+                            SettingsInputBox:
+                                id: txt_default_single_camera_rotation
+                                label: "Default single-camera rotation:"
+                                metadata_key: 'default_single_camera_rotation'
+                                hint_text: '180'
+                                description: 'degrees'
+                                focus_next: txt_wonderfetch_validation_regex
+                            SettingsInputBox:
+                                id: txt_wonderfetch_validation_regex
+                                label: 'Wonderfetch validation regex'
+                                metadata_key: 'wonderfetch_validation_regex'
+                                hint_text: '\d+'
+                                description: '\d+ is assumed if no value provided'
+                                focus_next: txt_runners_hiprio
+                                canvas.after:
+                                    Color:
+                                        rgb: .75,.75,.75
+                                    Line:
+                                        points: self.x,self.y-3,self.x+self.width,self.y-3
+                                        width: 1
+                            BoxLayout:
+                                size_hint_y: None
+                                height: '100dp'
+                                BoxLayout:
+                                    padding: [0, 0, 0, '20dp']
+                                    Label:
+                                        id: label
+                                        shorten: False
+                                        color: 0, 0, 0, 1
+                                        text_size: self.size
+                                        valign: 'middle'
+                                        markup: True
+                                        text: '[b]The settings below will take effect after a restart.[/b]'
+
+                            SettingsInputBox:
+                                id: txt_runners_hiprio
+                                label: 'High Priority workers'
+                                metadata_key: 'runners_hiprio'
+                                description: '4 is assumed if no value provided'
+                                focus_next: txt_runners_general_purpose
+                            SettingsInputBox:
+                                id: txt_runners_general_purpose
+                                label: 'General purpose workers'
+                                metadata_key: 'runners_general_purpose'
+                                description: '8 is assumed if no value provided'
+                                focus_next: txt_runners_slow_task
+                            SettingsInputBox:
+                                id: txt_runners_slow_task
+                                label: 'Heavy workers'
+                                metadata_key: 'runners_slow_task'
+                                description: '3 is assumed if no value provided'
+                                focus_next: txt_scheduler_interval
+                            SettingsInputBox:
+                                id: txt_scheduler_interval
+                                label: 'Schedule automatic tasks every'
+                                metadata_key: 'scheduler_interval'
+                                description: 'seconds '
+                                focus_next: txt_notifications_cleanup_interval
+                            SettingsInputBox:
+                                id: txt_notifications_cleanup_interval
+                                label: 'Clean up notifications every'
+                                metadata_key: 'notification_cleanup_interval'
+                                hint_text: 'seconds'
+                                description: 'seconds'
+                                focus_next: txt_print
+                            SettingsInputBox:
+                                id: txt_print
+                                label: 'Printer name'
+                                metadata_key: 'printer'
+                                hint_text: 'e.g. LabelWriter_450_Turbo'
+                                description: 'Must be the same as in CUPS drivers'
+                                focus_next: txt_contact_switch
+                            SettingsInputBox:
+                                id: txt_contact_switch
+                                label: 'Contact switch'
+                                metadata_key: 'contact_switch'
+                                hint_text: 'e.g. /dev/ttyUSB0'
+                                description: 'Name of serial device'
+                                focus_next: txt_check_for_update_interval
+                            SettingsInputBox:
+                                id: txt_check_for_update_interval
+                                label: 'Check for updates every'
+                                metadata_key: 'check_for_update_interval'
+                                hint_text: 'hours'
+                                description: 'How often we check for updates (hours)'
+                                focus_next: txt_c2_retry_timeout
+                            SettingsInputBox:
+                                id: txt_c2_retry_timeout
+                                label: 'C2 reconnect timeout'
+                                metadata_key: 'c2_retry_timeout'
+                                hint_text: 'e.g. 60'
+                                description: 'Seconds'
+                                focus_previous: txt_compression_threads
+                            SettingsSwitch:
+                                label: 'Enable C2'
+                                metadata_key: 'enable_c2'
+                            SettingsSwitch:
+                                label: 'Enable web API'
+                                metadata_key: 'enable_webapi'
+                            SettingsSwitch:
+                                label: 'Move along books at startup:'
+                                metadata_key: 'move_along_at_startup'
+                            SettingsSwitch:
+                                label: 'Log camera performance on file:\n(/tmp/tts_shoot_times.csv)'
+                                metadata_key: 'camera_logging'
+                            SettingsSwitch:
+                                label: 'Disable stats:'
+                                metadata_key: 'stats_disabled'
+                            SettingsSwitch:
+                                label: 'Show Box id instead of Shiptracking id:'
+                                metadata_key: 'show_boxid'
+
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    BoxLayout:
+                        padding: 0, 0, 0, '20dp'
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: '40dp'
+                        IconButton:
+                            text: 'Save'
+                            size_hint: (None, None)
+                            width: '130dp'
+                            height: '30dp'
+                            icon: 'save.png'
+                            icon_width: '24dp'
+                            pos_hint: {'center_x': 0.5}
+                            on_release: root.save_config()
+
+

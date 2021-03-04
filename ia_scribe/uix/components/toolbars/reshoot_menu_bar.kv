@@ -1,0 +1,92 @@
+<ReShootMenuBar>:
+    size_hint_y: None
+    height: '40dp'
+    padding: 0, '4dp', 0, '4dp'
+    page_type_button: page_type_button
+    BoxLayout:
+        spacing: '5dp'
+        TooltipImageButton:
+            size_hint_x: None
+            width: '40dp'
+            tooltip: 'View original file'
+            source_normal: 'button_left_view_source_normal.png'
+            source_down: 'button_left_view_source_normal.png'
+            on_release: root.dispatch(root.EVENT_OPTION_SELECT, 'view_original')
+        Label:
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            shorten: True
+            shorten_from: 'right'
+            text: 'Original leaf'
+            font_size: '24sp'
+            color: 0, 0, 0, 1
+            disabled_color: self.color
+    BoxLayout:
+        spacing: '5dp'
+        disabled: root.reshoot_menu_disabled
+        Label:
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            shorten: True
+            shorten_from: 'right'
+            text: 'Reshot leaf'
+            font_size: '24sp'
+            color: 0, 0, 0, 1
+            disabled_color: self.color
+        TooltipImageButton:
+            size_hint_x: None
+            width: '36dp'
+            tooltip: 'See re-shoot file'
+            source_normal: 'button_right_view_source_normal.png'
+            source_down: 'button_right_view_source_normal.png'
+            on_release: root.dispatch(root.EVENT_OPTION_SELECT, 'view_reshoot')
+        TooltipImageButton:
+            size_hint_x: None
+            width: '36dp'
+            tooltip: 'Rotate leaf'
+            source_normal: 'button_rotate_leaf_normal.png'
+            source_down: 'button_rotate_leaf_normal.png'
+            on_release: root.dispatch(root.EVENT_OPTION_SELECT, 'rotate')\
+        TooltipImageButton:
+            size_hint_x: None
+            width: '36dp'
+            tooltip: 'Export leaf'
+            source_normal: './images/button_{}_export_leaf_normal.png'.format(root.orient)
+            source_down: './images/button_{}_export_leaf_normal.png'.format(root.orient)
+            on_release: root.dispatch(root.EVENT_OPTION_SELECT, 'export')
+        TooltipImageButton:
+            size_hint_x: None
+            width: '36dp'
+            tooltip: 'Replace from file'
+            source_normal: './images/button_insert_leaf_from_file_normal.png'
+            source_down: './images/button_insert_leaf_from_file_normal.png'
+            on_release: root.dispatch(root.EVENT_OPTION_SELECT, 'insert')
+        GridLayout:
+            cols: 1
+            size_hint_x: None
+            width: '100dp'
+            ColorButton:
+                id: ppi_button
+                text: '{}ppi'.format(root.ppi)
+                size_hint_y: None
+                height: '26dp'
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                on_release: root.dispatch(root.EVENT_OPTION_SELECT, 'ppi')
+            Widget:
+        GridLayout:
+            cols: 1
+            size_hint_x: None
+            ColorButton:
+                id: page_type_button
+                text: root.page_type
+                size_hint_y: None
+                height: '26dp'
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                on_release: root.dispatch(root.EVENT_OPTION_SELECT, 'page_type')
+            Widget:

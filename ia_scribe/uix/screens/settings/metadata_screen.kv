@@ -1,0 +1,121 @@
+<MetadataScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: 800
+            pos_hint: {'center_x': .5}
+            spacing: 30
+            BlackLabel:
+                text: 'Metadata Settings'
+                font_size: '24dp'
+                pos_hint: {'center_x':.5}
+                size_hint: (.95, None)
+                height: 40
+                canvas.after:
+                    Color:
+                        rgb: .75,.75,.75
+                    Line:
+                        points: self.x,self.y-3,self.x+self.width,self.y-3
+                        width: 1
+
+            BoxLayout:
+                orientation: 'vertical'
+                SimpleGridLayout:
+                    id: _metadata
+                    cols: 2
+                    spacing: 5
+                    padding: 30, 10, 10, 10
+                    BlackLabel:
+                        text: 'Language:'
+                        size_hint: (None, None)
+                        size: (150, 40)
+                        valign: 'middle'
+                    MetadataTextInput:
+                        id: language_input
+                        hint_text: 'e.g. eng'
+                        multiline: False
+                        size_hint_y: None
+                        height: 40
+                        metadata_key: 'language'
+                        focus_previous: tts_version_input
+                        padding: 10, 10, 10, 10
+                    BlackLabel:
+                        text: 'Scanning center:'
+                        size_hint: (None, None)
+                        size: (150, 40)
+                        valign: 'middle'
+                        shorten: False
+                    MetadataTextInput:
+                        hint_text: 'e.g. San Francisco'
+                        multiline: False
+                        size_hint_y: None
+                        height: 40
+                        metadata_key: 'scanningcenter'
+                        padding: 10, 10, 10, 10
+                    BlackLabel:
+                        text: 'Operator:'
+                        size_hint: (None, None)
+                        size: (150, 40)
+                        valign: 'middle'
+                    MetadataTextInput:
+                        hint_text: 'Insert your operator email here'
+                        multiline: False
+                        size_hint_y: None
+                        height: 40
+                        metadata_key: 'operator'
+                        padding: 10, 10, 10, 10
+                    BlackLabel:
+                        text: 'Scanner:'
+                        size_hint: (None, None)
+                        size: (150, 40)
+                        valign: 'middle'
+                    ScannerTextInput:
+                        hint_text: 'station01.sheridan.archive.org'
+                        multiline: False
+                        size_hint_y: None
+                        text: root.scanner_name
+                        height: 40
+                        metadata_key: 'scanner'
+                        padding: 10, 10, 10, 10
+                    BlackLabel:
+                        text: 'TTS Version:'
+                        size_hint: (None, None)
+                        size: (150, 40)
+                        valign: 'middle'
+                    MetadataTextInput:
+                        id: tts_version_input
+                        hint_text: 'TTS Version'
+                        text: root.get_scribe_version()
+                        multiline: False
+                        size_hint_y: None
+                        height: 40
+                        metadata_key: 'tts_version'
+                        focus_next: language_input
+                        disabled: True
+                        padding: 10, 10, 10, 10
+
+                    ColorButton:
+                        id: btn_edit
+                        text: 'Edit collections'
+                        size_hint: (None, None)
+                        size: (150, 40)
+                        on_press:
+                            root.screen_manager.transition.direction = 'down'
+                            root.screen_manager.current = 'metadata_collections_screen'
+
+                    BlackLabel:
+                        text: 'Edit collections and collection sets'
+                        id: lb_edit
+                    ColorButton:
+                        id: btn_save
+                        text: 'Save metadata'
+                        size_hint: (None, None)
+                        size: (150, 40)
+                        on_press:
+                            root.save_metadata()
+                    BlackLabel:
+                        id: lb_save
+                        text: 'Note: Changing metadata requires app restart'
+

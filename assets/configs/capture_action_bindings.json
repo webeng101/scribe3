@@ -1,0 +1,92 @@
+{
+  "version": 8,
+  "backend": "sdl2",
+  "layout": "qwerty",
+  "actions": {
+    "shoot": [{"scancode": 44}, {"scancode": 40}, {"scancode": 88}],
+    "toggle_autoshoot": [{"scancode": 4}],
+    "reshoot": [{"scancode": 22}],
+    "delete_spread": [{"scancode": 7, "modifiers": ["shift", "ctrl"]}],
+    "delete_spread_confirm": [{"scancode": 7}],
+    "delete_spread_or_foldout": [{"scancode": 7, "modifiers": ["ctrl"]}],
+    "previous_spread": [{"scancode": 80}],
+    "next_spread": [{"scancode": 79}],
+    "previous_foldout_spread": [{"scancode": 9}],
+    "next_foldout_spread": [{"scancode": 10}],
+    "go_main_screen": [{"scancode": 41}],
+    "go_capture_cover": [{"scancode": 74}],
+    "go_last_spread": [{"scancode": 77}],
+    "show_original_file": [
+      {"scancode": 54, "side": "left"},
+      {"scancode": 55, "side": "right"}
+    ],
+    "assert_chapter": [
+      {"scancode": 96, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 37, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 96, "side": "right"},
+      {"scancode": 37, "side": "right"}
+    ],
+    "assert_normal": [
+      {"scancode": 98, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 39, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 98, "side": "right"},
+      {"scancode": 39, "side": "right"}
+    ],
+    "assert_title": [
+      {"scancode": 91, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 32, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 91, "side": "right"},
+      {"scancode": 32, "side": "right"}
+    ],
+    "assert_copyright": [
+      {"scancode": 92, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 33, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 92, "side": "right"},
+      {"scancode": 33, "side": "right"}
+    ],
+    "assert_cover": [
+      {"scancode": 90, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 31, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 90, "side": "right"},
+      {"scancode": 31, "side": "right"}
+    ],
+    "assert_contents": [
+      {"scancode": 93, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 34, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 93, "side": "right"},
+      {"scancode": 34, "side": "right"}
+    ],
+    "assert_white_card": [
+      {"scancode": 45, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 45, "side": "right"}
+    ],
+    "assert_foldout": [
+      {"scancode": 95, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 36, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 95, "side": "right"},
+      {"scancode": 36, "side": "right"}
+    ],
+    "assert_color_card": [
+      {"scancode": 89, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 30, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 89, "side": "right"},
+      {"scancode": 30, "side": "right"}
+    ],
+    "assert_index": [
+      {"scancode": 94, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 35, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 94, "side": "right"},
+      {"scancode": 35, "side": "right"}
+    ],
+    "assert_tissue": [
+      {"scancode": 97, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 38, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 97, "side": "right"},
+      {"scancode": 38, "side": "right"}
+    ],
+    "show_page_attributes": [
+      {"scancode": 23, "modifiers": ["ctrl"], "side": "left"},
+      {"scancode": 23, "side": "right"}
+    ]
+  }
+}

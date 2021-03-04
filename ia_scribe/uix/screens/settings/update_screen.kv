@@ -1,0 +1,111 @@
+<UpdateWidget>:
+    BoxLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: self.parent.width - _box_help.width
+            GridLayout:
+                cols: 1
+                size_hint_max_y: '50dp'
+                canvas.after:
+                    Color:
+                        rgb: .75,.75,.75
+                    Line:
+                        points: self.x,self.y-3,self.x+self.width,self.y-3
+                        width: 1
+
+                BlackLabel:
+                    text: 'Software update'
+                    font_size: '22dp'
+                    bold: False
+                    shorten: False
+            GridLayout:
+                cols: 1
+                padding: 0, '30dp', '10dp', 0
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    row_default_height: '35dp'
+                    FloatLayout:
+                        spacing: '5dp'
+                        size_hint_y: None
+                        height: max(_status_label.height, dp(35))
+
+                        Label:
+                            id: _status_label
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            color: 0, 0, 0, 1
+                            multiline: True
+                            markup: True
+                            text: '[size=18]{}[/size]'.format(root.update_status)
+                            size_hint: None, None
+                            size: self.texture_size
+                        IconButton:
+                            pos_hint: {'y': 0}
+                            x: _status_label.right + dp(5) # add 5dp for spacing
+                            size_hint: None, None
+                            width: '180dp'
+                            height: '26dp'
+                            text: root.action_button_text
+                            icon: root.action_button_icon
+                            padding: '5dp'
+                            icon_width: '23dp'
+                            opacity: 1 if self.text else 0
+                            on_release: root.action_button_press()
+                    BoxLayout:
+                        spacing: '5dp'
+                        size_hint_max_y: '30dp'
+                        canvas.after:
+                            Color:
+                                rgb: .75,.75,.75
+                            Line:
+                                points: self.x,self.y-3,self.x+self.width,self.y-3
+                                width: 1
+                        CheckBoxLabel:
+                            allow_no_selection: True
+                            active: root.auto_update
+                            text: 'Automatically keep Scribe3 up-to-date (install in the background).'
+                            on_active: root.auto_update = args[1]
+                            text_color: [0,0,0,1]
+                    BlackLabel:
+                        id: _current_version_label
+                        valign: 'middle'
+                        markup: True
+                        shorten: False
+                        text: '[b]Channel[/b]: {}'.format(root.update_channel)
+                    BlackLabel:
+                        id: _current_version_label
+                        valign: 'middle'
+                        markup: True
+                        size_hint_max_y: '30dp'
+                        shorten: False
+                        text: '[b]Current version[/b]: {}'.format(root.current_version)
+                    BlackLabel:
+                        id: _candidate_version_label
+                        valign: 'middle'
+                        markup: True
+                        size_hint_max_y: '30dp'
+                        shorten: False
+                        text: '[b]Candidate version[/b]: {}'.format(root.candidate_version)
+        BoxLayout:
+            id: _box_help
+            size_hint_x: None
+            width: 400
+            padding: 10, 30, 10, 30
+            canvas.before:
+                Color:
+                    rgba: .8, .8, .8, .7
+                Rectangle:
+                    pos: self.pos
+                    size: self.width, self.height
+            ScrollableLabel:
+                bar_width: 5
+                BlackLabel:
+                    id: lb_help
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    markup: True
+                    shorten: False
+                    text: root.help_text

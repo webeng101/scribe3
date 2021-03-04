@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=2.1
+Name=Scribe3
+Comment=Scribe Bookscanning Software
+Exec=/usr/local/bin/ia-scribe
+Icon=ia-scribe
+Type=Application
+Categories=Utility;Application;

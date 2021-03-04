@@ -1,0 +1,147 @@
+<ExtensionsScreen>:
+    BoxLayout:
+        padding: 10
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 40
+            spacing: 10
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'extension_black.png'
+                size: 40, 40
+                size_hint: None, None
+            BlackLabel:
+                id: _title_label
+                text: 'Extensions'
+                font_size: '28dp'
+        BoxLayout:
+            GridLayout:
+                size_hint_x: None
+                width: self.parent.width - _box_help.width
+                cols: 1
+                spacing: 10
+                padding: 100
+                Label:
+                    font_size: 22
+                    color: 0, 0, 0, 1
+                    text: '[u]Installed extensions[/u]'
+                    markup: True
+                    size_hint_max_y: '20dp'
+                    valign: 'top'
+                ScrollViewWithBars:
+                    GridLayout:
+                        cols: 1
+                        id: _extensions
+            BoxLayout:
+                id: _box_help
+                size_hint_x: None
+                width: 400
+                padding: 10, 30, 10, 30
+                orientation: 'vertical'
+                canvas.before:
+                    Color:
+                        rgba: .8, .8, .8, .7
+                    Rectangle:
+                        pos: self.pos
+                        size: self.width, self.height
+
+
+                ScrollableLabel:
+                    bar_width: 5
+                    size_hint_y: 1
+                    canvas.after:
+                        Color:
+                            rgb: .75,.75,.75
+                        Line:
+                            points: self.x,self.y,self.x+self.width,self.y
+                    BlackLabel:
+                        id: lb_help
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        text_size: self.width, None
+                        markup: True
+                        shorten: False
+
+
+                GridLayout:
+
+                    width: 1
+                    cols: 2
+                    padding: 0, 10, 0, 0
+                    size_hint_max_y: '120dp'
+
+                    BlackLabel:
+                        text: 'To ensure your extensions are up to date you can use this button to force a re-install.'
+                        shorten: False
+
+                    IconButton:
+                        text: 'Reinstall extensions'
+                        on_release: root.confirm_reinstall()
+                        icon: 'reload.png'
+                        height: '40dp'
+                        size_hint_y: None
+
+
+
+
+
+
+<ExtensionTile>:
+    bgcol:  1, 1, 1, 0
+    size_hint_max_x: '500dp'
+    size_hint_max_y: '100dp'
+    canvas:
+        Color:
+            rgba: root.bgcol
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        id: _main
+        orientation: 'horizontal'
+        height: '160dp'
+        padding: 0
+        Image:
+            id: _icon
+            source: root.icon
+            size_hint_min_y: '90dp'
+        BoxLayout:
+            orientation: 'vertical'
+            BlackLabel:
+                text: root.extension_name
+                font_size: '18dp'
+                shorten: False
+                bold:True
+                multiline: False
+                halign: 'left'
+                valign: 'center'
+                size_hint_min_x: '400dp'
+            BlackLabel:
+                text: root.description
+                font_size: '13dp'
+                shorten: False
+                multiline: False
+                halign: 'left'
+                valign: 'center'
+                size_hint_min_x: '400dp'
+
+<ExtensionPopup>:
+    app_panel: app_panel
+    background_color: 0.35, 0.35, 0.35, 1
+    padding: '20dp'
+    GridLayout:
+        padding: 10
+        cols: 1
+        id: app_panel
+    GridLayout:
+        cols:1
+        ColorButton:
+            text: 'EXIT APP'
+            size_hint_max_y: '20dp'
+            on_release: root.close_app()

@@ -1,0 +1,12 @@
+<CropBox>:
+    canvas:
+        Color:
+            rgba: self.border_color[:3] + [0.0 if self.disabled else 1.0]
+        Line:
+            rectangle:
+                self.x + self.displayed_border_width / self.border_width_modifier, \
+                self.y + self.displayed_border_width / self.border_width_modifier, \
+                self.width - self.displayed_border_width, \
+                self.height - self.displayed_border_width
+            width: int(self.border_width)
+            cap: 'none'

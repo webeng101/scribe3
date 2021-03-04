@@ -1,0 +1,137 @@
+#:import UTF8_FONT ia_scribe.scribe_globals.UTF8_FONT
+
+
+<NoteLeafsHeader>:
+    id: header
+    rows: 1
+    size_hint_y: None
+    height: '30dp'
+    canvas:
+        Color:
+            rgb: 0.75, 0.75, 0.75
+        Line:
+            width: 1
+            points: [self.x, self.y, self.right, self.y]
+    SortButton:
+        text: 'Original'
+        size_hint_max_x: '100dp'
+        disabled: True
+        disabled_color: self.color
+        halign: 'center'
+    SortButton:
+        text: 'Reshoot'
+        size_hint_max_x: '100dp'
+        disabled: True
+        disabled_color: self.color
+        halign: 'center'
+    SortButton:
+        key: 'leaf_number'
+        text: 'Leaf #'
+        size_hint_max_x: '80dp'
+        halign: 'center'
+    SortButton:
+        key: 'page_number'
+        text: 'Page #'
+        size_hint_max_x: '80dp'
+        halign: 'center'
+    SortButton:
+        key: 'page_type'
+        text: 'Page type'
+        size_hint_max_x: '110dp'
+        halign: 'center'
+    SortButton:
+        text: 'Note'
+        disabled: True
+        disabled_color: self.color
+    SortButton:
+        key: 'status'
+        text: 'Status'
+        size_hint_max_x: '100dp'
+        halign: 'center'
+
+
+<NoteLeafLabel@Label>:
+    color: 0, 0, 0, 1
+    disabled_color: self.color
+    text_size: self.size
+    valign: 'middle'
+    halign: 'center'
+    font_name: UTF8_FONT
+
+
+<NoteLeafRow>:
+    padding: 0, '2dp'
+    canvas:
+        Color:
+            rgba: self.color_down if self.selected else self.color_normal
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        Color:
+            rgb: 0.75, 0.75, 0.75
+        Line:
+            width: 1
+            points: [self.x, self.y, self.right, self.y]
+    AsyncImage:
+        source: root.original_image
+        size_hint_max_x: '100dp'
+        mipmap: True
+    AsyncImage:
+        source: root.reshoot_image
+        size_hint_max_x: '100dp'
+        mipmap: True
+    NoteLeafLabel:
+        text: root.leaf_number
+        size_hint_max_x: '80dp'
+    NoteLeafLabel:
+        text: root.page_number
+        size_hint_max_x: '80dp'
+    NoteLeafLabel:
+        text: root.page_type
+        size_hint_max_x: '110dp'
+    NoteLeafLabel:
+        text: root.note
+        halign: 'left'
+        valign:
+            'top' if \
+            (self.width * self.height) / self.font_size ** 2 < len(self.text) \
+            else 'middle'
+    Image:
+        source: root.status_image
+        size_hint_max_x: '100dp'
+
+
+<NoteLeafsView>:
+    cols: 1
+    spacing: '5dp'
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    NoteLeafsHeader:
+        spacing: root.views_spacing
+        padding: '15dp', 0
+        sort_key: root.sort_key
+        sort_order: root.sort_order
+        on_sort_key: root.sort_key = args[1]
+        on_sort_order: root.sort_order = args[1]
+    RecycleView:
+        id: rv
+        effect_cls: 'ScrollEffect'
+        scroll_type: ['bars']
+        bar_width: '15dp'
+        bar_color: 0.5, 0.5, 0.5, 0.9
+        bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+        scroll_wheel_distance: '50dp'
+        viewclass: 'NoteLeafRow'
+        NoteLeafsContainer:
+            default_size: None, dp(100)
+            default_size_hint: 1, None
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: '15dp', 0
+            spacing: '5dp'
+            right_count: 0

@@ -1,0 +1,158 @@
+<SpreadMenuBar>:
+    left_type_button: left_type_button
+    right_type_button: right_type_button
+    left_number_button: left_number_button
+    right_number_button: right_number_button
+    left_ppi_button: left_ppi_button
+    right_ppi_button: right_ppi_button
+    delete_button: delete_button
+    size_hint_y: None
+    height: '40dp'
+    GridLayout:
+        rows: 1
+        disabled: not root.use_left_menu
+        opacity: 0 if not root.use_left_menu else 1
+        pos_hint: {'x': 0, 'y': 0}
+        padding: 0, '4dp', 0, '4dp'
+        spacing: '5dp'
+        size_hint_x: None
+        col_default_width: '36dp'
+        width: self.minimum_width
+        GridLayout:
+            cols: 1
+            size_hint_x: None
+            width: '100dp'
+            ColorButton:
+                id: left_type_button
+                size_hint_y: None
+                height: '26dp'
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                on_release: root.dispatch('on_type_button_release', 'left', self)
+            Widget:
+        GridLayout:
+            cols: 1
+            size_hint_x: None
+            width: '100dp'
+            ColorButton:
+                id: left_ppi_button
+                size_hint_y: None
+                height: '26dp'
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                on_release: root.dispatch('on_option_select', 'left', 'ppi')
+            Widget:
+        # TooltipImageButton:
+        #     tooltip: 'Leaf note'
+        #     source_normal: './images/button_left_leaf_note_normal.png'
+        #     source_down: './images/button_left_leaf_note_normal.png'
+        #     on_release: root.dispatch('on_option_select', 'left', 'note')
+        TooltipImageButton:
+            tooltip: 'Replace from file'
+            source_normal: './images/button_insert_leaf_from_file_normal.png'
+            source_down: './images/button_insert_leaf_from_file_normal.png'
+            on_release: root.dispatch('on_option_select', 'left', 'insert')
+        TooltipImageButton:
+            tooltip: 'Export leaf'
+            source_normal: './images/button_left_export_leaf_normal.png'
+            source_down: './images/button_left_export_leaf_normal.png'
+            on_release: root.dispatch('on_option_select', 'left', 'export')
+        TooltipImageButton:
+            tooltip: 'Rotate leaf'
+            source_normal: './images/button_rotate_leaf_normal.png'
+            source_down: './images/button_rotate_leaf_normal.png'
+            on_release: root.dispatch('on_option_select', 'left', 'rotate')
+        TooltipImageButton:
+            tooltip: 'View original file'
+            source_normal: './images/button_left_view_source_normal.png'
+            source_down: './images/button_left_view_source_normal.png'
+            on_release: root.dispatch('on_option_select', 'left', 'view_source')
+    BoxLayout:
+        rows: 1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        size_hint_x: None
+        width: '160dp'
+        spacing: '5dp'
+        padding: ['10dp', 0, '10dp', 0]
+        PageNumLabel:
+            id: left_number_button
+            size_hint_y: None
+            pos_hint: {'center_y': 0.5}
+            height: '24dp'
+            on_release: root.dispatch('on_number_button_release', 'left', self)
+        TooltipImageButton:
+            id: delete_button
+            tooltip: 'Delete spread'
+            size_hint_x: None
+            width: '40dp'
+            source_normal: './images/button_delete_spread_normal.png'
+            source_down: './images/button_delete_spread_normal.png'
+            on_release: root.dispatch('on_option_select', 'middle', 'delete_spread')
+        PageNumLabel:
+            id: right_number_button
+            size_hint_y: None
+            pos_hint: {'center_y': 0.5}
+            height: '24dp'
+            on_release: root.dispatch('on_number_button_release', 'right', self)
+    GridLayout:
+        rows: 1
+        disabled: not root.use_right_menu
+        opacity: 0 if not root.use_right_menu else 1
+        pos_hint: {'right': 1, 'y': 0}
+        padding: 0, '4dp', 0, '4dp'
+        spacing: '5dp'
+        size_hint_x: None
+        col_default_width: '36dp'
+        width: self.minimum_width
+        TooltipImageButton:
+            tooltip: 'View original file'
+            source_normal: './images/button_right_view_source_normal.png'
+            source_down: './images/button_right_view_source_normal.png'
+            on_release: root.dispatch('on_option_select', 'right', 'view_source')
+        TooltipImageButton:
+            tooltip: 'Rotate leaf'
+            source_normal: './images/button_rotate_leaf_normal.png'
+            source_down: './images/button_rotate_leaf_normal.png'
+            on_release: root.dispatch('on_option_select', 'right', 'rotate')
+        TooltipImageButton:
+            tooltip: 'Export leaf'
+            source_normal: './images/button_right_export_leaf_normal.png'
+            source_down: './images/button_right_export_leaf_normal.png'
+            on_release: root.dispatch('on_option_select', 'right', 'export')
+        TooltipImageButton:
+            tooltip: 'Replace from file'
+            source_normal: './images/button_insert_leaf_from_file_normal.png'
+            source_down: './images/button_insert_leaf_from_file_normal.png'
+            on_release: root.dispatch('on_option_select', 'right', 'insert')
+        # TooltipImageButton:
+        #     tooltip: 'Leaf note'
+        #     source_normal: './images/button_right_leaf_note_normal.png'
+        #     source_down: './images/button_right_leaf_note_normal.png'
+        #     on_release: root.dispatch('on_option_select', 'right', 'note')
+        GridLayout:
+            cols: 1
+            size_hint_x: None
+            width: '100dp'
+            ColorButton:
+                id: right_ppi_button
+                size_hint_y: None
+                height: '26dp'
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                on_release: root.dispatch('on_option_select', 'right', 'ppi')
+        GridLayout:
+            cols: 1
+            size_hint_x: None
+            width: '100dp'
+            ColorButton:
+                id: right_type_button
+                size_hint_y: None
+                height: '26dp'
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                on_release: root.dispatch('on_type_button_release', 'right', self)
+            Widget:

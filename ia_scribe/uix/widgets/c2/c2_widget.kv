@@ -1,0 +1,80 @@
+<C2Widget>:
+    on_log: scroll_view.scroll_y = 0
+    GridLayout:
+        cols: 1
+        padding: 0, '30dp', '10dp', 0
+        GridLayout:
+            id: content_layout
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: '35dp'
+            spacing: '10dp'
+            BoxLayout:
+                id: status_layout
+                orientation: 'vertical'
+                spacing: '5dp'
+                size_hint_y: None
+                height: '35dp'
+                padding: '10dp'
+                height: self.minimum_height
+                BoxLayout:
+                    id: status_layout
+                    orientation: 'horizontal'
+                    spacing: '5dp'
+                    size_hint_y: None
+                    height: '35dp'
+                    Image:
+                        source: 'green_circle.png' if root.is_enabled else 'red_circle.png'
+                        width: '12dp'
+                        size_hint_x: None
+                    BlackLabel:
+                        text: 'Enabled' if root.is_enabled else 'Disabled'
+                        valign: 'center'
+                    IconButton:
+                        text: 'Disable' if root.is_enabled else 'Enable'
+                        on_release: root.disable_button_action()
+                        width: '130dp'
+                        size_hint_x: None
+
+                BoxLayout:
+                    id: status_layout
+                    orientation: 'horizontal'
+                    spacing: '5dp'
+                    size_hint_y: None
+                    height: '35dp' if root.is_enabled else '0dp'
+                    Image:
+                        source: 'green_circle.png' if root.is_connected else 'red_circle.png'
+                        width: '12dp'
+                        size_hint_x: None
+                    BlackLabel:
+                        text: 'Connected' if root.is_connected else 'Disconnected'
+                        opacity: 1 if root.is_enabled else 0
+                        valign: 'center'
+                    IconButton:
+                        text: 'Disconnect' if root.is_connected else 'Connect'
+                        on_release: root.connect_button_action()
+                        width: '130dp'
+                        size_hint_x: None
+
+            ScrollableLabel:
+                id: scroll_view
+                bar_width: '5dp'
+                size_hint_y: None
+                height: self.parent.width - status_layout.height
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Label:
+                    text: root.log
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    markup: True
+                    shorten: False
+                    font_name: 'CourierNewTTScribe'
+                    font_hinting: 'mono'
+                    color: 0, 1, 0, 1

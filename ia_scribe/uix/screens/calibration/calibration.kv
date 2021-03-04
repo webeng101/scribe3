@@ -1,0 +1,62 @@
+<CalibrationScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (0.95, None)
+            height: 40
+            pos_hint: {'center_x':.5}
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Label:
+                text: 'Capture Test Shots'
+                color: 0,0,0,1
+                font_size: '24dp'
+                #size_hint: (None, None)
+                #height: 30
+                text_size: self.size
+        BoxLayout:
+            id: _calibration_box
+            orientation: 'vertical'
+
+<CalibrationInfoMessage>:
+    orientation: 'vertical'
+    spacing: 10
+    Label:
+        text:
+            '1. Place book in the cradle, opened to a spread with text on ' \
+            'both pages.\n\n' \
+            '2. Ensure pages are flush against the glass platens. Backing ' \
+            'foam may be required.\n\n' \
+            '3. Click "Capture Test Shots".'
+        color: 0, 0, 0, 1
+        font_size: '18sp'
+
+    TooltipIconButton:
+        padding: 8
+        icon: 'camera_white.png'
+        tooltip: 'Click when ready'
+        text: 'Capture Test Shots'
+        icon_width: '48dp'
+        text_font_size: '22sp'
+        size_hint: (.5, .1)
+        pos_hint: {'center_x':.5}
+        on_release: root.rescan_func()
+
+
+<CalibrationErrorMessage>:
+    orientation: 'vertical'
+    Label:
+        text: root.error_msg
+        color: 0, 0, 0, 1
+        font_size: '18sp'
+    IconButton:
+        icon: 'icon_calibrate_cameras.png'
+        text: root.button_text
+        size_hint: (.5, .1)
+        pos_hint: {'center_x':.5}
+        on_release: root.rescan_func()
+        font_size: '22sp'

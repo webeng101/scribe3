@@ -1,0 +1,30 @@
+Screen:
+    name: 'search'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        Label:
+            text: 'Input an OpenLibrary-supported ID to begin search.'
+            font_size: '25sp'
+        GridLayout:
+            cols: 2
+            size_hint_y: None
+            height: '70dp'
+            spacing: '5dp'
+            MetadataTextInput:
+                id: _identifier
+                hint_text: 'OpenLibrary ID'
+                multiline: False
+                metadata_key: 'identifier'
+            ColorButton:
+                id: _button
+                text: 'Search'
+                pos_hint: {'center_x': 0.5}
+                on_release: root.parent.parent.parent.parent.search(self)
+            MetadataTextInput:
+                id: _volume
+                hint_text: 'VOLUME'
+                multiline: False
+                metadata_key: 'volume'
+                input_filter: 'int'
+                value_type: int

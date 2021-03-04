@@ -1,0 +1,35 @@
+#:import UTF8_FONT ia_scribe.scribe_globals.UTF8_FONT
+
+
+<InfoBox>:
+    spacing: '1dp' if self.orientation == 'vertical' else '5dp'
+    size_hint_y: None
+    height: self.minimum_height
+    Label:
+        id: title_label
+        text: root.title
+        bold: True
+        color: 0, 0, 0, 1
+        disabled_color: self.color
+        shorten: True
+        shorten_from: 'right'
+        halign: 'left'
+        valign: 'middle'
+        text_size: self.size
+        size_hint_y: None
+        height: '18dp'
+        size_hint_x: root.title_size_hint_x
+        width: root.title_width
+    Label:
+        id: value_label
+        text: root.value
+        font_name: UTF8_FONT
+        color: 0, 0, 0, 1
+        disabled_color: self.color
+        shorten: bool(root.orientation == 'horizontal')
+        shorten_from: 'right'
+        halign: 'left'
+        valign: 'middle'
+        size_hint_y: None
+        text_size: self.width, None if root.orientation == 'vertical' else self.height
+        height: self.texture_size[1] if root.orientation == 'vertical' else '18dp'

@@ -1,0 +1,274 @@
+<TaskView>:
+    canvas:
+        Color:
+            rgba: 0.92, 0.92, 0.92, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint_y: None
+    height: '50dp'
+    spacing: '5dp'
+    padding: '2dp', 0
+    BoxLayout:
+        size_hint_x: None
+        width: '200dp'
+        orientation: 'vertical'
+        Label:
+            text: root.name
+            color: 0, 0, 0, 1
+            text_size: self.width, None
+            shorten: True
+            shorten_from: 'right'
+        BoxLayout:
+            id: buttons
+            spacing: '5dp'
+            padding: 0, '2dp'
+            ColorButton:
+                id: pause_resume_button
+                text: 'Pause'
+                on_release: root._on_pause_resume_button_release(self)
+            ColorButton:
+                id: cancel_button
+                text: 'Cancel'
+                on_release: root._on_cancel_button_release(self)
+    Label:
+        size_hint_x: None
+        text: root.state
+        color: 0, 0, 0, 1
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '4dp'
+        padding: 0, '2dp'
+        size_hint_min_x: '200dp'
+        Label:
+            text: root.message
+            color: 0, 0, 0, 1
+            text_size: self.width, None
+            shorten: True
+            shorten_from: 'right'
+        Label:
+            canvas.before:
+                Color:
+                    rgb: 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgb: 0.2, 0.6, 0
+                Rectangle:
+                    pos: self.pos
+                    size: self.width * root.progress, self.height
+            text: u'{:.0f}%'.format(100 * root.progress)
+            color: 0, 0, 0, 1
+    Label:
+        size_hint_x: None
+        text: root.level
+        color: 0, 0, 0, 1
+    Label:
+        size_hint_x: None
+        width: '120dp'
+        text: root.started_at
+        color: 0, 0, 0, 1
+    Label:
+        size_hint_x: None
+        width: '120dp'
+        text: root.ended_at
+        color: 0, 0, 0, 1
+
+
+<WorkerView>:
+    canvas:
+        Color:
+            rgba: 0.92, 0.92, 0.92, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint_y: None
+    height: '50dp'
+    spacing: '5dp'
+    padding: '2dp', 0
+    Label:
+        size_hint_x: None
+        width: '200dp'
+        text: root.worker_name
+        color: 0, 0, 0, 1
+        text_size: self.width, None
+        shorten: True
+        shorten_from: 'right'
+    Label:
+        size_hint_x: None
+        width: '200dp'
+        text: root.name
+        color: 0, 0, 0, 1
+        text_size: self.width, None
+        shorten: True
+        shorten_from: 'right'
+    Label:
+        size_hint_x: None
+        text: root.level
+        color: 0, 0, 0, 1
+    Label:
+        size_hint_x: None
+        width: '140dp'
+        text: root.running_since
+        color: 0, 0, 0, 1
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '4dp'
+        padding: 0, '2dp'
+        size_hint_min_x: '200dp'
+        Label:
+            text: root.message
+            color: 0, 0, 0, 1
+            text_size: self.width, None
+            shorten: True
+            shorten_from: 'right'
+        Label:
+            canvas.before:
+                Color:
+                    rgb: 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgb: 0.2, 0.6, 0
+                Rectangle:
+                    pos: self.pos
+                    size: self.width * root.progress, self.height
+            text: u'{:.0f}%'.format(100 * root.progress)
+            color: 0, 0, 0, 1
+
+
+<TaskManagerFilterHeader>:
+    rows: 1
+    canvas:
+        Color:
+            rgb: [0.8, 0.8, 0.8]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    AnchorLayout:
+        anchor_x: 'left'
+        BoxLayout:
+            spacing: '5dp'
+            SpinnerWithLabel:
+                id: type_spinner
+                size_hint_x: None
+                width: '200dp'
+                label_text: 'Type'
+                spinner_values: root.type_values
+                on_spinner_text: root._update_filter_option(*args)
+            SpinnerWithLabel:
+                id: state_spinner
+                size_hint_x: None
+                width: '160dp'
+                label_text: 'State'
+                spinner_values: root.state_values
+                on_spinner_text: root._update_filter_option(*args)
+            SpinnerWithLabel:
+                id: level_spinner
+                size_hint_x: None
+                width: '160dp'
+                label_text: 'Level'
+                spinner_values: root.level_values
+                on_spinner_text: root._update_filter_option(*args)
+            SpinnerWithLabel:
+                id: periodic_spinner
+                size_hint_x: None
+                width: '160dp'
+                label_text: 'Periodic'
+                spinner_values: root.periodic_values
+                on_spinner_text: root._update_filter_option(*args)
+    BoxLayout:
+        padding: 0, '5dp'
+        spacing: '5dp'
+        size_hint_x: None
+        width: self.minimum_width
+        ColorToggleButton:
+            allow_no_selection: False
+            state: 'down'
+            group: 'task_manager_view_control'
+            size_hint_x: None
+            text: 'Task View'
+            on_state: if self.state == 'down': root.view_option = 'tasks_view'
+        ColorToggleButton:
+            allow_no_selection: False
+            group: 'task_manager_view_control'
+            size_hint_x: None
+            text: 'Worker View'
+            on_state: if self.state == 'down': root.view_option = 'workers_view'
+
+
+<TaskManager>:
+    spacing: '5dp'
+    orientation: 'vertical'
+    size_hint_min_x: '1000dp'
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    TaskManagerFilterHeader:
+        id: filter_header
+        size_hint_y: None
+        height: '50dp'
+        padding: 0, 0, '15dp', 0
+    RecycleButtons:
+        id: header
+        viewclass: 'SortButtonView'
+        size_hint_y: None
+        height: '30dp'
+        padding: 0, 0, '15dp', 0
+        canvas:
+            Color:
+                rgb: [0.8, 0.8, 0.8]
+            Line:
+                points: [self.x, self.y, self.right, self.y]
+        SelectableGridLayout:
+            rows: 1
+            spacing: '5dp'
+            padding: '2dp', 0
+            default_size: dp(100), None
+            default_size_hint: None, 1.0
+    RecycleView:
+        id: rv
+        viewclass: 'TaskView'
+        effect_cls: 'ScrollEffect'
+        scroll_type: ['bars']
+        bar_width: '15dp'
+        bar_color: 0.5, 0.5, 0.5, 0.9
+        bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+        scroll_wheel_distance: '60dp'
+        TaskViewLayout:
+            default_size: None, dp(50)
+            default_size_hint: 1, None
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 0, 0, '15dp', 0
+            right_count: 0
+            spacing: '2dp'
+    StackLayout:
+        spacing: '5dp'
+        size_hint_y: None
+        height: '40dp'
+        disabled: filter_header.view_option == 'workers_view'
+        canvas:
+            Color:
+                rgb: [0.8, 0.8, 0.8]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        ColorButton:
+            size_hint_x: None
+            text: 'Pause all'
+            on_release: root._on_option_select('pause')
+        ColorButton:
+            size_hint_x: None
+            text: 'Resume all'
+            on_release: root._on_option_select('resume')
+        ColorButton:
+            size_hint_x: None
+            text: 'Cancel all'
+            on_release: root._on_option_select('cancel')

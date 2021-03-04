@@ -1,0 +1,35 @@
+<CaptureSpread>:
+    orientation: 'vertical'
+    padding: '10dp', 0, '10dp', '10dp'
+    FloatLayout:
+        size_hint_y: None
+        height: spread_menu_bar.height
+        SpreadMenuBar:
+            id: spread_menu_bar
+            pos_hint: {'center_x': 0.5, 'top': 1}
+            size_hint_x: None
+            width: image_box_container.width
+    FloatLayout:
+        LeafInfoPanel:
+            id: left_leaf_info_panel
+            pos_hint: {'top': 1}
+            halign: 'right'
+            right: image_box_container.x
+        BoxLayout:
+            id: image_box_container
+            spacing: '5dp'
+            pos_hint: {'center_x': 0.5, 'y': 0}
+            size_hint_x: None
+            width: self.parent.width - 2 * left_leaf_info_panel.width
+            ImageZoom:
+                id: _page_left
+                default_anchor_x: 'right'
+                default_zoom_pos_hint: 0.1, 0.1
+            ImageZoom:
+                id: _page_right
+                default_anchor_x: 'left'
+                default_zoom_pos_hint: 0.9, 0.1
+        LeafInfoPanel:
+            id: right_leaf_info_panel
+            pos_hint: {'top': 1}
+            x: image_box_container.right

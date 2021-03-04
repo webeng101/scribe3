@@ -1,0 +1,19 @@
+<CaptureScreen>:
+    id: _capture_screen
+    book_menu_bar: book_menu_bar
+    spread_slider_bar: spread_slider_bar
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '10dp', 0, '10dp', 0
+        BookMenuBar:
+            id: book_menu_bar
+        BoxLayout:
+            id: _spread_view
+            canvas:
+                Color:
+                    rgb: 0.92, 0.92, 0.92
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        SpreadSliderBar:
+            id: spread_slider_bar

@@ -1,0 +1,23 @@
+#: import get_color_from_hex kivy.utils.get_color_from_hex
+
+
+<ScribeMessageGenericContent>:
+    orientation: 'vertical'
+    spacing: '5dp'
+    ScrollViewWithBars:
+        GridLayout:
+            id: _content
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+    ColorButton:
+        id: _ok_button
+        text: root.ok_text
+        size_hint_y: None
+        height: '40dp'
+        on_release: root.trigger_func(root.popup)
+    ColorButton:
+        text: root.cancel_text
+        size_hint_y: None
+        height: '40dp'
+        on_release: root.popup.dismiss()

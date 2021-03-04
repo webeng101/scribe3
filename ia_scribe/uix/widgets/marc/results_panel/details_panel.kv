@@ -1,0 +1,51 @@
+<MARCDetails>:
+    orientation:'vertical'
+    RecycleView:
+        id: rv
+        viewclass: 'MARCDetailsView'
+        effect_cls: 'ScrollEffect'
+        scroll_type: ['bars']
+        bar_width: '15dp'
+        bar_color: 0.5, 0.5, 0.5, 0.9
+        bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+        scroll_wheel_distance: '60dp'
+        RecycleGridLayout:
+            default_size: None, dp(50)
+            default_size_hint: 1, None
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding:  '2dp'
+            right_count: 0
+            spacing: '8dp'
+            data: root.data
+    ColorButton:
+        id: ok_button
+        text: 'Close'
+        size_hint_max_y: '40dp'
+        width: '130dp'
+        spacing: '5dp'
+        on_release: root.dispatch(root.EVENT_BUTTON_CLOSED_PRESSED)
+
+<MARCDetailsView>:
+    height: max(value_label.height, key_label.height)
+    size_hint_y: None
+    BoxLayout:
+        size_hint_y: None
+        spacing: '10dp'
+        OverflowLabel:
+            id: key_label
+            size_hint_max_x: '130dp'
+            text: root.key
+            bold: True
+            halign: 'right'
+        OverflowLabel:
+            id: value_label
+            text: root.value
+
+<OverflowLabel@Label>:
+    height: self.texture_size[1]
+    size_hint_y: None
+    text_size: self.width, None
+    markup: True
+    shorten: False

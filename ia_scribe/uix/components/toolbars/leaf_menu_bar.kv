@@ -1,0 +1,73 @@
+<LeafMenuBar>:
+    rows: 1
+    size_hint_y: None
+    height: '40dp'
+    padding: 0, '4dp', 0, '4dp'
+    spacing: '10dp'
+    size_hint_x: None
+    col_default_width: '36dp'
+    width: self.minimum_width
+    canvas:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        size_hint_x: None
+        width: '100dp'
+        ColorButton:
+            id: page_attrs_button
+            text: root.page_type
+            size_hint_y: None
+            height: '26dp'
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            on_release: root.dispatch('on_option_select', 'page_attrs')
+        Widget:
+    GridLayout:
+        cols: 1
+        size_hint_x: None
+        width: '100dp'
+        ColorButton:
+            id: ppi_button
+            text: '{}ppi'.format(root.ppi)
+            size_hint_y: None
+            height: '26dp'
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            on_release: root.dispatch('on_option_select', 'ppi')
+        Widget:
+    # TooltipImageButton:
+    #     id: note_button
+    #     tooltip: 'Leaf note'
+    #     source_normal: './images/button_{}_leaf_note_normal.png'.format(root.orientation)
+    #     source_down: './images/button_{}_leaf_note_normal.png'.format(root.orientation)
+    #     on_release: root.dispatch('on_option_select', 'note')
+    TooltipImageButton:
+        id: insert_button
+        tooltip: 'Replace from file'
+        source_normal: './images/button_insert_leaf_from_file_normal.png'
+        source_down: './images/button_insert_leaf_from_file_normal.png'
+        on_release: root.dispatch('on_option_select', 'insert')
+    TooltipImageButton:
+        id: export_button
+        tooltip: 'Export leaf'
+        source_normal: './images/button_{}_export_leaf_normal.png'.format(root.orientation)
+        source_down: './images/button_{}_export_leaf_normal.png'.format(root.orientation)
+        on_release: root.dispatch('on_option_select', 'export')
+    TooltipImageButton:
+        id: rotate_button
+        tooltip: 'Rotate leaf'
+        source_normal: './images/button_rotate_leaf_normal.png'
+        source_down: './images/button_rotate_leaf_normal.png'
+        on_release: root.dispatch('on_option_select', 'rotate')
+    TooltipImageButton:
+        id: view_source_button
+        tooltip: 'View original file'
+        source_normal: './images/button_{}_view_source_normal.png'.format(root.orientation)
+        source_down: './images/button_{}_view_source_normal.png'.format(root.orientation)
+        on_release: root.dispatch('on_option_select', 'view_source')

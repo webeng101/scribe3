@@ -1,0 +1,347 @@
+<BookMenuPopupInfoBox>:
+    title_size_hint_x: 0.35
+
+
+<BookMenuPopup>:
+    size_hint: None, None
+    size: '980dp', '800dp'
+    canvas:
+        Color:
+            rgb: 0.35, 0.35, 0.35, .8
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    RelativeLayout:
+        id: container
+        on_size: self.size = list(map(int, self.size))
+        on_pos: self.pos = list(map(int, self.pos))
+        BoxLayout:
+            orientation: 'vertical'
+            padding: '10dp'
+            canvas:
+                Color:
+                    rgb: 0.92, 0.92, 0.92
+                Rectangle:
+                    pos: self.x + dp(5), self.y + dp(5)
+                    size: self.width - dp(10), self.height - dp(10)
+            BoxLayout:
+                orientation: 'vertical'
+                padding: '10dp'
+                spacing: '20dp'
+                AnchorLayout:
+                    size_hint_y: None
+                    anchor_x: 'center'
+                    height: '30dp'
+                    BoxLayout:
+                        spacing: '5dp'
+                        Image:
+                            source: '{}.png'.format(root.media_type)
+                            size_hint_x: None
+                            width: '30dp'
+                            halign: 'right'
+                        BlackLabel:
+                            text:  'What would you like to do with this {}?'.format(root.media_type)
+                            bold: True
+                            font_size: '22sp'
+                            text_size: self.width, None
+                            halign: 'center'
+                            shorten: False
+                GridLayout:
+                    cols: 2
+                    spacing: '5dp'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        AsyncImage:
+                            source: root.image
+                        GridLayout:
+                            cols: 1
+                            size_hint_y: None
+                            height: self.minimum_height
+                            padding: 0, '20dp', 0, '30dp'
+                            spacing: '2dp'
+                            BookMenuPopupInfoBox:
+                                title: 'uuid:'
+                                value: root.uuid
+                            BookMenuPopupInfoBox:
+                                title: 'Title:'
+                                value: root.title
+                                tooltip: root.title if root.title not in ['-', '--'] else ''
+                            BookMenuPopupInfoBox:
+                                title: 'Creator:'
+                                value: root.creator
+                                tooltip: root.creator if root.creator not in ['-', '--'] else ''
+                            BookMenuPopupInfoBox:
+                                title: 'Volume:'
+                                value: root.volume
+                            BookMenuPopupInfoBox:
+                                title: 'ISBN:'
+                                value: root.isbn
+                            BookMenuPopupInfoBox:
+                                title: 'Leaves:'
+                                value: root.leafs
+                            BookMenuPopupInfoBox:
+                                title: 'PPI:'
+                                value: root.ppi
+                            BookMenuPopupInfoBox:
+                                title: 'Shiptracking:'
+                                value: root.shiptracking
+                            BookMenuPopupInfoBox:
+                                title: 'Box ID:'
+                                value: root.boxid
+                        BoxLayout:
+                            height: '40dp'
+                            size_hint_y: None
+                            spacing: '5dp'
+                            IconButton:
+                                padding: '8dp'
+                                text: 'Log'
+                                on_release: root.show_log()
+                                icon: 'log_white.png'
+                            IconButton:
+                                padding: '8dp'
+                                text: 'Full log'
+                                on_release: root.show_book_full_log()
+                                icon_width: '32dp'
+                                icon: 'log_white.png'
+                            IconButton:
+                                padding: '8dp'
+                                text: 'History'
+                                on_release: root.show_book_history()
+                                icon_width: '32dp'
+                                icon: 'history_white.png'
+                            IconButton:
+                                padding: '8dp'
+                                text: 'Open'
+                                on_release: root.open_book_path()
+                                icon_width: '32dp'
+                                icon: 'open_in_new_window_white.png'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: '10dp'
+                        GridLayout:
+                            cols: 1
+                            spacing: '5dp'
+                            AnchorLayout:
+                                size_hint_y: None
+                                height: '26dp'
+                                padding_x: '5dp'
+                                canvas.after:
+                                    Color:
+                                        rgb: 0.75, 0.75, 0.75
+                                    Line:
+                                        points: self.x, self.y, self.x + self.width, self.y
+                                        width: 1
+                                TooltipColorButton:
+                                    font_size: '22dp'
+                                    bold: True
+                                    color: [0, 0, 0, 1] if self.state == 'normal' else [0, 0.28, 0.42, 1]
+                                    disabled: not root._has_identifier
+                                    disabled_color: [0, 0, 0, 1]
+                                    halign: 'center'
+                                    valign: 'middle'
+                                    text: root.identifier
+                                    size_hint_x: None
+                                    text_size: None, self.height
+                                    width: self.texture_size[0]
+                                    color_normal: 1, 1, 1, 0
+                                    color_down: 1, 1, 1, 0
+                                    on_release: root.open_web_identifier()
+                                    tooltip: 'Click to open on Archive.org' if root._has_identifier else ''
+                            Widget:
+                                size_hint_y: None
+                                height: '15dp'
+                            AnchorLayout:
+                                padding: ['10dp', 0, '10dp', 0]
+                                height: '30dp'
+                                size_hint_y: None
+                                BoxLayout:
+                                    spacing: '5dp'
+                                    height: '30dp'
+                                    size_hint: None, None
+                                    width: self.minimum_width
+                                    PageNumLabel:
+                                        id: status_numeric_button
+                                        rgba: 0, 0.28, 0.42, .7
+                                        font_size: '20dp'
+                                        text: root.status_numeric
+                                        width: '60dp'
+                                        size_hint_x: None
+                                    Label:
+                                        font_size: '25dp'
+                                        color: 0, 0, 0, 1
+                                        bold: True
+                                        valign: 'top'
+                                        text: root.status
+                                        text_size: None, self.height
+                                        size_hint_x: None
+                                        width: self.texture_size[0]
+                            Widget:
+                                size_hint_y: None
+                                height: '15dp'
+                            AnchorLayout:
+                                anchor_y: 'top'
+                                Label:
+                                    canvas.before:
+                                        Color:
+                                            rgba: 0.86, 0.86, 0.86, 1.0
+                                        RoundedRectangle:
+                                            pos: self.pos
+                                            size: self.size
+                                    padding: '5dp', '5dp'
+                                    font_name: 'CourierNewTTScribe'
+                                    font_size: '18dp'
+                                    color: 0, 0, 0, 1
+                                    markup: True
+                                    halign: 'left'
+                                    text: root.error_msg
+                                    size_hint_y: None
+                                    text_size: self.width, None
+                                    height: self.texture_size[1]
+                                    opacity: 0 if root.error_msg == '' else 1
+                            AnchorLayout:
+                                anchor_y: 'top'
+                                AsyncImage:
+                                    id: waiting_image
+                                    source: root.loading_image
+                                    opacity: 0 if root.task_msg == '' else 1
+                                Label:
+                                    canvas.before:
+                                        Color:
+                                            rgba: 0.86, 0.86, 0.86, 1.0
+                                        RoundedRectangle:
+                                            pos: self.pos
+                                            size: self.size
+                                    padding: '5dp', '5dp'
+                                    font_name: 'CourierNewTTScribe'
+                                    font_size: '16dp'
+                                    color: .8, 0, 0, 1
+                                    markup: True
+                                    halign: 'left'
+                                    text: root.task_msg
+                                    size_hint_y: None
+                                    text_size: self.width, None
+                                    height: self.texture_size[1]
+                                    opacity: 0 if root.task_msg == '' else 1
+
+                            BoxLayout:
+                                size_hint_y: None
+                                height: self.minimum_height
+                                BookMenuPopupInfoBox:
+                                    title: 'Next states:'
+                                    value: root.next_states
+                                    tooltip: root.next_states or ''
+                                TooltipImageButton:
+                                    size_hint: None, None
+                                    width: '16dp'
+                                    height: '16dp'
+                                    source_normal: 'button_open_normal.png'
+                                    source_down: 'button_open_normal.png'
+                                    tooltip: 'Show next stages'
+                                    on_release: root._on_option_selection(None, [{'key':'show_next_states'}])
+                            BoxLayout:
+                                size_hint_y: None
+                                height: self.minimum_height
+                                BookMenuPopupInfoBox:
+                                    title: 'Path to success:'
+                                    value: root.path_to_success
+                                    tooltip: root.path_to_success or ''
+                                    size_hint_x: 1
+                                TooltipImageButton:
+                                    size_hint: None, None
+                                    width: '16dp'
+                                    height: '16dp'
+                                    source_normal: 'button_open_normal.png'
+                                    source_down: 'button_open_normal.png'
+                                    tooltip: 'Show plan'
+                                    on_release: root._on_option_selection(None, [{'key':'show_plan'}])
+                            BookMenuPopupInfoBox:
+                                title: 'Scanned by:'
+                                value: root.operator
+                            BookMenuPopupInfoBox:
+                                title: 'Last edit:'
+                                value: root.edit_date
+                            BookMenuPopupInfoBox:
+                                title: 'Date created:'
+                                value: root.create_date
+                        RecycleButtons:
+                            id: entry_box
+                            viewclass: 'RecycleIconButton'
+                            size_hint_y: None
+                            height: self.minimum_height
+                            SelectableGridLayout:
+                                cols: 2
+                                spacing: '5dp'
+                                default_size: None, dp(40)
+                                default_size_hint: 0.5, None
+                                size_hint_y: None
+                                height: self.minimum_height
+
+
+<LogPanelToggleButton@ToggleIconButton>:
+    icon: 'log_white.png'
+    padding: '8dp'
+    size_hint_x: None
+    allow_no_selection: False
+
+
+<BookMenuPopupLogPanel>:
+    padding: '10dp'
+    on_state: scroll_view.scroll_y = 0
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '2dp'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        GridLayout:
+            rows: 1
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            LogPanelToggleButton:
+                text: 'Log'
+                group: str(hash(root))
+                state: 'down' if root.state == 'show_log' else 'normal'
+                on_state:
+                    if self.state == 'down': root.state = 'show_log'
+            LogPanelToggleButton:
+                text: 'Full log'
+                group: str(hash(root))
+                state: 'down' if root.state == 'show_full_log' else 'normal'
+                on_state:
+                    if self.state == 'down': root.state = 'show_full_log'
+            LogPanelToggleButton:
+                icon: 'history_white.png'
+                text: 'History'
+                group: str(hash(root))
+                state: 'down' if root.state == 'show_history' else 'normal'
+                on_state:
+                    if self.state == 'down': root.state = 'show_history'
+            Widget:
+            ColorButton:
+                size_hint_x: None
+                width: '40dp'
+                text: 'X'
+                on_release: root.state = 'close'
+        ScrollableLabel:
+            id: scroll_view
+            bar_width: '5dp'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: root.log
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                markup: True
+                shorten: False
+                font_name: 'CourierNewTTScribe'
+                font_hinting: 'mono'
+                color: 0, 1, 0, 1

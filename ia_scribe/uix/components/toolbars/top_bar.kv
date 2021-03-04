@@ -1,0 +1,150 @@
+<-TopBarDropDownButton>:
+    size_hint_y: None
+    height: '30dp'
+    color_normal: [0.34, 0.34, 0.34, 1.0]
+    color_down: [0.5, 0.5, 0.5, 1.0]
+    canvas:
+        Color:
+            rgba: self.color_down if self.state == 'down' else self.color_normal
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size_hint: None, None
+        size: root.size
+        pos: root.pos
+        padding: '13dp', '3dp', '10dp', '3dp'
+        spacing: '12dp'
+        Image:
+            source: root.icon
+            size_hint_x: None
+            width: '30dp'
+        Label:
+            text: root.text
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            font_name: root.font_name
+            font_size: root.font_size
+
+
+<TopBarDropDown>:
+    canvas:
+        Color:
+            rgba: [0.34, 0.34, 0.34, 1.0]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    TopBarDropDownButton:
+        icon: 'user_white.png'
+        text: 'Change operator'
+        on_release: root.select('change_user')
+    TopBarDropDownButton:
+        icon: 'icon_calibrate_cameras.png'
+        text: 'Camera Calibration'
+        on_release: root.select('calibrate_cameras')
+    TopBarDropDownButton:
+        icon: 'extension.png'
+        text: 'Extensions'
+        on_release: root.select('extensions')
+    TopBarDropDownButton:
+        icon: 'stats.png'
+        text: 'Stats'
+        on_release: root.select('stats')
+    TopBarDropDownButton:
+        icon: 'baseline_navigate_next_white_48dp.png'
+        text: 'CLI'
+        on_release: root.select('cli')
+    TopBarDropDownButton:
+        icon: 'icon_settings.png'
+        text: 'Options'
+        on_release: root.select('settings')
+    TopBarDropDownButton:
+        icon: 'icon_help.png'
+        text: 'Help center'
+        on_release: root.select('help_center')
+    TopBarDropDownButton:
+        icon: 'exit_white.png'
+        text: 'Exit'
+        on_release: root.select('exit')
+
+
+<TopBar>:
+    back_button: back_button
+    size_hint_y: None
+    height: '50dp'
+    spacing: '10dp'
+    canvas:
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ImageButton:
+        id: back_button
+        size_hint_x: None
+        width: 0
+        source_normal: 'button_back_to_library.png'
+        source_down: 'button_back_to_library.png'
+        on_release: root.dispatch('on_option_select', 'home')
+    BoxLayout:
+        padding: [0] * 4 if root.use_back_button else ['5dp', 0, 0, 0]
+        spacing: '10dp'
+        Image:
+            size_hint_x: None
+            width: '36dp'
+            source: 'ia_logo_black_100.png'
+        Label:
+            pos_hint: {'x': 0, 'y': 0}
+            text: '[b][size=18]Scribe3[/size][/b]\n[i]from the Internet Archive[/i]'
+            markup: True
+            text_size: self.size
+            valign: 'middle'
+    ImageButton:
+        size_hint_x: None
+        width: '46dp'
+        allow_stretch: True
+        source_normal: root.notification_icon_path
+        source_down: root.notification_icon_path
+        on_release: root.open_notifications_center()
+    TopBarUserButton:
+        id: user_container
+        size_hint_x: None
+        width: '370dp'
+        padding: '5dp', 0
+        spacing: '10dp'
+        on_release: root.dropdown.open(user_container)
+        canvas:
+            Color:
+                rgba: self.color_down if self.state == 'down' else self.color_normal
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Image:
+            size_hint_x: None
+            width: '36dp'
+            source: 'icon_avatar.png'
+        GridLayout:
+            cols: 1
+            padding: 0, '2dp', 0, '2dp'
+            Label:
+                id: username_label
+                text_size: self.size
+                valign: 'middle'
+                text: root.username
+                shorten: True
+            Label:
+                id: machine_id_label
+                text_size: self.size
+                valign: 'middle'
+                text: root.machine_id
+                shorten: True
+        BoxLayout:
+            size_hint_x: None
+            width: '18dp'
+            padding: 0, '3dp', 0, 0
+            Image:
+                pos_hint: {'top': 1}
+                size_hint_y: None
+                height: '18dp'
+                source: 'icon_expand_menu.png'

@@ -1,0 +1,903 @@
+<EditPPIPopup>:
+    title: 'Leaf # PPI'
+    size_hint: None, None
+    size: '300dp', '160dp'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        padding: '2dp'
+        NumberInput:
+            id: ppi_input
+            size_hint_x: 1.0
+            min_value: 1
+            value: root.default_ppi
+            on_text_validate: ok_button.trigger_action()
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '10dp'
+            ColorButton:
+                id: ok_button
+                text: 'OK'
+                on_release: root.submit_data(ppi_input.value)
+            ColorButton:
+                id: cancel_button
+                text: 'Cancel'
+                on_release: root.dismiss()
+
+
+<NumberPopup>:
+    title: 'Edit number value'
+    size_hint: None, None
+    size: '300dp', '160dp'
+    minimum_value: 0
+    none_value_allowed: False
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        padding: '2dp'
+        NumberInput:
+            id: ppi_input
+            size_hint_x: 1.0
+            min_value: root.minimum_value
+            value: root.value
+            value_type: int
+            on_text_validate: ok_button.trigger_action()
+            none_value_allowed: root.none_value_allowed
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '10dp'
+            ColorButton:
+                id: ok_button
+                text: 'OK'
+                on_release: root.submit_data(ppi_input.value)
+            ColorButton:
+                id: cancel_button
+                text: 'Cancel'
+                on_release: root.dismiss()
+
+<InputPopup>:
+    title: root.title
+    size_hint: None, None
+    size:  '300dp', main_container.height + 60
+    on_open: text_input.focus = True
+    BoxLayout:
+        id: main_container
+        orientation: 'vertical'
+        spacing: '5dp'
+        padding: '2dp'
+        size_hint_y: None
+        height: self.minimum_height
+        Label:
+            text: root.message
+            markup: True
+            size_hint_y: None
+            height: self.texture_size[1] + 20 if root.message else '0dp'
+            text_size: self.width - 10, None
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: '30dp'
+            text: root.input_value
+            font_name: 'FreeSansTTScribe'
+            multiline: False
+        BoxLayout:
+            size_hint_y: None
+            height: '22dp'
+            spacing: '10dp'
+            ColorButton:
+                id: ok_button
+                text: root.text_ok
+                on_release: root.submit_data(text_input.text)
+                color_normal: [0, 0.5, 0, 1]
+                color_down: [0, 1, 0, 1]
+            ColorButton:
+                id: cancel_button
+                text: 'Cancel'
+                on_release: root.dismiss()
+                color_normal: [0, 0, 0.5, 1]
+                color_down: [0,0, 1, 1]
+
+
+<BookNotesPopup>:
+    title: 'Edit Book Notes'
+    size_hint: None, None
+    size: '400dp', '300dp'
+    on_open: book_notes_input.focus = True
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '5dp'
+        padding: '2dp'
+        TextInput:
+            id: book_notes_input
+            text: root.notes
+            font_name: 'FreeSansTTScribe'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '10dp'
+            ColorButton:
+                id: ok_button
+                text: 'Save'
+                on_release: root.submit_data(book_notes_input.text)
+            ColorButton:
+                id: cancel_button
+                text: 'Cancel'
+                on_release: root.dismiss()
+
+
+<RuntimeErrorPopup>:
+    title: 'Scribe3 runtime error'
+    size_hint: None, None
+    size: '450dp', '300dp'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        padding: '2dp'
+        TextInput:
+            id: text_input
+            hint_text: 'Please describe what you were doing'
+            font_name: 'FreeSansTTScribe'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            ColorButton:
+                text: 'Exit'
+                on_release: root.submit_data(root.OPTION_EXIT)
+            ColorButton:
+                text: 'Restart'
+                on_release: root.submit_data(root.OPTION_RESTART)
+
+
+<PageTypeFormPopup>:
+    title: 'Page Type'
+    size_hint: None, None
+    size: '400dp', '647dp'
+    separator_color: 0.75, 0.75, 0.75, 1.0
+    separator_height: 1
+    on_open: page_number_input.focus = True
+    BoxLayout:
+        spacing: '10dp'
+        StackLayout:
+            id: buttons_container
+            orientation: 'tb-lr'
+            size_hint_x: 0.6
+            spacing: '2dp'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 0.4
+            canvas.after:
+                Color:
+                    rgb: 0.75, 0.75, 0.75
+                Line:
+                    points: self.x - dp(3), self.y, self.x - dp(3), self.top
+                    width: 1
+            Label:
+                text: 'Page #'
+                size_hint_y: None
+                height: '40dp'
+                opacity: float(not root.page_number_input_disabled)
+            NumberInput:
+                id: page_number_input
+                size_hint: 1.0, None
+                height: '30dp'
+                font_size: '15sp'
+                min_value: 1
+                value: root.default_page_number
+                none_value_allowed: True
+                disabled: root.page_number_input_disabled
+                opacity: float(not self.disabled)
+                on_text_validate: save_button.trigger_action()
+            Widget:
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '5dp'
+                size_hint_y: None
+                height: '80dp'
+                IconButton:
+                    text: 'Cancel'
+                    icon: 'close_x.png'
+                    icon_width: '20dp'
+                    padding: 5
+                    on_release: root.dismiss()
+                IconButton:
+                    id: save_button
+                    text: 'Save'
+                    icon: 'save.png'
+                    icon_width: '20dp'
+                    padding: 5
+                    on_release: root.submit_data()
+                    canvas:
+                        Color:
+                            rgb: 1, 1, 1
+                        Line:
+                            rectangle:
+                                min(self.x + dp(3), self.right), min(self.y + dp(3), self.top), \
+                                max(dp(6), self.width - dp(6)), max(dp(6), self.height - dp(6))
+
+
+
+
+<CaptureFailurePopup>:
+    title: 'Image Capture Error'
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '5dp'
+        Label:
+            text: root.message
+        ColorButton:
+            text: 'Retry image capture'
+            size_hint: (0.5, 0.1)
+            pos_hint: {'center_x': 0.5}
+            on_release: root.submit_data(root.OPTION_RETRY_CAPTURE)
+        ColorButton:
+            text: 'Go to Camera Calibration Screen'
+            size_hint: (0.5, 0.1)
+            pos_hint: {'center_x': 0.5}
+            on_release: root.submit_data(root.OPTION_GOTO_CALIBRATION)
+
+
+<CalibrateCamerasPopup>:
+    title: 'Cameras are not calibrated'
+    size_hint: None, None
+    size: '320dp', '200dp'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '5dp'
+        Label:
+            text: 'Do you want to calibrate cameras?'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+
+            IconButton:
+                padding: 8
+                icon: 'icon_calibrate_cameras.png'
+                text: 'Calibrate'
+                on_release: root.submit_data(root.OPTION_GOTO_CALIBRATION)
+                icon_width: '32dp'
+                color_normal: get_color_from_hex('696969')
+                color_down: get_color_from_hex('cccccc')
+
+            IconButton:
+                padding: 8
+                icon: 'baseline_navigate_next_white_48dp.png'
+                text: 'Continue'
+                on_release: root.submit_data(root.OPTION_CONTINUE)
+                icon_width: '32dp'
+                color_normal: get_color_from_hex('696969')
+                color_down: get_color_from_hex('cccccc')
+
+
+<QuestionPopup>:
+    size_hint: None, None
+    size: '400dp', '260dp'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.message
+            text_size: self.size
+            valign: 'middle'
+            halign: root.message_halign
+            padding_x: root.message_padding_x
+            markup: True
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            ColorButton:
+                id: yes_button
+                text: root.text_yes
+                on_release: root.submit_data(root.OPTION_YES)
+                canvas:
+                    Color:
+                        rgb: 1, 1, 1
+                    Line:
+                        rectangle:
+                            min(self.x + dp(3), self.right), min(self.y + dp(3), self.top), \
+                            max(dp(6), self.width - dp(6)), max(dp(6), self.height - dp(6))
+            ColorButton:
+                id: no_button
+                text: root.text_no
+                on_release: root.submit_data(root.OPTION_NO)
+
+
+<CheckBoxPopup>:
+    size_hint: None, None
+    width: '400dp'
+    height: '300dp'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.message
+            text_size: self.size
+            valign: 'middle'
+            halign: root.message_halign
+            padding_x: root.message_padding_x
+            markup: True
+        BoxLayout:
+            padding: '3dp', 0, '3dp', 0
+            BoxLayout:
+                opacity: 1 if root.checkbox_text != '' else 0
+                CheckBox:
+                    allow_no_selection: True
+                    size_hint_x: None
+                    width: '32dp'
+                    active: root.active
+                    on_active: root.active = args[1]
+                    color: [1, 1, 1, 1]
+                Label:
+                    text: root.checkbox_text
+                    color: root.text_color
+                    text_size: self.size
+                    valign: 'middle'
+                    shorten: True
+                    shorten_from: 'right'
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            ColorButton:
+                id: yes_button
+                text: root.text_yes
+                on_release: root.submit_data(root.OPTION_YES)
+                canvas:
+                    Color:
+                        rgb: 1, 1, 1
+                    Line:
+                        rectangle:
+                            min(self.x + dp(3), self.right), min(self.y + dp(3), self.top), \
+                            max(dp(6), self.width - dp(6)), max(dp(6), self.height - dp(6))
+            ColorButton:
+                id: no_button
+                text: root.text_no
+                on_release: root.submit_data(root.OPTION_NO)
+
+
+<ThreeOptionsQuestionPopup>:
+    size_hint: None, None
+    size: '400dp', '260dp'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.message
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            markup: True
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            ColorButton:
+                id: yes_button
+                text: root.text_yes
+                on_release: root.submit_data(root.OPTION_YES)
+            ColorButton:
+                id: no_button
+                text: root.text_no
+                on_release: root.submit_data(root.OPTION_NO)
+            ColorButton:
+                id: else_button
+                text: root.text_else
+                on_release: root.submit_data(root.OPTION_ELSE)
+
+
+<InfoPopup>:
+    size_hint: None, None
+    size: '400dp', '260dp'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.message
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            markup: True
+        ColorButton:
+            id: ok_button
+            text: root.text_ok
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            on_release: root.submit_data(root.OPTION_OK)
+            canvas:
+                Color:
+                    rgb: 1, 1, 1
+                Line:
+                    rectangle:
+                        min(self.x + dp(3), self.right), min(self.y + dp(3), self.top), \
+                        max(dp(6), self.width - dp(6)), max(dp(6), self.height - dp(6))
+
+
+<DeleteSpreadPopup>:
+    title: 'Delete Spread?'
+    text_yes: 'Delete'
+    text_no: 'Cancel'
+    message:
+        'Are you sure you want to [b]permanently delete[/b] this spread?\n' \
+        'This action [b]cannot be undone[/b]. The spread will be irrecoverable.'
+
+
+<ScribeLearnMorePopup>:
+    title: 'Calibration help'
+    text_yes: 'Learn more'
+    text_no: 'Close'
+    message: root.INSTRUCTIONS
+    message_halign: 'left'
+    message_padding_x: '10dp'
+
+
+<FoldoutsModePopup>:
+    size_hint: None, None
+    size: '400dp', '300dp'
+    background_color: 0, 0, 0, 0
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '5dp'
+        ColorButton:
+            text: 'Capture foldouts'
+            size_hint_y: None
+            height: '40dp'
+            disabled: False
+            on_release: root.submit_data(root.OPTION_CAPTURE)
+            color_normal: get_color_from_hex('00496d')
+            color_down: 0, 0, 1, 1
+        ColorButton:
+            text: 'Upload'
+            size_hint_y: None
+            height: '40dp'
+            on_release: root.submit_data(root.OPTION_UPLOAD)
+            disabled: root.upload_disabled
+            color_normal: 0, 0.5, 0, 1
+            color_down: 0, 1, 0, 1
+        ColorButton:
+            text: 'Delete'
+            size_hint_y: None
+            height: '40dp'
+            on_release: root.submit_data(root.OPTION_DELETE)
+            color_normal: get_color_from_hex('d4152f')
+            color_down: 1, 0, 0, 1
+            background_color: 1, 0, 0, 1
+        ColorButton:
+            text: 'Cancel'
+            size_hint_y: None
+            height: '40dp'
+            on_release: root.submit_data(root.OPTION_CANCEL)
+
+
+<ReshootInsertSpreadPopup>:
+    title: 'Reshoot or Insert Spread?'
+    size_hint: None, None
+    size: '400dp', '300dp'
+    message:
+        'Are you sure you want to [b]reshoot[/b] the current spread or ' \
+        'would you like to [b]insert[/b] a spread after it?'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '5dp'
+        Label:
+            text: root.message
+            markup: True
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            markup: True
+        ColorButton:
+            id: reshoot_button
+            text: 'Reshoot spread'
+            size_hint_y: None
+            height: '40dp'
+            on_release: root.submit_data(root.OPTION_RESHOOT)
+        ColorButton:
+            id: insert_button
+            text: 'Insert spread'
+            size_hint_y: None
+            height: '40dp'
+            on_release: root.submit_data(root.OPTION_INSERT)
+        ColorButton:
+            text: 'Cancel'
+            color_normal: 0.5, 0, 0, 1
+            color_down: 1, 0, 0, 1
+            size_hint_y: None
+            height: '40dp'
+            on_release: root.submit_data(root.OPTION_CANCEL)
+
+
+<NewMetadataFieldPopup>:
+    title: 'New metadata field'
+    size_hint: None, None
+    size: '500dp', '240dp'
+    GridLayout:
+        cols: 1
+        AnchorLayout:
+            GridLayout:
+                cols: 1
+                padding: '10dp', 0
+                row_default_height: '46dp'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: '2dp'
+                BoxLayout:
+                    spacing: '5dp'
+                    BoxLayout:
+                        spacing: '5dp'
+                        size_hint_y: 0.65
+                        pos_hint: {'top': 1}
+                        size_hint_x: None
+                        width: self.minimum_width
+                        Label:
+                            id: key_label
+                            text: 'Key:'
+                            size_hint_x: None
+                            width: '50dp'
+                            text_size: self.width, None
+                            halign: 'right'
+                        Spinner:
+                            id: key_spinner
+                            size_hint_x: None
+                            width: '135dp'
+                            text_autoupdate: True
+                            sync_height: True
+                            on_text: root._on_key_spinner_value(*args)
+                    BoxLayout:
+                        orientation: 'vertical'
+                        TextInput:
+                            id: key_input
+                            size_hint_y: 0.65
+                            disabled: key_spinner.text != 'Custom'
+                            opacity: 1.0 - float(self.disabled)
+                            multiline: False
+                            on_text_validate: value_input.focus = True
+                            write_tab: False
+                        Label:
+                            id: key_message_label
+                            size_hint_y: 0.35
+                            font_size: '13sp'
+                            shorten: True
+                            shorten_from: 'right'
+                            text_size: self.size
+                            valign: 'middle'
+                            color: 1, 0, 0, 1
+                            opacity: 1.0 - float(key_input.disabled)
+                BoxLayout:
+                    spacing: '5dp'
+                    Label:
+                        id: value_label
+                        size_hint_y: 0.65
+                        pos_hint: {'top': 1}
+                        text: 'Value:'
+                        size_hint_x: None
+                        width: '50dp'
+                        text_size: self.width, None
+                        halign: 'right'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        TextInput:
+                            id: value_input
+                            size_hint_y: 0.65
+                            multiline: False
+                            on_text_validate: ok_button.trigger_action()
+                            write_tab: False
+                        Label:
+                            id: value_message_label
+                            size_hint_y: 0.35
+                            font_size: '13sp'
+                            shorten: True
+                            shorten_from: 'right'
+                            text_size: self.size
+                            valign: 'middle'
+                            color: 1, 0, 0, 1
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            ColorButton:
+                id: ok_button
+                text: 'Ok'
+                on_release: root.submit_data()
+            ColorButton:
+                text: 'Cancel'
+                on_release: root.dismiss()
+
+
+<UniversalIDPopup>:
+    title: 'Select an identifier to scan'
+    size_hint: None, None
+    size: '400dp', '320dp'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '5dp'
+        padding: 0, '5dp', 0, 0
+        RecycleView:
+            id: rv
+            viewclass: 'RecycleViewLabel'
+            effect_cls: 'ScrollEffect'
+            scroll_type: ['bars']
+            bar_width: '10dp'
+            scroll_wheel_distance: '50dp'
+            SelectableGridLayout:
+                id: container
+                cols: 1
+                spacing: '2dp'
+                padding: 0, 0, '10dp', 0
+                default_size: None, dp(30)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+        BoxLayout:
+            spacing: '5dp'
+            size_hint_y: None
+            height: '40dp'
+            ColorButton:
+                text: 'Select'
+                disabled: not container.selected_nodes
+                on_release: root.submit_data()
+            ColorButton:
+                text: 'Cancel'
+                on_release: root.dismiss()
+
+
+<ProgressPopup>:
+    title: 'Loading...'
+    size_hint: None, None
+    size: '400dp', '260dp'
+    auto_dismiss: False
+    BoxLayout:
+        spacing: '5dp'
+        orientation: 'vertical'
+        Label:
+            text: root.message
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+        ProgressBar:
+            size_hint_y: None
+            height: '30dp'
+            value: root.progress
+            max: 1.0
+
+
+<BookMetadataPopup>:
+    md_panel: md_panel
+    background_color: 0.35, 0.35, 0.35, 0.5
+    padding: '20dp'
+    BookMetadataScreen:
+        id: md_panel
+
+
+<RejectBookPopup>:
+    title: 'Reject book'
+    size_hint: None, None
+    size: '400dp', '660dp'
+    BoxLayout:
+        spacing: '5dp'
+        orientation: 'vertical'
+        size_hint_y: None
+        height: self.minimum_height
+        Label:
+            text: 'Please indicate the rejection reason'
+            font_size: '17sp'
+            text_size: self.size
+            valign: 'middle'
+            halign: 'center'
+            markup: True
+            size_hint_y: None
+            height: '40dp'
+        GridLayout:
+            id: options_container
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: '32dp'
+            row_force_default: True
+            RadioButton:
+                text: 'Too large'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Margins too tight'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Page(s) missing'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Damage'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Too fragile'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Foldouts'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Pop-up'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Title mismatch'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Missing metadata'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Incorrect metadata'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Glare or other camera issue'
+                group: 'rejection_reason'
+            RadioButton:
+                text: 'Unscannable items in book'
+                group: 'rejection_reason'
+        BoxLayout:
+            spacing: '5dp'
+            size_hint_y: None
+            height: '120dp'
+            Label:
+                text: 'Comments'
+                size_hint_x: None
+            TextInput:
+                id: comments_input
+                multiline: True
+        BoxLayout:
+            spacing: '5dp'
+            size_hint_y: None
+            height: self.minimum_height
+            ColorButton:
+                id: cancel_button
+                text: 'Cancel'
+                size_hint_y: None
+                height: '40dp'
+                on_release: root.dismiss()
+            ColorButton:
+                id: ok_button
+                text: 'Reject'
+                size_hint_y: None
+                height: '40dp'
+                color_normal: 1, 0, 0, 1
+                on_release: root.submit_data()
+
+
+<LogBox>:
+    orientation: 'vertical'
+    padding: '10dp'
+    height: 0
+    canvas:
+        Color:
+            rgba: 0, 0, 0, .8
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ScrollableLabel:
+        bar_width: 5
+        Label:
+            id: log_content_label
+            text: root.log
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            markup: True
+            shorten: False
+            font_name: 'CourierNewTTScribe'
+            font_hinting: 'mono'
+            color: 0, 1, 0, 1
+
+
+<StatGraphPanel>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            ScrollViewWithBars:
+                GridLayout:
+                    id: table
+                    cols: 1
+            BoxLayout:
+                id: root_graph
+
+
+<GraphPopup>:
+    size_hint: None, None
+    size: '800dp', '600dp'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            id: stats_panel
+        ColorButton:
+            id: ok_button
+            text: root.text_ok
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            on_release: root.submit_data()
+            canvas:
+                Color:
+                    rgb: 1, 1, 1
+                Line:
+                    rectangle:
+                        min(self.x + dp(3), self.right), min(self.y + dp(3), self.top), \
+                        max(dp(6), self.width - dp(6)), max(dp(6), self.height - dp(6))
+
+<TabbedStatPopup>:
+    orientation: 'vertical'
+    spacing: '5dp'
+    canvas:
+        Color:
+            rgba: 1,1,1,0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Label:
+        text: root.description
+        text_size: self.size
+        valign: 'middle'
+        halign: 'center'
+        markup: True
+        size_hint_max_y: '30dp'
+    TabbedPanel:
+        do_default_tab: False
+        id: tp
+        size_hint_x: 1
+        size_hint_y: 1
+
+<StatsPanel@TabbedPanelItem>:
+    GridLayout:
+        cols:1
+        size_hint_x: 1
+        size_hint_y: 1
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                id: stats_panel
+
+
+
+<CompositeInfoPopup>:
+    size_hint: None, None
+    width:
+        max(container.width \
+        + self.container_padding[0] + self.container_padding[1],\
+        dp(300))
+    height: max(container.height + self.title_bar_height, dp(200))
+    BoxLayout:
+        id: container
+        orientation: 'vertical'
+        size_hint: None, None
+        height: self.minimum_height
+        width: self.minimum_width
+        Label:
+            size_hint_y: None
+            text: root.message
+            text_size: self.width, None
+            valign: 'middle'
+            halign: 'center'
+            markup: True
+            height: self.texture_size[1]
+        BoxLayout:
+            id: additional_content_container
+            size_hint: None, None
+            height: self.minimum_height
+            width: self.minimum_width
+
+        ColorButton:
+            size_hint: None, None
+            id: ok_button
+            text: root.text_ok
+            size_hint_y: None
+            height: '40dp'
+            width: '130dp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            spacing: '5dp'
+            on_release: root.submit_data(root.OPTION_OK)
+            canvas:
+                Color:
+                    rgb: 1, 1, 1
+                Line:
+                    rectangle:
+                        min(self.x + dp(3), self.right), min(self.y + dp(3), self.top), \
+                        max(dp(6), self.width - dp(6)), max(dp(6), self.height - dp(6))
+
+<WidgetPopup>

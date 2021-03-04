@@ -1,0 +1,81 @@
+<LoginSection>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: None, None
+            size: 400, 400
+            pos_hint: {'center_x': .46}
+            orientation: 'vertical'
+            spacing: 20
+            Image:
+                source: 'images/ia_logo_black_small.png'
+                size: 150, 150
+            BlackLabel:
+                size_hint: 1.35, None
+                text: 'Please log in with your Archive.org account'
+                font_size: 20
+                height: 60
+            BoxLayout:
+                canvas.after:
+                    Rectangle:
+                        source: 'images/user.png'
+                        pos: self.pos[0]+2, self.pos[1]+4
+                        size: 30, 30
+                MetadataTextInput:
+                    multiline: False
+                    padding: 40, 10, 10, 10
+                    id: _login_email_input
+                    hint_text: 'Email'
+                    metadata_key: 'Email'
+            BoxLayout:
+                canvas.after:
+                    Rectangle:
+                        source: 'images/password.png'
+                        pos: self.pos[0]+6, self.pos[1]+6
+                        size: 22, 22
+                MetadataTextInput:
+                    multiline: False
+                    metadata_key: 'password'
+                    padding: 40, 10, 10, 10
+                    id: _login_password_input
+                    hint_text: 'Password'
+                    password: True
+                    on_text_validate: root.archive_login()
+            BoxLayout:
+                Widget:
+                BlackLabel:
+                    id: lb_forgot_pwd
+                    canvas.before:
+                        Color:
+                            rgba: .1, .1, .1, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.width, 1
+                    text: ' Forgot your password?'
+                    text_size: self.size
+                    size_hint_x: None
+                    width: 170
+                    shorten: False
+            ColorButton:
+                text: 'Log in'
+                color_normal: 0, 0.28, 0.42, .7
+                color_down: 0, 0.28, 0.42, 1
+                on_release: root.archive_login()
+            BoxLayout:
+                size_hint_y: None
+                height: 20
+                Widget
+                Label:
+                    id: lb_signup
+                    canvas.before:
+                        Color:
+                            rgba: .1, .1, .1, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.width, 1
+                    color: 0, 0, 0, 1
+                    text: 'Need an account?'
+                    size_hint_x: None
+                    width: 130
+                Widget
+        Widget

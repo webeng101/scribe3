@@ -1,0 +1,80 @@
+<NetworkTestAppContainer>:
+    title: 'Network test'
+    NetworkTestAppScreen:
+        id: _slip_app_screen
+        name: 'slip_app_screen'
+        task_scheduler: root.task_scheduler
+
+
+<NetworkTestAppScreen>:
+    BoxLayout:
+        canvas:
+            Color:
+                rgb: 0.92, 0.92, 0.92
+            Rectangle:
+                pos: self.x, self.y
+                size: self.width, self.height
+        padding: 10
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 40
+            spacing: 10
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'baseline_network_check_black_48dp.png'
+                size: 40, 40
+                size_hint: None, None
+            BlackLabel:
+                id: _title_label
+                text: 'Network test'
+                font_size: '28dp'
+
+
+        GridLayout:
+            rows: 2
+            TextInput:
+                text: root.log
+                size_hint: 1, 1
+                #text_size: self.width, None
+                multiline: True
+                font_name: 'CourierNewTTScribe'
+                font_hinting: 'mono'
+                readonly: True
+                foreground_color: 0, 1, 0, 1
+                background_color: 0,0,0, 1
+            BoxLayout:
+                size_hint_y: None
+                size_hint_x: 1
+                spacing: 5
+                IconButton:
+                    pos_hint: {'center_x': 0.5}
+                    text: 'Begin test'
+                    on_release: root.start_test()
+                    font_size: '20dp'
+                    icon: 'baseline_play_circle_filled_white_48dp.png'
+                    icon_width: '22dp'
+                    size: (150, 30)
+                    size_hint: (None, None)
+                    halign: 'center'
+                    valign: 'middle'
+                IconButton:
+                    pos_hint: {'center_x': 0.5}
+                    text: 'Copy to clipboard'
+                    on_release: root.copy_results_to_clipboard()
+                    font_size: '20dp'
+                    icon_width: '22dp'
+                    icon: 'copy_white.png'
+                    size: (150, 30)
+                    size_hint: (None, None)
+                    halign: 'center'
+                    valign: 'middle'
+
+
+
+

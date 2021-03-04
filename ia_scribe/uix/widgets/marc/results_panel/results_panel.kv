@@ -1,0 +1,118 @@
+<MARCResultsPanel>:
+    orientation:'vertical'
+    TooltipTextInput:
+        id: results_filter_input
+        size_hint_max_y: '30dp'
+        width: '273dp'
+        tooltip: 'Filter'
+        multiline: False
+        text: root.filter_text
+        font_name: 'FreeSansTTScribe'
+        on_text: root.filter_text = args[1]
+        padding_x: '26dp'
+        canvas.after:
+            Color:
+                rgba: (1, 1, 1, 1 if self.focus else 0.5)
+            Rectangle:
+                source: 'icon_filter.png'
+                pos: self.x + dp(4), self.center_y - dp(10)
+                size: dp(20), dp(20)
+    MARCRecycleView:
+        id: rv
+        viewclass: 'MARCResultView'
+        effect_cls: 'ScrollEffect'
+        scroll_type: ['bars']
+        bar_width: '15dp'
+        bar_color: 0.5, 0.5, 0.5, 0.9
+        bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+        scroll_wheel_distance: '60dp'
+        MARCResultsContainer:
+            default_size: None, dp(100)
+            default_size_hint: 1, None
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding:  '2dp'
+            right_count: 0
+            spacing: '2dp'
+            data: root.results
+
+<MARCResultsContainer>:
+    size_hint_y: None
+    height: self.minimum_height
+
+<MARCResultView>:
+    canvas:
+        Color:
+            rgba: [0.5, 0.5, 0.5, .2]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint_y: None
+    height: '100dp'
+    spacing: '5dp'
+    padding: '2dp'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: root.title[:120]
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+                    bold:True
+                Label:
+                    text: root.creator[:120]
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+                    italic: True
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: root.publisher
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+            BoxLayout:
+                Label:
+                    text: root.subject[:120]
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        text: root.date
+                        color: 0, 0, 0, 1
+                        text_size: self.width, None
+                    Label:
+                        text: root.language
+                        color: 0, 0, 0, 1
+                        text_size: self.width, None
+                Label:
+                    text: root.isbn
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+
+
+    BoxLayout:
+        size_hint_max_x: '120dp'
+        id: buttons
+        padding: '5dp', '5dp'
+        BoxLayout:
+            spacing: 2
+            orientation: 'vertical'
+            width: '50dp'
+            size_hint_min_x: '60dp'
+            size_hint_max_x: '70dp'
+            size_hint_max_y: '30dp'
+            ColorButton:
+                id: details_button
+                text: 'Details'
+                on_release: root.show_details()
+            ColorButton:
+                id: select_button
+                text: 'Select'
+                on_release: root.select_result()

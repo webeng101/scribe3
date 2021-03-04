@@ -1,0 +1,16 @@
+[b]Software update[/b]
+
+This panel allows you to check for and install new software releases as they become available. It is recommended you also track announcements in #scribe3 on Slack for additional information.
+
+[i]Channels[/i]
+Scribe3 deployments are delivered through one of various channels: [b]Development[/b] ([font=assets/fonts/Courier-New]dev[/font]), [b]Beta[/b] ([font=assets/fonts/Courier-New]beta[/font]) and [b]Production[/b] ([font=assets/fonts/Courier-New]internal[/font]). The delivery channel you are on is indicated in this widget with his fully qualified name ([font=assets/fonts/Courier-New]scribe-repo-autobuild-([b]channel name[/b])[/font].
+
+[i]Checking for updates[/i]
+By default, unless you disabled this option in Settings, Scribe3 will check for updates at regular intervals and display a notification to let you know once one becomes available. Alternatively, you can check for updates at any time by clicking on the button.
+
+[i]Installing[/i]
+Once an update becomes available, just press the "Download & install" button to kick off the update process. This will take anywhere between a few seconds and a few minutes, depending on your internet connection speed. Once the update is done, you will have to [b]restart the app[/b] to make it effective. A notification will remind you of this.
+
+[i]Automatic updates[/i]
+If you select this option, Scribe3 will periodically check for updates and automatically install them in the background. You will be notified when a new version is ready and will need to restart the app to enable it.
+

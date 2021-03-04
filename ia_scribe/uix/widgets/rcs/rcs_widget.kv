@@ -1,0 +1,242 @@
+<RCSWidget>:
+    canvas:
+        Color:
+            rgba: 1,1,1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        BoxLayout:
+            size_hint_max_y: '40dp'
+            spacing: '5dp'
+            padding: '5dp'
+            IconButton:
+                text: 'Add New'
+                on_release: root.add_new()
+                size_hint_x: None
+                width: '130dp'
+                icon_width: '20dp'
+                icon:'baseline_add_circle_white_48dp.png'
+                color_normal: 0, 0.5, 0, 0.7
+                disabled: root.data in [None, {}]
+            Widget
+            IconButton:
+                text: 'Refresh from IA'
+                on_release: root.update_from_ia()
+                size_hint_x: None
+                width: '150dp'
+                icon: 'reload.png'
+                icon_width: '20dp'
+                color_normal: 0.1, 0.3, 0.8, .7
+        GridLayout:
+            cols: 1
+            spacing: '5dp'
+            canvas:
+                Color:
+                    rgb: 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            SelectableRecycleView:
+                id: rv
+                size_hint: 1, 1
+                viewclass: 'RCSView'
+                effect_cls: 'ScrollEffect'
+                scroll_type: ['bars']
+                bar_width: '15dp'
+                bar_color: 0.5, 0.5, 0.5, 0.9
+                bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+                scroll_wheel_distance: '60dp'
+                SelectableResultsContainer:
+                    default_size: None, dp(100)
+                    default_size_hint: 1, None
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding:  '2dp'
+                    right_count: 0
+                    spacing: '2dp'
+                    data: root.data
+
+
+<RCSSelectionWidget>:
+    spacing: '5dp'
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        padding: '10dp'
+        orientation: 'vertical'
+        GridLayout:
+            cols: 1
+            spacing: '10dp'
+            size_hint_max_x: '600dp'
+            row_default_height: '32dp'
+            BoxLayout:
+                Label:
+                    text: 'Name'
+                    color: 0, 0, 0, 1
+                TextInput:
+                    id: rcs_name
+                    hint_text: 'Insert shorthand name here'
+                    size_hint_max_y: '30dp'
+            SpinnerWithLabel:
+                id: center_spinner
+                orientation: 'horizontal'
+                label_text: 'Center'
+                spinner_values: root.centers
+                on_spinner_text: root._update_filter_option(*args)
+                size_hint_max_y: '50dp'
+                key: 'center'
+                action: 'select_center'
+            SpinnerWithLabel:
+                orientation: 'horizontal'
+                label_text: 'Sponsor'
+                spinner_values: root.sponsors
+                on_spinner_text: root._update_filter_option(*args)
+                size_hint_max_y: '50dp'
+                key: 'sponsor'
+                action: 'select_sponsor'
+            SpinnerWithLabel:
+                orientation: 'horizontal'
+                label_text: 'Contributor'
+                spinner_values: root.contributors
+                on_spinner_text: root._update_filter_option(*args)
+                size_hint_max_y: '50dp'
+                key: 'contributor'
+                action: 'select_contributor'
+            SpinnerWithLabel:
+                orientation: 'horizontal'
+                label_text: 'Collection'
+                spinner_values: root.collections
+                on_spinner_text: root._update_filter_option(*args)
+                size_hint_max_y: '50dp'
+                key: 'collection'
+                action: 'select_collection'
+            BoxLayout:
+                CheckBox:
+                    allow_no_selection: True
+                    size_hint_max_x: '20dp'
+                    width: '32dp'
+                    active: root.set_default
+                    color: [0,0,0,1]
+                    halign: 'right'
+                    on_active: root.set_default = args[1]
+                Label:
+                    text: 'Set as default'
+                    valign: 'middle'
+                    shorten: False
+                    color: 0, 0, 0, 1
+                    halign: 'left'
+                    size_hint_max_x: '200dp'
+
+        Widget
+        GridLayout:
+            rows: 1
+            size_hint_max_y: '40dp'
+            rows: 1
+            spacing: '5dp'
+            padding: '10dp', 0
+            size_hint_x: None
+            col_default_width: '130dp'
+            width: self.minimum_width
+            IconButton:
+                padding: 8
+                icon: 'done.png'
+                text: 'Save & Done'
+                icon_width: '22dp'
+                on_release: root.do_select_rcs()
+                color_normal: 0, 0.8, 0, .7
+            IconButton:
+                padding: 8
+                text: 'Cancel'
+                icon: 'close_x.png'
+                icon_width: '22dp'
+                on_release: root.do_close()
+                color_normal: 0.1, 0.3, 0.8, .7
+
+
+<RCSView>:
+    canvas:
+        Color:
+            rgba: [0.1, 0.1, 0.8, .4] if root.default else [0.7, 0.7, 0.7 , .1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint_y: None
+    height: '100dp'
+    spacing: '5dp'
+    padding: '2dp'
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: root.name
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+                    bold:True
+                Label:
+                    text: 'Partner: [b]{}[/b]'.format(root.partner)
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+                    markup: True
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: 'Sponsor: [b]{}[/b]'.format(root.sponsor)
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+                    markup: True
+                Label:
+                    text: 'Contributor: [b]{}[/b]'.format(root.contributor)
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+                    markup: True
+        Label:
+            text: 'Collections: [b][i]{}[/i][/b]'.format(root.collections)
+            color: 0, 0, 0, 1
+            text_size: self.width, None
+            markup: True
+
+
+    BoxLayout:
+        size_hint_max_x: '120dp'
+        id: buttons
+        padding: '5dp', '5dp'
+        BoxLayout:
+            spacing: 2
+            orientation: 'vertical'
+            width: '50dp'
+            size_hint_min_x: '60dp'
+            size_hint_max_x: '110dp'
+            size_hint_max_y: '40dp'
+            IconButton:
+                id: select_button
+                text: 'Rename'
+                on_release: root.select_result(action='rename')
+                icon: 'baseline_edit_white_48dp.png'
+                icon_width: '16dp'
+            IconButton:
+                id: delete_button
+                text: 'Delete'
+                on_release: root.select_result(action='delete')
+                disabled: root.default
+                icon: 'close_x.png'
+                icon_width: '16dp'
+                color_normal: 0.5, 0, 0, 1
+            IconButton:
+                id: current_button
+                text: 'Default'
+                on_release: root.select_result(action='set_default')
+                disabled: root.default
+                icon: 'done.png'
+                color_normal: 0.1, 0.3, 0.8, .7
+                opacity: 0 if root.default else 1

@@ -1,0 +1,106 @@
+<CameraSettingsScreen>:
+    BoxLayout:
+        size_hint_x: None
+        width: '1000dp'
+        pos_hint: {'center_x': 0.5}
+        padding: '20dp'
+        spacing: '10dp'
+        orientation: 'vertical'
+        BlackLabel:
+            text: 'Cameras Settings and Information'
+            font_size: '24sp'
+            pos_hint: {'center_x': 0.5}
+            size_hint: (.95, None)
+            height: '40dp'
+            canvas.after:
+                Color:
+                    rgb: .75, .75, .75
+                Line:
+                    points: self.x, self.y - dp(3), self.x + self.width, self.y - dp(3)
+                    width: dp(1)
+        BoxLayout:
+            orientation: 'vertical'
+            padding: ['50dp', 0, '50dp', '20dp']
+            spacing: '15dp'
+            IconButton:
+                padding: 8
+                text: 'Get details'
+                icon: 'icon_calibrate_cameras.png'
+                icon_width: '22dp'
+                size_hint_max_x: '130dp'
+                size_hint_max_y: '40dp'
+                on_release: root.schedule_camera_sync()
+                color_normal: 0, 0.5, 0, .7
+            ScrollView:
+                do_scroll_x: False
+                bar_width: '10dp'
+                bar_color: [0, 0, 0, 1]
+                bar_inactive_color: [0.7, 0.7, 0.7, 1]
+                scroll_type: ['bars']
+                effect_cls: 'ScrollEffect'
+                AnchorLayout:
+                    size_hint_y: None
+                    height: config_content.height
+                    anchor_x: 'center'
+                    GridLayout:
+                        id: config_content
+                        cols: 1
+                        size_hint_x: 0.85
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: ['20dp', 0, '20dp', '20dp']
+                        GridLayout:
+                            cols: 1
+                            id: bl_vector
+                            size_hint_y: None
+                            height: self.minimum_height
+
+
+
+
+
+
+<ConfigFileWidget>:
+    cols: 1
+    size_hint_y: None
+    height: self.minimum_height
+    spacing: '20dp'
+
+
+<ConfigFileSectionWidget>:
+    cols: 2
+    size_hint_y: None
+    height: self.minimum_height
+    spacing: '2dp'
+    padding: ['100dp', 0, 0, 0]
+    BoxLayout:
+        size_hint: (.35, None)
+        height: max(_insert.height, dp(30))
+        BlackLabel:
+            text: root.value
+            pos_hint: {'top': 1.0}
+            size_hint_y: None
+            height: '30dp'
+    GridLayout:
+        cols: 1
+        size_hint_y: None
+        height: self.minimum_height
+        id: _insert
+
+
+<ConfigFileSectionValueWidget>:
+    size_hint_y: None
+    height: '30dp'
+    cols: 2
+    id: _layout
+    BlackLabel:
+        text: root.key
+        font_size: '14sp'
+        canvas.after:
+            Color:
+                rgb: .75, .75, .75
+            Line:
+                points: self.x, self.y, self.x + self.width, self.y
+                width: dp(1)
+    BlackLabel:
+        text: root.value

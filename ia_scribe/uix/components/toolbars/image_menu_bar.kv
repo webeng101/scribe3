@@ -1,0 +1,36 @@
+# Child widgets are arranged for left orientation.
+# If orientation is set to 'right' menu will reverse child widgets.
+
+<ImageMenuBar>:
+    rows: 1
+    size_hint_y: None
+    height: '40dp'
+    padding: 0, '4dp', 0, '4dp'
+    spacing: '10dp'
+    size_hint_x: None
+    col_default_width: '36dp'
+    width: self.minimum_width
+    canvas:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ImageMenuBarButton:
+        key: 'export'
+        tooltip: 'Export leaf'
+        source_normal: 'button_{}_export_leaf_normal.png'.format(root.orientation)
+        source_down: 'button_{}_export_leaf_normal.png'.format(root.orientation)
+        on_release: root.dispatch(root.EVENT_OPTION_SELECT, self.key)
+    ImageMenuBarButton:
+        key: 'view_source'
+        tooltip: 'View original file'
+        source_normal: 'button_{}_view_source_normal.png'.format(root.orientation)
+        source_down: 'button_{}_view_source_normal.png'.format(root.orientation)
+        on_release: root.dispatch(root.EVENT_OPTION_SELECT, self.key)
+    ImageMenuBarButton:
+        key: 'rotate'
+        tooltip: 'Rotate leaf'
+        source_normal: 'button_rotate_leaf_normal.png'
+        source_down: 'button_rotate_leaf_normal.png'
+        on_release: root.dispatch(root.EVENT_OPTION_SELECT, self.key)

@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "backend": "sld2",
+  "layout": "qwerty",
+  "actions": {
+    "shoot": [{"scancode": 44}, {"scancode": 40}, {"scancode": 88}],
+    "switch_cameras": [{"scancode": 22}],
+    "previous_leaf": [{"scancode": 80}],
+    "next_leaf": [{"scancode": 79}],
+    "first_leaf": [{"scancode": 74}],
+    "last_leaf": [{"scancode": 77}],
+    "rotate_leaf": [{"scancode": 21}],
+    "show_page_type": [{"scancode": 23}],
+    "show_original_file": [{"scancode": 54}],
+    "show_reshoot_file": [{"scancode": 55}],
+    "go_rescribe_screen": [{"scancode": 41}],
+    "assert_chapter": [
+      {"scancode": 96},
+      {"scancode": 37}
+    ],
+    "assert_normal": [
+      {"scancode": 98},
+      {"scancode": 39}
+    ],
+    "assert_title": [
+      {"scancode": 91},
+      {"scancode": 32}
+    ],
+    "assert_copyright": [
+      {"scancode": 92},
+      {"scancode": 33}
+    ],
+    "assert_cover": [
+      {"scancode": 90},
+      {"scancode": 31}
+    ],
+    "assert_contents": [
+      {"scancode": 93},
+      {"scancode": 34}
+    ],
+    "assert_white_card": [
+      {"scancode": 97},
+      {"scancode": 38}
+    ],
+    "assert_foldout": [
+      {"scancode": 95},
+      {"scancode": 36}
+    ],
+    "assert_color_card": [
+      {"scancode": 89},
+      {"scancode": 30}
+    ],
+    "assert_index": [
+      {"scancode": 94},
+      {"scancode": 35}
+    ],
+    "assert_tissue": [
+      {"scancode": 45}
+    ]
+  }
+}

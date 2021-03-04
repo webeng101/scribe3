@@ -1,0 +1,61 @@
+<ReShootSliderBar>:
+    id: slider_menu_bar
+    size_hint_y: None
+    height: '50dp'
+    spacing: '5dp'
+    padding: 0, '5dp'
+    IconButton:
+        text: 'Back to Re-Shooting Index'
+        icon: 'list_view_icon.png'
+        icon_width: '50dp'
+        text_color: 0, 0, 0, 1
+        text_bold: True
+        text_font_size: '17sp'
+        color_normal: 1, 1, 1, 1
+        size_hint_x: None
+        width: '310dp'
+        on_release:
+            root.dispatch(root.EVENT_OPTION_SELECT, 'go_back')
+    TooltipImageButton:
+        id: prev_button
+        tooltip: 'Previous re-shoot'
+        size_hint_x: None
+        width: '65dp'
+        source_normal: 'button_previous_page_normal.png'
+        source_down: 'button_previous_page_normal.png'
+        on_release:
+            root.slider_value = max(root.slider_value - 1, root.slider_min)
+    TooltipSlider:
+        id: slider
+        max: root.slider_max
+        min: root.slider_min
+        value: root.slider_value
+        step: 1
+        tooltip: root.slider_tooltip
+        on_value: root.slider_value = args[1]
+        on_value_up: root.dispatch(root.EVENT_SLIDER_VALUE_UP, self.value)
+    TooltipImageButton:
+        id: next_button
+        tooltip: 'Next re-shoot'
+        size_hint_x: None
+        width: '65dp'
+        source_normal: 'button_next_page_normal.png'
+        source_down: 'button_next_page_normal.png'
+        on_release:
+            root.slider_value = min(root.slider_value + 1, root.slider_max)
+    ImageButton:
+        size_hint_x: None
+        width: '110dp'
+        source_normal: 'button_switch_cameras_normal.png'
+        source_down: 'button_switch_cameras_normal.png'
+        on_release:
+            root.dispatch(root.EVENT_OPTION_SELECT, 'switch_cameras')
+    ImageButton:
+        id: scan_button
+        size_hint_x: None
+        width: '110dp'
+        source_normal: 'button_shoot_normal.png'
+        source_down: 'button_shoot_normal.png'
+        disabled: root.scan_button_disabled
+        on_release:
+            root.dispatch(root.EVENT_OPTION_SELECT, 'capture_spread')

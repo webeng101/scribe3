@@ -1,0 +1,24 @@
+<LoadingScreen>:
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    AnchorLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: '50dp'
+            size_hint_y: None
+            height: self.minimum_height
+            Image:
+                pos_hint: {'center_x': 0.5}
+                size_hint: None, None
+                size: '320dp', '240dp'
+                source: 'archive.png'
+            Label:
+                size_hint_y: None
+                height: self.texture_size[1]
+                text: 'Loading Scribe3...'
+                font_size: '32sp'
+                color: 0, 0, 0, 1

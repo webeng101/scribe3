@@ -1,0 +1,8 @@
+Source: ia-scribe
+Priority: extra
+Maintainer: Davide <davide@archive.org>
+Package: ia-scribe
+Architecture: all
+Description: Scribe3 Book scanning Software
+ Software for the Internet Archive Scribe Bookscanners
+Depends: exiftool,libnettle6,libxrender1,libmodplug1,libwayland-egl1,libx11-6,libxi6,libwayland-cursor0,libjack-jackd2-0,libsndfile1,libgcrypt20,libsndio6.1,libxfixes3,libfluidsynth1,libasyncns0,libssl1.1,libglx0,libkeyutils1,libexpat1,libgdbm5,libbsd0,libxcursor1,libavahi-common3,libsqlite3-0,libjbig0,libxau6,liblzma5,libgpg-error0,libasound2,libwrap0,libogg0,libreadline7,libstdc++6,libdbus-1-3,libcups2,libxext6,libsdl2-ttf-2.0-0,libpng16-16,libxkbcommon0,libavahi-client3,libmtdev1,libsdl2-mixer-2.0-0,libmad0,libk5crypto3,libsdl2-2.0-0,libmpdec2,libcom-err2,libglvnd0,libvorbisenc2,libffi6,libtinfo5,libgssapi-krb5-2,libkrb5-3,libbz2-1.0,libunistring2,libxdmcp6,libxinerama1,libyaml-0-2,libpcre3,libpulse0,libglib2.0-0,liblz4-1,libtiff5,libvorbisfile3,libfreetype6,libdb5.3,libflac8,libwayland-client0,libxrandr2,libidn2-0,libkrb5support0,libgnutls30,libgcc1,libvorbis0a,libsystemd0,libxxf86vm1,libp11-kit0,libjpeg-turbo8,libtasn1-6,libgmp10,libwebp6,zlib1g,libsdl2-image-2.0-0,libxss1,libhogweed4,libcdk5

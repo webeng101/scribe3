@@ -1,0 +1,72 @@
+<BookInfoPanel>:
+    size_hint_x: None
+    width: '330dp'
+    effect_cls: 'ScrollEffect'
+    do_scroll_x: False
+    canvas.before:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        size_hint_y: None
+        height: self.minimum_height
+        AsyncImage:
+            source: root.cover_image
+            size_hint_y: None
+            height: '500dp'
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 0, '20dp', 0, '30dp'
+            spacing: '10dp'
+            InfoBox:
+                title: 'Title'
+                value: root.title
+            InfoBox:
+                title: 'Creator'
+                value: root.creator
+            InfoBox:
+                title: 'Collection(s)'
+                value: root.collection
+            InfoBox:
+                title: 'Shiptracking'
+                value: root.shiptracking_id
+            InfoBox:
+                title: 'Scandate'
+                value: root.scandate
+            InfoBox:
+                title: 'PPI'
+                value: root.ppi
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            spacing: '10dp'
+            InfoBox:
+                title: 'Curatenote'
+                value: root.curatenote
+                orientation: 'vertical'
+            InfoBox:
+                title: 'Scribe operator'
+                value: root.scribe_operator
+                orientation: 'vertical'
+            InfoBox:
+                title: 'RePublisher operator'
+                value: root.republisher_operator
+                orientation: 'vertical'
+            InfoBox:
+                title: 'Scanner'
+                value: root.scanner
+                orientation: 'vertical'
+            InfoBox:
+                title: 'Curator'
+                value: root.curator
+                orientation: 'vertical'
+            InfoBox:
+                title: 'Claimer'
+                value: root.claimer
+                orientation: 'vertical'

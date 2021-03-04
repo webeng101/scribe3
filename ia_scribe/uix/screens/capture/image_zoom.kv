@@ -1,0 +1,34 @@
+<-ImageZoom>:
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            pos: self.x + self.padding[0], self.y + self.padding[3]
+            size:
+                self.width - self.padding[2] - self.padding[0], \
+                self.height - self.padding[1] - self.padding[3]
+        Line:
+            rectangle: self.x, self.y, self.width, self.height
+        Color:
+            rgba: self.color
+        Mesh:
+            texture: self.texture
+            indices: [0, 1, 2, 3]
+            vertices: self._vertices
+            mode: 'triangle_fan'
+    ZoomBox:
+        # pos_limit is set from Python code
+        id: zoom_box
+        disabled: root.current_zoom_box_disabled
+        zoom: root.zoom
+        angle: root.angle
+        texture: None if root.current_zoom_box_disabled else root.texture
+        default_pos_hint: root.default_zoom_pos_hint
+        default_size: root.default_zoom_box_size
+        on_zoom: root.zoom = self.zoom
+        on_angle: root.angle = self.angle

@@ -1,0 +1,150 @@
+<StatsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgb: .91, .91, .91
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 50
+            spacing: 10
+            padding: 15, 5, 5, 0
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'stats_black.png'
+                size: 32, 32
+                size_hint: None, None
+            BlackLabel:
+                text: '[b]Stats[/b]'
+                font_size: '27dp'
+                pos_hint: {'center_x':.5}
+                size_hint: (.95, None)
+                height: 50
+                markup: True
+
+        StackLayout:
+            padding: '50dp', '30dp', '30dp', '50dp'
+            GridLayout:
+                cols:2
+                RecycleButtons:
+                    id: rv_menu
+                    viewclass: 'RecycleToggleIconButton'
+                    padding: '10dp', '0dp', '10dp', '0dp'
+                    size_hint_max_x: '220dp'
+                    canvas.after:
+                        Color:
+                            rgb: .75, .75, .75
+                        Line:
+                            points: self.x + self.width, self.y, self.x + self.width, self.y + self.height
+                            width: dp(2)
+                    SelectableGridLayout:
+                        id: menu_view
+                        cols: 1
+                        spacing: '10dp'
+                        default_size: None, dp(40)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                BoxLayout:
+                    id:content_canvas
+
+
+<AllStatsView>:
+    id: rv
+    viewclass: 'StatEntry'
+    effect_cls: 'ScrollEffect'
+    scroll_type: ['bars']
+    bar_width: '10dp'
+    scroll_wheel_distance: '50dp'
+    padding: '30dp', '0dp', '30dp', '0dp'
+    StatsRecycleView:
+        id: container
+        cols: 2
+        spacing: '10dp'
+        default_size: None, dp(100)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+
+
+<StatsDisabledView>:
+    Label:
+        color: 0,0,0,1
+        bold: True
+        text: root.message
+        halign: 'left'
+
+
+<UserStatsView>:
+    GridLayout:
+        rows: 2
+        BoxLayout:
+            size_hint_max_y: '50dp'
+            SpinnerWithLabel:
+                size_hint_max_x: '400dp'
+                orientation: 'horizontal'
+                id: user_spinner
+                label_text: 'Operator:'
+                spinner_values: root.available_users
+                on_spinner_text: root.select_user(*args)
+        BoxLayout:
+            id: user_stats_canvas
+            padding: 100, 100, 100, 100
+            UserDashboardView:
+                user: root.selected_user
+
+<StatEntry>:
+    GridLayout:
+        cols:3
+        size_hint_y: None
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        Image:
+            source: root.icon
+            size: 40, 40
+            size_hint_max_y: 44
+            size_hint_max_x: None
+        BoxLayout:
+            spacing: 10
+            orientation: 'vertical'
+            size_hint_x: 1
+            size_hint_y: 1
+            Label:
+                color: 0,0,0,1
+                bold: True
+                text: root.title
+                halign: 'left'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_x: 1
+                Label:
+                    color: 0,0,0,1
+                    text: root.interval
+                    halign: 'left'
+                Label:
+                    color: 0,0,0,1
+                    text: root.slice
+                    halign: 'left'
+            Label:
+                color: 0,0,0,1
+                text: root.description
+                halign: 'left'
+                italic: True
+                shorten: False
+                multiline: True
+        Label:
+            id: content_text
+            color: 0,0,0,1
+            markup: True
+            shorten: False
+            multiline: True
+            text: root.value
+            font_size: '24sp'
+            width: 0 if root.graphable else '24dp'

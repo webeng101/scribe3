@@ -1,0 +1,195 @@
+{
+    "pageData": {
+        "0": {
+            "rotateDegree": -90
+        },
+        "1": {
+            "pageType": "Cover",
+            "rotateDegree": 90
+        },
+        "2": {
+            "rotateDegree": -90
+        },
+        "3": {
+            "pageType": "Tissue",
+            "rotateDegree": 90
+        },
+        "4": {
+            "rotateDegree": -90
+        },
+        "5": {
+            "rotateDegree": 90
+        },
+        "6": {
+            "rotateDegree": -90
+        },
+        "7": {
+            "rotateDegree": 90
+        },
+        "8": {
+            "rotateDegree": -90
+        },
+        "9": {
+            "rotateDegree": 90
+        },
+        "10": {
+            "rotateDegree": -90
+        },
+        "11": {
+            "rotateDegree": 90
+        },
+        "12": {
+            "rotateDegree": -90
+        },
+        "13": {
+            "rotateDegree": 90
+        },
+        "14": {
+            "rotateDegree": -90
+        },
+        "15": {
+            "rotateDegree": 90
+        },
+        "16": {
+            "rotateDegree": -90
+        },
+        "17": {
+            "rotateDegree": 90
+        },
+        "18": {
+            "rotateDegree": -90
+        },
+        "19": {
+            "rotateDegree": 90
+        },
+        "20": {
+            "rotateDegree": -90
+        },
+        "21": {
+            "rotateDegree": 90
+        },
+        "22": {
+            "rotateDegree": -90
+        },
+        "23": {
+            "rotateDegree": 90
+        },
+        "24": {
+            "rotateDegree": -90
+        },
+        "25": {
+            "rotateDegree": 90
+        },
+        "26": {
+            "rotateDegree": -90
+        },
+        "27": {
+            "rotateDegree": 0
+        },
+        "28": {
+            "rotateDegree": -90
+        },
+        "29": {
+            "rotateDegree": 90
+        },
+        "30": {
+            "rotateDegree": -90
+        },
+        "31": {
+            "rotateDegree": 90
+        },
+        "32": {
+            "pageType": "Foldout",
+            "rotateDegree": 0
+        },
+        "33": {
+            "rotateDegree": 90
+        },
+        "34": {
+            "rotateDegree": -90
+        },
+        "35": {
+            "rotateDegree": 90
+        },
+        "36": {
+            "rotateDegree": -90
+        },
+        "37": {
+            "rotateDegree": 90
+        },
+        "38": {
+            "rotateDegree": -90
+        },
+        "39": {
+            "rotateDegree": 0
+        },
+        "40": {
+            "pageType": "Title",
+            "rotateDegree": -90
+        },
+        "41": {
+            "rotateDegree": 90
+        },
+        "42": {
+            "pageType": "White Card",
+            "rotateDegree": -90
+        },
+        "43": {
+            "pageType": "Foldout",
+            "rotateDegree": 0
+        },
+        "44": {
+            "pageType": "Normal",
+            "rotateDegree": -90
+        },
+        "45": {
+            "pageType": "Copyright",
+            "rotateDegree": 90
+        },
+        "46": {
+            "pageType": "Foldout",
+            "rotateDegree": 0
+        },
+        "47": {
+            "pageType": "Foldout",
+            "rotateDegree": 0
+        },
+        "48": {
+            "pageType": "Title",
+            "rotateDegree": -90
+        },
+        "49": {
+            "pageType": "Color Card",
+            "rotateDegree": 90
+        },
+        "50": {
+            "pageType": "Normal",
+            "rotateDegree": -90
+        },
+        "51": {
+            "pageType": "Copyright",
+            "rotateDegree": 90
+        },
+        "52": {
+            "pageType": "Normal",
+            "rotateDegree": -90
+        },
+        "53": {
+            "pageType": "Tissue",
+            "rotateDegree": 90
+        },
+        "54": {
+            "pageType": "Normal",
+            "rotateDegree": -90
+        },
+        "55": {
+            "pageType": "Normal",
+            "rotateDegree": 90
+        }
+    },
+    "bookData": {
+        "pageNumData": {
+            "55": 12
+        }
+    }
+}

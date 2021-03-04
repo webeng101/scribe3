@@ -1,0 +1,22 @@
+[b]Quick help[/b]
+
+[i]About your scribe[/i]
+This section allows you to see the overall status of your Scribe3 system. 
+
+[i]General[/i]
+In this section you can control various aspects of the app, from printer name, to shooting sound delay, enabling preloaded items.
+
+[i]Metadata[/i]
+Here you can set the value of the "operator" field in your metadata. If you wish to change another metadata field, you will need to log out and run the initial setup again. 
+
+[i]Catalog[/i]
+Configure here your the MARC catalogs you wish to query over Internet Archive's z39.50 connections. Please note that this feature is only available for preloaded items (setting in General must be ON)
+
+[i]Cameras[/i]
+See the status of your cameras (what is currently connected), and your camera configuration.
+
+[i]Updates[/i]
+When new releases become available, click here to update your Scribe3 app.
+
+[i]Changelog[/i]
+All version changes, new features and bugfixes ar elisted here.

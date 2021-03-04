@@ -1,0 +1,124 @@
+<BoxingAppContainer>:
+    title: 'Boxing station'
+    BoxingAppScreen:
+        id: _slip_app_screen
+        name: 'slip_app_screen'
+        task_scheduler: root.task_scheduler
+        library: root.library
+
+
+<BoxingAppScreen>:
+    BoxLayout:
+        canvas:
+            Color:
+                rgb: 0.92, 0.92, 0.92
+            Rectangle:
+                pos: self.x, self.y
+                size: self.width, self.height
+        padding: 10
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 40
+            spacing: 10
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'baseline_archive_black_48dp.png'
+                size: 40, 40
+                size_hint: None, None
+            BlackLabel:
+                id: _title_label
+                text: 'Boxing station'
+                font_size: '28dp'
+
+
+        GridLayout:
+            rows: 2
+            GridLayout:
+                halign: 'center'
+                valign: 'middle'
+                rows: 2
+                pos_hint: {'center_y': 0.5}
+                padding: '20dp'
+                orientation: 'vertical'
+                size_hint_max_y: '200dp'
+                BlackLabel:
+                    text: 'Scan the QR code on the slip and press Load'
+                    font_size: '25sp'
+                    pos_hint: {'center_y': 0.5}
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint_max_y: '50dp'
+                BlackLabel:
+                    id: banner_label
+                    text: root.banner_message
+                    font_size: '25sp'
+                    pos_hint: {'center_y': 0.5}
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint_max_y: '50dp' if root.banner_message != '' else '0'
+                    canvas.before:
+                        Color:
+                            rgba: 0, 1, 0, .8
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                rows: 4
+                height: self.minimum_height
+                row_default_height: '50dp'
+                row_force_default: True
+                height: self.minimum_height
+                spacing: '5dp'
+                CheckBoxLabel:
+                    allow_no_selection: True
+                    active: root.print_slip
+                    text: 'Print a slip'
+                    on_active: root.print_slip = args[1]
+                    text_color: [0,0,0,1]
+                BoxLayout:
+                    BoxLayout:
+                        spacing: '5dp'
+                        size_hint_x: .5
+                        width: self.minimum_width
+                        size_hint_max_y: '20dp'
+                        Label:
+                            text: 'BoxID:'
+                            font_size: '16sp'
+                            color: 0, 0, 0, 1
+                            disabled_color: self.color
+                            size_hint_x: None
+                            text_size: self.size
+                            width: '50dp'
+                            valign: 'middle'
+                        RegexTextInput:
+                            regex: root.BOXID_VALIDATION_REGEX
+                            max_length: True
+                            id: box_id_input
+                            size_hint_min_x: '120dp'
+                            font_size: '20sp'
+                            multiline: False
+                            write_tab: False
+                            text: root.current_boxid
+                            on_text: root.current_boxid = args[1]
+                TextInput:
+                    id: identifier_input
+                    hint_text: 'Scan QR code here'
+                    multiline: True
+                    font_size: '20dp'
+                    focus: True
+
+                ColorButton:
+                    id: _button
+                    text: 'Load'
+                    disabled: not bool(identifier_input.text)
+                    pos_hint: {'center_x': 0.5}
+                    on_release: root.load_qr_data(identifier_input.text)
+                    font_size: '20dp'
+

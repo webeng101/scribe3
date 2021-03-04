@@ -1,0 +1,34 @@
+<FoldoutOverlay>:
+    BoxLayout:
+        orientation: 'vertical'
+        TooltipImageButton:
+            id: delete_button
+            pos_hint: {'center_x': 0.5}
+            size_hint: None, None
+            size: '40dp', '40dp'
+            tooltip: 'Delete spread'
+            source_normal: 'button_delete_spread_normal.png'
+            source_down: 'button_delete_spread_normal.png'
+            on_release:
+                root.dispatch(root.EVENT_OPTION_SELECT, root.OPTION_DELETE)
+        BoxLayout:
+            padding: '10dp'
+            FloatLayout:
+                ImageButton:
+                    id: left_button
+                    pos_hint: {'x': 0, 'top': 1}
+                    size_hint: None, None
+                    size: '112dp', '221dp'
+                    source_normal: 'button_replace_with_foldout.png'
+                    source_down: 'button_replace_with_foldout.png'
+                    on_release:
+                        root.dispatch(root.EVENT_OPTION_SELECT, root.OPTION_REPLACE_LEFT)
+                ImageButton:
+                    id: right_button
+                    pos_hint: {'right': 1, 'top': 1}
+                    size_hint: None, None
+                    size: '112dp', '221dp'
+                    source_normal: 'button_replace_with_foldout.png'
+                    source_down: 'button_replace_with_foldout.png'
+                    on_release:
+                        root.dispatch(root.EVENT_OPTION_SELECT, root.OPTION_REPLACE_RIGHT)

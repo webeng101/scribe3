@@ -1,0 +1,87 @@
+<TooltipLabel>:
+    size_hint: None, None
+    size: self.texture_size
+    padding: '10dp', '2dp'
+    halign: 'center'
+    valign: 'middle'
+    disabled_color: self.color
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<PageNumLabel>:
+    canvas.before:
+        Color:
+            rgba: root.rgba
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+    text_size: self.size
+    halign: 'center'
+    valign: 'middle'
+    bold: True
+
+
+<BlackLabel>:
+    color: 0,0,0,1
+    # markup: True  # shorten does not work if markup is True
+    shorten: True
+    text_size: self.size
+    # canvas.after:
+    #     Line:
+    #         points: self.x+10,self.y+5,self.x+self.width-10,self.y+5
+
+
+<-CopyLabel>:
+    text_size: self.width - self.icon_width, self.height
+    valign: 'middle'
+    color: 0, 0, 0, 1
+    shorten: True
+    shorten_from: 'right'
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            texture: self.texture
+            size: self.texture_size
+            pos:
+                int(self.center_x - self.icon_width / 2.0 - self.texture_size[0] / 2.0), \
+                int(self.center_y - self.texture_size[1] / 2.0)
+        Rectangle:
+            source: self.icon
+            size: self.icon_width, self.icon_height
+            pos: self.icon_pos
+
+
+<RecycleViewLabel>:
+    text_size: self.size
+    valign: 'middle'
+    padding_x: '20dp'
+    canvas.before:
+        Color:
+            rgba: [0.2, 0.64, 0.8, 1.0] if self.selected else [0.35, 0.35, 0.35, 1.0]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<CheckBoxLabel>:
+    CheckBox:
+        group: root.group
+        allow_no_selection: root.allow_no_selection
+        size_hint_x: None
+        width: '32dp'
+        active: root.active
+        on_active: root.active = args[1]
+        color: [0, 0, 0, 1]
+    Label:
+        text: root.text
+        color: [0,0,0,1] #root.text_color
+        text_size: self.size
+        valign: 'middle'
+        shorten: True
+        shorten_from: 'right'

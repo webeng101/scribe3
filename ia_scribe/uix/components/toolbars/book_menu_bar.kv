@@ -1,0 +1,142 @@
+<BookMenuBar>:
+    container: container
+    size_hint_y: None
+    height: '40dp'
+    padding: '5dp', 0, '5dp', 0
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        Color:
+            rgb: 0.75, 0.75, 0.75
+        Line:
+            width: 1
+            points: [self.x, self.y, self.right, self.y]
+    FloatLayout:
+        id: container
+        Label:
+            id: identifier_label
+            pos_hint: {'x': 0, 'y': 0}
+            size_hint_x: None
+            text: root.identifier
+            color: 0, 0, 0, 1
+            disabled_color: self.color
+            font_size: '18sp'
+            valign: 'middle'
+            shorten: True
+            font_name: 'FreeSansTTScribe'
+        GridLayout:
+            id: title_container
+            rows: 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: None, None
+            width: self.minimum_width
+            height: '26dp'
+            spacing: '5dp'
+            Label:
+                id: title_label
+                size_hint_x: None
+                text: root.title
+                font_size: '20sp'
+                color: 0, 0, 0, 1
+                disabled_color: self.color
+                valign: 'middle'
+                halign: 'center'
+                shorten: True
+                font_name: 'FreeSansTTScribe'
+            TooltipImageButton:
+                id: edit_button
+                size_hint_x: None
+                width: '20dp'
+                tooltip: 'Edit book metadata'
+                source_normal: './images/button_edit_book_metadata_normal.png'
+                source_down: './images/button_edit_book_metadata_normal.png'
+                on_release: root.dispatch('on_option_select', 'edit')
+        GridLayout:
+            id: buttons_container
+            rows: 1
+            pos_hint: {'right': 1.0, 'y': 0}
+            spacing: '5dp'
+            size_hint_x: None
+            width: self.minimum_width
+            GridLayout:
+                id: foldout_buttons
+                rows: 1
+                disabled: not root.use_foldout_buttons
+                opacity: float(root.use_foldout_buttons)
+                size_hint_x: None
+                width: self.minimum_width if root.use_foldout_buttons else 0
+                col_default_width: '30dp'
+                spacing: '5dp'
+                TooltipImageButton:
+                    id: previous_foldout_button
+                    tooltip: u'Previous {}'.format((root.current_marker_key).lower())
+                    source_normal: 'button_previous_foldout_normal.png'
+                    source_down: 'button_previous_foldout_normal.png'
+                    on_release: root.dispatch('on_option_select', 'previous_foldout')
+                TooltipImageButton:
+                    id: next_foldout_button
+                    tooltip: u'Next {}'.format((root.current_marker_key).lower())
+                    source_normal: 'button_next_foldout_normal.png'
+                    source_down: 'button_next_foldout_normal.png'
+                    on_release: root.dispatch('on_option_select', 'next_foldout')
+            TooltipImageButton:
+                size_hint_x: None
+                width: '30dp'
+                tooltip: u'Switch marker key to: {}'.format((root.next_marker_key).capitalize())
+                source_normal: 'button_marker_key_select_normal.png'
+                source_down: 'button_marker_key_select_normal.png'
+                on_release: root.dispatch('on_option_select', 'page_type')
+            Widget:
+                size_hint_x: None
+                width: '15dp'
+            GridLayout:
+                rows: 1
+                size_hint_x: None
+                width: self.minimum_width
+                col_default_width: '30dp'
+                spacing: '5dp'
+                TooltipImageButton:
+                    id: delete_button
+                    tooltip: 'Delete book from Scribe'
+                    source_normal: './images/button_delete_book_normal.png'
+                    source_down: './images/button_delete_book_normal.png'
+                    on_release: root.dispatch('on_option_select', 'delete')
+                TooltipImageButton:
+                    id: export_button
+                    tooltip: 'Export book'
+                    source_normal: './images/button_export_book_normal.png'
+                    source_down: './images/button_export_book_normal.png'
+                    on_release: root.dispatch('on_option_select', 'export')
+                TooltipImageButton:
+                    id: notes_button
+                    tooltip: 'Public book notes'
+                    source_normal: './images/button_book_notes_normal.png'
+                    source_down: './images/button_book_notes_normal.png'
+                    on_release: root.dispatch('on_option_select', 'notes')
+                TooltipImageButton:
+                    id: internal_notes
+                    tooltip: 'Internal book notes'
+                    source_normal: './images/button_right_leaf_note_normal.png'
+                    source_down: './images/button_right_leaf_note_normal.png'
+                    on_release: root.dispatch('on_option_select', 'internal_notes')
+                TooltipImageButton:
+                    id: send_to_station
+                    tooltip: 'Send book to another scribe'
+                    source_normal: './images/button_send_back.png'
+                    source_down: './images/button_send_back.png'
+                    on_release: root.dispatch('on_option_select', 'send_to_station')
+                TooltipImageButton:
+                    id: upload_and_new_book_button
+                    tooltip: 'Upload book to Republisher + new book'
+                    source_normal: './images/button_upload_and_new_book_normal.png'
+                    source_down: './images/button_upload_and_new_book_normal.png'
+                    on_release: root.dispatch('on_option_select', 'upload_and_new_book')
+                TooltipImageButton:
+                    id: upload_button
+                    tooltip: 'Upload book to Republisher'
+                    source_normal: './images/button_upload_book_normal.png'
+                    source_down: './images/button_upload_book_normal.png'
+                    on_release: root.dispatch('on_option_select', 'upload')

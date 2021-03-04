@@ -1,0 +1,173 @@
+<ScribeWidget>:
+    # ScribeWidget is the main UI container
+    id: _scribe_widget
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    ## this is the screen manager configuration
+    ## it loads the main UI views
+    ##
+    ScreenManager:
+        id: _screen_manager
+        UserSwitchScreen:
+            id: _user_switch_screen
+            name: 'user_switch_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        UploadScreen:
+            id: _upload_screen
+            name: 'upload_screen'
+            UploadWidget:
+                id: _upload_widget
+                books_db: root.books_db
+                task_scheduler: root.task_scheduler
+                config: root.config
+                orientation: 'vertical'
+                scribe_widget: _scribe_widget
+                screen_manager: _screen_manager
+        CalibrationScreen:
+            id: _calibration_screen
+            name: 'calibration_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        BookMetadataScreen:
+            id: _book_metadata_screen
+            books_db: root.books_db
+            task_scheduler: root.task_scheduler
+            name: 'book_metadata_screen'
+        CaptureScreen:
+            id: _capture_screen
+            name: 'capture_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        SettingsScreen:
+            id: _settings_screen
+            name: 'settings_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        MetadataScreen:
+            id: _metadata_screen
+            name: 'metadata_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        MetadataCollectionsScreen:
+            id: _metadata_collections_screen
+            name: 'metadata_collections_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        WizardScreen:
+            id: _wizard_screen
+            name: 'wizard_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        ReScribeScreen:
+            id: _rescribe_screen
+            name: 'rescribe_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        ExtensionsScreen:
+            id: _extensions_screen
+            name: 'extensions_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        StatsScreen:
+            id: _stats_screen
+            name: 'stats_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+        HelpCenterScreen:
+            id: _help_center_screen
+            name: 'help_center_screen'
+            scribe_widget: _scribe_widget
+            screen_manager: _screen_manager
+            task_scheduler: root.task_scheduler
+    BoxLayout:
+        id: status_bar
+        size_hint_y: None
+        height: 0 if self.disabled else '28dp'
+        padding: '30dp', 0, 0, 0
+        spacing: '5dp'
+        disabled: _screen_manager.current == 'wizard_screen'
+        opacity: 0 if self.disabled else 1
+        canvas:
+            Color:
+                rgb: 0.75, 0.75, 0.75
+            Line:
+                points: self.x, self.top, self.x + self.width, self.top
+                width: 1
+        GridLayout:
+            cols:4
+
+            Label:
+                text: '[b]' +str(_upload_widget.num_books) + '[/b] items |'
+                size_hint_max_x: '100dp'
+                color: 0, 0, 0, 1
+                markup: True
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                id: worker_status_controls
+                ImageButton:
+                    id: button_task_manager
+                    text: 'toggle worker'
+                    on_release: root.show_task_status()
+                    size_hint_max_x: '24dp'
+                    color_normal: [0,0,0,0]
+                    color_down: [0,0,0,0]
+                    source_normal:'tasks_black.png'
+                ImageButton:
+                    id: button_toggle_worker
+                    text: 'toggle worker'
+                    on_release: root.toggle_worker()
+                    size_hint_max_x: '22dp'
+                    color_normal: [0,0,0,0]
+                    color_down: [0,0,0,0]
+                    source_normal:'icon_mark_check_32.png'
+                Label:
+                    text: '   [b]Task stats[/b]: P:[b]' + str(_upload_widget.num_pending_tasks) + '[/b] W:[b]' + str(_upload_widget.num_waiting_tasks) + '[/b] HP:[b]' + str(_upload_widget.num_pending_hiprio_tasks) + '[/b] LT:[b]' + str(_upload_widget.num_long_ops_tasks)+ '[/b] R:[b]' + str(_upload_widget.num_results_tasks) +'[/b]'
+                    color: 0, 0, 0, 1
+                    size_hint_max_x: '260dp'
+                    markup: True
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'middle'
+                Label:
+                    text: '| ' + _upload_widget.status_txt
+                    shorten: True
+                    shorten_from: 'right'
+                    markup: True
+                    color: 0, 0, 0, 1
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'middle'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_max_x: '650dp'
+                Label:
+                    text: root._cameras_status
+                    shorten: True
+                    shorten_from: 'right'
+                    color: 0, 0, 0, 1
+                    text_size: self.size
+                    halign: 'right'
+                    valign: 'middle'
+                ImageButton:
+                    id: button_camera_details
+                    on_release: root.show_cameras_status()
+                    size_hint_max_x: '24dp'
+                    color_normal: [0,0,0,0]
+                    color_down: [0,0,0,0]
+                    source_normal:'dslr-camera.png'
+            ImageButton:
+                size_hint_max_x: '30dp'
+                source_normal: 'icon_keyboard.png'
+                source_down: 'icon_keyboard.png'
+                on_release: root.help.open()

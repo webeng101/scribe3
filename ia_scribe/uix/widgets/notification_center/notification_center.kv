@@ -1,0 +1,151 @@
+<NotificationView>:
+    canvas:
+        Color:
+            rgba: root.color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint_y: None
+    # height: self.minimum_height
+    spacing: '5dp'
+    padding: '2dp'
+    BoxLayout:
+        id: title_and_message
+        size_hint_min_x: '700dp'
+        orientation: 'vertical'
+        size_hint_y: None
+        height: self.minimum_height
+        Label:
+            id: title_label
+            text: root.type + ' | ' +  root.title
+            bold: True
+            color: 0, 0, 0, 1
+            size_hint_y: None
+            height: '30dp'
+            text_size: self.width, None
+        Label:
+            id: message_label
+            text: root.message or ' ' # String with one space (" ") to
+                                      # correctly draw title label
+            color: 0, 0, 0, 1
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1]
+            markup: True
+
+    BoxLayout:
+        size_hint_min_x: '200dp'
+        id: buttons
+        spacing: '5dp'
+        padding: '10dp', '10dp'
+        size_hint_y: None
+        height: '50dp'
+        pos_hint: {'center_y': 0.5}
+        Widget:
+        IconButton:
+            text: 'Open'
+            on_release: root._select_notification()
+            icon: 'open_in_new_window_white.png'
+            width: '80dp' if root.type == 'book' else 0
+            size_hint_max_x: '80dp' if root.type == 'book' else 0
+            opacity: 1 if root.type == 'book' else 0
+        IconButton:
+            text: 'Dismiss'
+            on_release: root._dismiss_notification()
+            icon: 'close_x.png'
+            width: '100dp' if not root.is_sticky else 0
+            size_hint_max_x: '100dp' if not root.is_sticky else 0
+            opacity: 1 if not root.is_sticky else 0
+
+
+
+<NotificationSpinnerDropdown@DropDown>:
+    canvas:
+        Color:
+            rgb: 0, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_parent: self.container.spacing = '2dp'
+
+
+<NotificationSpinnerOption@ColorButton>:
+    size_hint_y: None
+    height: '30dp'
+
+
+<NotificationCenterWidget>:
+    spacing: '5dp'
+    orientation: 'vertical'
+    size_hint_min_x: '1000dp'
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba:  [0, 0, 0, .8]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint_max_y: '40dp'
+        id: buttons
+        spacing: '5dp'
+        padding: '10dp', '5dp'
+        BoxLayout:
+            size_hint_max_x: '140dp'
+            Label:
+                size_hint_max_x: '40dp'
+                text: 'Type:'
+                halign: 'left'
+            Spinner:
+                id: type_spinner
+                text: root.filter_option
+                values: root.filter_types
+                on_text: root._update_filter_option(*args)
+                background_normal: ''
+                background_down: ''
+                border: [0] * 4
+                background_color:
+                    [1.0] * 4 if self.disabled else ([0, 0.28, 0.42, 1] \
+                    if self.state == 'down' else [0, 0.28, 0.42, 0.7])
+                sync_height: True
+                underline: True
+                option_cls: 'NotificationSpinnerOption'
+                dropdown_cls: 'NotificationSpinnerDropdown'
+                color: [1, 1, 1, 1]
+        Widget:
+        IconButton:
+            text: 'Clear these'
+            on_release: root.clear_visible()
+            icon: 'close_x.png'
+            size_hint_max_x: '120dp'
+        IconButton:
+            text: 'Clear all'
+            on_release: root.clear_all()
+            icon: 'close_x.png'
+            width: '100dp'
+            size_hint_max_x: '100dp'
+
+    NotificationsRecycleView:
+        id: rv
+        viewclass: 'NotificationView'
+        effect_cls: 'ScrollEffect'
+        scroll_type: ['bars']
+        bar_width: '15dp'
+        bar_color: 0.5, 0.5, 0.5, 0.9
+        bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+        scroll_wheel_distance: '60dp'
+        NotificationsContainer:
+            default_size: None, None
+            default_size_hint: 1, None
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding:  '2dp'
+            right_count: 0
+            spacing: '2dp'
+            # data: root.notifications

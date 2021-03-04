@@ -1,0 +1,742 @@
+{
+    "pageData": {
+        "0": {
+            "origWidth": "4000",
+            "skewAngleDetect": "0",
+            "handSide": "LEFT",
+            "skewScore": "0",
+            "bookStart": "true",
+            "skewActive": "false",
+            "rotateDegree": "-90",
+            "origFileName": "0000.jp2",
+            "cropBox": {
+                "y": "100",
+                "x": "100",
+                "w": "600",
+                "h": "600"
+            },
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0000.jp2",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0000.jpg",
+            "origHeight": "6000",
+            "pageType": "Color Card",
+            "skewAngle": "0",
+            "addToAccessFormats": "false",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0000.jpg"
+        },
+        "1": {
+            "origWidth": "4000",
+            "skewAngleDetect": "-0.28",
+            "handSide": "RIGHT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0001.jpg",
+            "cropBox": {
+                "y": "1338",
+                "x": "316",
+                "w": "2175",
+                "h": "3473"
+            },
+            "rotateDegree": "90",
+            "origFileName": "0001.jp2",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "0",
+                    "x": "312",
+                    "w": "2190",
+                    "h": "5993"
+                },
+                "cleanCrop": {
+                    "r": "2520",
+                    "b": "5992",
+                    "l": "312",
+                    "t": "0"
+                },
+                "outerCrop": {
+                    "r": "2520",
+                    "b": "5992",
+                    "l": "312",
+                    "t": "0"
+                },
+                "innerCrop": {
+                    "r": "2519",
+                    "b": "5731",
+                    "l": "313",
+                    "t": "105"
+                },
+                "cropScore": "4.39"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0001.jp2",
+            "skewScore": "10.75",
+            "origHeight": "6000",
+            "pageType": "Cover",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0001.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "-0.28"
+        },
+        "2": {
+            "origWidth": "4000",
+            "skewAngleDetect": "0.17",
+            "handSide": "LEFT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0002.jpg",
+            "cropBox": {
+                "y": "1112",
+                "x": "1480",
+                "w": "2190",
+                "h": "3528"
+            },
+            "rotateDegree": "-90",
+            "origFileName": "0002.jp2",
+            "pageNumber": {
+                "num": "2",
+                "type": "assert"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0002.jp2",
+            "skewScore": "2.1",
+            "origHeight": "6000",
+            "pageType": "Normal",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0002.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "0.17",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "1121",
+                    "x": "1480",
+                    "w": "2190",
+                    "h": "3510"
+                },
+                "cleanCrop": {
+                    "r": "3669",
+                    "b": "4630",
+                    "l": "1480",
+                    "t": "1121"
+                },
+                "outerCrop": {
+                    "r": "3672",
+                    "b": "4632",
+                    "l": "1480",
+                    "t": "1120"
+                },
+                "innerCrop": {
+                    "r": "-1",
+                    "b": "-1",
+                    "l": "1481",
+                    "t": "-1"
+                },
+                "cropScore": "9.20"
+            }
+        },
+        "3": {
+            "origWidth": "4000",
+            "skewAngleDetect": "-0.34",
+            "handSide": "RIGHT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0003.jpg",
+            "cropBox": {
+                "y": "1330",
+                "x": "312",
+                "w": "2175",
+                "h": "3454"
+            },
+            "rotateDegree": "90",
+            "origFileName": "0003.jp2",
+            "pageNumber": {
+                "num": "3",
+                "type": "match"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0003.jp2",
+            "skewScore": "12.28",
+            "origHeight": "6000",
+            "pageType": "Normal",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0003.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "-0.34",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "1321",
+                    "x": "313",
+                    "w": "2190",
+                    "h": "3481"
+                },
+                "cleanCrop": {
+                    "r": "2496",
+                    "b": "4801",
+                    "l": "313",
+                    "t": "1321"
+                },
+                "outerCrop": {
+                    "r": "2496",
+                    "b": "4800",
+                    "l": "312",
+                    "t": "1320"
+                },
+                "innerCrop": {
+                    "r": "2192",
+                    "b": "3076",
+                    "l": "314",
+                    "t": "1564"
+                },
+                "cropScore": "8.84"
+            }
+        },
+        "4": {
+            "origWidth": "4000",
+            "skewAngleDetect": "0.0",
+            "handSide": "LEFT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0004.jpg",
+            "cropBox": {
+                "y": "1151",
+                "x": "1570",
+                "w": "2065",
+                "h": "3488"
+            },
+            "rotateDegree": "-90",
+            "origFileName": "0004.jp2",
+            "pageNumber": {
+                "num": "4",
+                "type": "match"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0004.jp2",
+            "skewScore": "1.71",
+            "origHeight": "6000",
+            "pageType": "Normal",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0004.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "0.0",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "1137",
+                    "x": "1544",
+                    "w": "2134",
+                    "h": "3528"
+                },
+                "cleanCrop": {
+                    "r": "3677",
+                    "b": "4664",
+                    "l": "1544",
+                    "t": "1137"
+                },
+                "outerCrop": {
+                    "r": "3680",
+                    "b": "4664",
+                    "l": "1544",
+                    "t": "1136"
+                },
+                "innerCrop": {
+                    "r": "3399",
+                    "b": "-1",
+                    "l": "1545",
+                    "t": "1381"
+                },
+                "cropScore": "6.49"
+            }
+        },
+        "5": {
+            "origWidth": "4000",
+            "skewAngleDetect": "0.11",
+            "handSide": "RIGHT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0005.jpg",
+            "cropBox": {
+                "y": "1365",
+                "x": "350",
+                "w": "2130",
+                "h": "3438"
+            },
+            "rotateDegree": "90",
+            "origFileName": "0005.jp2",
+            "pageNumber": {
+                "num": "5",
+                "type": "match"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0005.jp2",
+            "skewScore": "2.76",
+            "origHeight": "6000",
+            "pageType": "Title",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0005.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "0.11",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "1353",
+                    "x": "305",
+                    "w": "2190",
+                    "h": "3473"
+                },
+                "cleanCrop": {
+                    "r": "2504",
+                    "b": "4825",
+                    "l": "305",
+                    "t": "1353"
+                },
+                "outerCrop": {
+                    "r": "2504",
+                    "b": "4824",
+                    "l": "304",
+                    "t": "1352"
+                },
+                "innerCrop": {
+                    "r": "1854",
+                    "b": "4297",
+                    "l": "308",
+                    "t": "1593"
+                },
+                "cropScore": "8.68"
+            }
+        },
+        "6": {
+            "origWidth": "4000",
+            "skewAngleDetect": "-0.02",
+            "handSide": "LEFT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0006.jpg",
+            "cropBox": {
+                "y": "1136",
+                "x": "1482",
+                "w": "2183",
+                "h": "3499"
+            },
+            "rotateDegree": "-90",
+            "origFileName": "0006.jp2",
+            "pageNumber": {
+                "num": "6",
+                "type": "assert"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0006.jp2",
+            "skewScore": "3.15",
+            "origHeight": "6000",
+            "pageType": "Copyright",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0006.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "-0.02",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "1113",
+                    "x": "1480",
+                    "w": "2190",
+                    "h": "3528"
+                },
+                "cleanCrop": {
+                    "r": "3669",
+                    "b": "4640",
+                    "l": "1472",
+                    "t": "1113"
+                },
+                "outerCrop": {
+                    "r": "3672",
+                    "b": "4640",
+                    "l": "1472",
+                    "t": "1112"
+                },
+                "innerCrop": {
+                    "r": "3661",
+                    "b": "3794",
+                    "l": "2011",
+                    "t": "1352"
+                },
+                "cropScore": "8.90"
+            }
+        },
+        "7": {
+            "origWidth": "4000",
+            "skewAngleDetect": "-0.34",
+            "handSide": "RIGHT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0007.jpg",
+            "cropBox": {
+                "y": "1349",
+                "x": "339",
+                "w": "2149",
+                "h": "3435"
+            },
+            "rotateDegree": "90",
+            "origFileName": "0007.jp2",
+            "pageNumber": {
+                "num": "7",
+                "type": "mismatch"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0007.jp2",
+            "skewScore": "12.29",
+            "origHeight": "6000",
+            "pageType": "Introduction",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0007.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "-0.34",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "798",
+                    "x": "312",
+                    "w": "2190",
+                    "h": "3860"
+                },
+                "cleanCrop": {
+                    "r": "2488",
+                    "b": "4809",
+                    "l": "312",
+                    "t": "648"
+                },
+                "outerCrop": {
+                    "r": "2488",
+                    "b": "4808",
+                    "l": "312",
+                    "t": "648"
+                },
+                "innerCrop": {
+                    "r": "2487",
+                    "b": "4314",
+                    "l": "313",
+                    "t": "1321"
+                },
+                "cropScore": "8.67"
+            }
+        },
+        "8": {
+            "origWidth": "4000",
+            "skewAngleDetect": "0.33",
+            "handSide": "LEFT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0008.jpg",
+            "cropBox": {
+                "y": "1151",
+                "x": "1512",
+                "w": "2084",
+                "h": "3465"
+            },
+            "rotateDegree": "-90",
+            "origFileName": "0008.jp2",
+            "pageNumber": {
+                "num": "8",
+                "type": "mismatch"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0008.jp2",
+            "skewScore": "6.13",
+            "origHeight": "6000",
+            "pageType": "Normal",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0008.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "0.33",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "64",
+                    "x": "1483",
+                    "w": "2190",
+                    "h": "4578"
+                },
+                "cleanCrop": {
+                    "r": "3672",
+                    "b": "4641",
+                    "l": "1464",
+                    "t": "64"
+                },
+                "outerCrop": {
+                    "r": "3672",
+                    "b": "4640",
+                    "l": "1464",
+                    "t": "64"
+                },
+                "innerCrop": {
+                    "r": "3671",
+                    "b": "4145",
+                    "l": "1465",
+                    "t": "1357"
+                },
+                "cropScore": "7.51"
+            }
+        },
+        "9": {
+            "origWidth": "4000",
+            "skewAngleDetect": "-0.03",
+            "handSide": "RIGHT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0009.jpg",
+            "cropBox": {
+                "y": "1368",
+                "x": "347",
+                "w": "2118",
+                "h": "3419"
+            },
+            "rotateDegree": "90",
+            "origFileName": "0009.jp2",
+            "pageNumber": {
+                "num": "9",
+                "type": "mismatch"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0009.jp2",
+            "skewScore": "10.95",
+            "origHeight": "6000",
+            "pageType": "Normal",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0009.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "-0.03",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "794",
+                    "x": "304",
+                    "w": "2190",
+                    "h": "3860"
+                },
+                "cleanCrop": {
+                    "r": "2488",
+                    "b": "4809",
+                    "l": "304",
+                    "t": "640"
+                },
+                "outerCrop": {
+                    "r": "2488",
+                    "b": "4808",
+                    "l": "304",
+                    "t": "640"
+                },
+                "innerCrop": {
+                    "r": "2486",
+                    "b": "4301",
+                    "l": "305",
+                    "t": "807"
+                },
+                "cropScore": "9.05"
+            }
+        },
+        "10": {
+            "origWidth": "4000",
+            "origFileName": "0010.jp2",
+            "skewAngleDetect": "-0.59",
+            "handSide": "LEFT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0010.jpg",
+            "skewActive": "true",
+            "rotateDegree": "270",
+            "note": "Reshoot this page",
+            "pageNumber": {
+                "num": "12",
+                "type": "assert"
+            },
+            "cropBox": {
+                "y": "1147",
+                "x": "1516",
+                "w": "2122",
+                "h": "3465"
+            },
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0010.jp2",
+            "skewScore": "6.84",
+            "origHeight": "6000",
+            "pageType": "Normal",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0010.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "0",
+            "TTSflag": "1",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "64",
+                    "x": "1456",
+                    "w": "2217",
+                    "h": "4573"
+                },
+                "cleanCrop": {
+                    "r": "3672",
+                    "b": "4636",
+                    "l": "1456",
+                    "t": "64"
+                },
+                "outerCrop": {
+                    "r": "3672",
+                    "b": "4640",
+                    "l": "1456",
+                    "t": "64"
+                },
+                "innerCrop": {
+                    "r": "3671",
+                    "b": "4066",
+                    "l": "1457",
+                    "t": "1094"
+                },
+                "cropScore": "7.13"
+            }
+        },
+        "11": {
+            "origWidth": "4000",
+            "origFileName": "0011.jp2",
+            "skewAngleDetect": "-0.66",
+            "handSide": "RIGHT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0011.jpg",
+            "skewActive": "true",
+            "rotateDegree": "180",
+            "note": "aaaand this one too.",
+            "pageNumber": {
+                "num": "13",
+                "type": "assert"
+            },
+            "cropBox": {
+                "y": "1365",
+                "x": "339",
+                "w": "2110",
+                "h": "3412"
+            },
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0011.jp2",
+            "skewScore": "12.01",
+            "origHeight": "6000",
+            "pageType": "Normal",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0011.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "-0.2",
+            "TTSflag": "1",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "794",
+                    "x": "304",
+                    "w": "2190",
+                    "h": "3860"
+                },
+                "cleanCrop": {
+                    "r": "2496",
+                    "b": "4809",
+                    "l": "304",
+                    "t": "640"
+                },
+                "outerCrop": {
+                    "r": "2496",
+                    "b": "4808",
+                    "l": "304",
+                    "t": "640"
+                },
+                "innerCrop": {
+                    "r": "2495",
+                    "b": "4302",
+                    "l": "305",
+                    "t": "1320"
+                },
+                "cropScore": "9.20"
+            }
+        },
+        "12": {
+            "origWidth": "4000",
+            "skewAngleDetect": "-0.02",
+            "handSide": "LEFT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0012.jpg",
+            "cropBox": {
+                "y": "1067",
+                "x": "1520",
+                "w": "2145",
+                "h": "3488"
+            },
+            "rotateDegree": "-90",
+            "origFileName": "0012.jp2",
+            "pageNumber": {
+                "num": "14",
+                "type": "match"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0012.jp2",
+            "skewScore": "9.7",
+            "origHeight": "6000",
+            "pageType": "Cover",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0012.jpg",
+            "addToAccessFormats": "true",
+            "skewAngle": "-0.02",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "1289",
+                    "x": "1488",
+                    "w": "2190",
+                    "h": "3297"
+                },
+                "cleanCrop": {
+                    "r": "3677",
+                    "b": "4585",
+                    "l": "1488",
+                    "t": "1289"
+                },
+                "outerCrop": {
+                    "r": "3680",
+                    "b": "4584",
+                    "l": "1488",
+                    "t": "1288"
+                },
+                "innerCrop": {
+                    "r": "3554",
+                    "b": "4080",
+                    "l": "1489",
+                    "t": "1418"
+                },
+                "cropScore": "8.73"
+            }
+        },
+        "13": {
+            "origWidth": "4000",
+            "skewAngleDetect": "0.3",
+            "handSide": "RIGHT",
+            "proxyFullFileName": "test04041700unse_full_jpg/test04041700unse_proxy_0013.jpg",
+            "cropBox": {
+                "y": "0",
+                "x": "710",
+                "w": "2190",
+                "h": "3860"
+            },
+            "rotateDegree": "90",
+            "origFileName": "0013.jp2",
+            "pageNumber": {
+                "num": "15",
+                "type": "match"
+            },
+            "skewActive": "true",
+            "sourceFileName": "test04041700unse_orig_jp2/test04041700unse_orig_0013.jp2",
+            "skewScore": "1.18",
+            "origHeight": "6000",
+            "pageType": "Color Card",
+            "proxyFileName": "test04041700unse_proxy_jpg/test04041700unse_proxy_0013.jpg",
+            "addToAccessFormats": "false",
+            "skewAngle": "0.3",
+            "cropBoxAutoDetect": {
+                "pass2Crop": {
+                    "y": "272",
+                    "x": "304",
+                    "w": "3001",
+                    "h": "2249"
+                },
+                "cleanCrop": {
+                    "r": "3304",
+                    "b": "2520",
+                    "l": "304",
+                    "t": "272"
+                },
+                "outerCrop": {
+                    "r": "3304",
+                    "b": "2520",
+                    "l": "304",
+                    "t": "272"
+                },
+                "innerCrop": {
+                    "r": "3275",
+                    "b": "2519",
+                    "l": "305",
+                    "t": "695"
+                },
+                "cropScore": "1.44"
+            }
+        }
+    },
+    "bookData": {
+        "pageNumData": {
+            "assertion": [
+                {
+                    "pageNum": "2",
+                    "leafNum": "2"
+                },
+                {
+                    "pageNum": "6",
+                    "leafNum": "6"
+                },
+                {
+                    "pageNum": "12",
+                    "leafNum": "10"
+                },
+                {
+                    "pageNum": "13",
+                    "leafNum": "11"
+                }
+            ]
+        },
+        "autoCropVersion": "0.1",
+        "leafCount": "16",
+        "dpi": "300",
+        "bookId": "test04041700unse"
+    }
+}

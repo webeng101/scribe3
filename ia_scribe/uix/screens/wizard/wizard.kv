@@ -1,0 +1,46 @@
+<WizardScreen>:
+    BoxLayout:
+        padding: 30
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 40
+            spacing: 10
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'images/wizard.png'
+                size: 40, 40
+                size_hint: None, None
+            BlackLabel:
+                id: _title_label
+                text: 'Scribe3 Setup Wizard'
+                font_size: '28dp'
+        BoxLayout:
+            padding: 50
+            ScreenManager:
+                id: sm
+        BoxLayout:
+            size_hint_y: None
+            height: 70
+            spacing: 10
+            padding: 0, 0, 50, 0
+            Widget:
+
+            ColorButton:
+                id: btn_previous
+                text: 'Previous'
+                on_release: root.go_previous()
+                size_hint: None, None
+                size: 150, 40
+
+            ColorButton:
+                id: btn_next
+                text: 'Next'
+                on_release: root.go_next()
+                size_hint: None, None
+                size: 150, 40

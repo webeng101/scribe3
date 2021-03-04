@@ -1,0 +1,103 @@
+<MARCSearchPanel>:
+    orientation: 'vertical'
+    spacing: 20
+    BoxLayout:
+        size_hint_max_y: '60dp'
+        padding: 10
+        spacing: 10
+        size_hint_x: 1
+        BoxLayout:
+            spacing: '5dp'
+            size_hint_y: 0.75
+            Label:
+                id: catalog_label
+                text: 'Catalog: '
+                size_hint_x: None
+                width: '130dp'
+                text_size: self.size
+                halign: 'right'
+                valign: 'middle'
+                shorten: False
+                color: 0, 0, 0, 1
+            Spinner:
+                id: catalog_spinner
+                values: root.catalogs
+                on_text: root.set_catalog(*args)
+                orientation: 'horizontal'
+                size_hint_min_x: '444dp'
+                text_autoupdate: True
+                sync_height: True
+                text_size: self.width, None
+                halign: 'center'
+            TooltipTextInput:
+                id: catalog_filter_input
+                width: '273dp'
+                tooltip: 'Search catalog'
+                multiline: False
+                text: root.filter_text
+                font_name: 'FreeSansTTScribe'
+                on_text: root.filter_text = args[1]
+                padding_x: '26dp'
+                canvas.after:
+                    Color:
+                        rgba: (1, 1, 1, 1 if self.focus else 0.5)
+                    Rectangle:
+                        source: 'icon_filter.png'
+                        pos: self.x + dp(4), self.center_y - dp(10)
+                        size: dp(20), dp(20)
+    BoxLayout:
+        id: content
+
+<MARCSearchView>
+    id: rv
+    effect_cls: 'ScrollEffect'
+    viewclass: 'TextBoxItem'
+    bar_width: '10dp'
+    scroll_type: ['bars']
+    bar_color: 0.5, 0.5, 0.5, 0.9
+    bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+    scroll_wheel_distance: '50dp'
+    MARCSearchLayout:
+        cols: 1
+        default_size: None, dp(46)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        spacing: '2dp'
+        padding: 0, 0, '10dp', 0
+
+<TextBoxItem>:
+    orientation: 'vertical'
+    BoxLayout:
+        spacing: '5dp'
+        size_hint_y: 0.65
+        Label:
+            id: key_label
+            text: root.key
+            size_hint_x: None
+            width: '130dp'
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            shorten: True
+            color: 0, 0, 0, 1
+            disabled_color: self.color
+        TextInput:
+            text: root.text
+            on_text: root.text = args[1]
+            multiline: False
+            write_tab: False
+            font_size: '15sp'
+            focus: root.focus
+            on_focus: root.focus = args[1]
+            readonly: root.readonly
+            disabled_foreground_color: 0, 0, 0, 1
+    Label:
+        text: root.message
+        color: 1, 0, 0, 1
+        size_hint_y: 0.35
+        text_size: self.size
+        valign: 'middle'
+        font_size: '13sp'
+        shorten: True
+        padding_x: key_label.width + dp(5)

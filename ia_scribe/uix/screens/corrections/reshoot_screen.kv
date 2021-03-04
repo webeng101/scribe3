@@ -1,0 +1,154 @@
+#:import UTF8_FONT ia_scribe.scribe_globals.UTF8_FONT
+
+
+<ReShootTitleBar>:
+    size_hint_y: None
+    height: '40dp'
+    Label:
+        text: root.identifier
+        color: 0, 0, 0, 1
+        disabled_color: self.color
+        size_hint_max_x: '300dp'
+        text_size: self.size
+        valign: 'middle'
+        bold: True
+        font_size: '20sp'
+        shorten: True
+        shorten_from: 'right'
+    Label:
+        text: root.title
+        color: 0, 0, 0, 1
+        disabled_color: self.color
+        font_name: UTF8_FONT
+        text_size: self.size
+        valign: 'middle'
+        halign: 'center'
+        font_size: '20sp'
+        shorten: True
+        shorten_from: 'right'
+
+
+<SpreadBox>:
+    spacing: '5dp'
+    original_image: _page_old
+    reshoot_image: _page_new
+    ImageZoom:
+        id: _page_old
+        default_anchor_x: 'right'
+        default_zoom_pos_hint: 0.1, 0.1
+    ImageZoom:
+        id: _page_new
+        default_anchor_x: 'left'
+        default_zoom_pos_hint: 0.9, 0.1
+
+
+<ReShootLeafInfoPanelLabel@Label>:
+    size_hint_y: None
+    color: 0, 0, 0, 1
+    disabled_color: self.color
+    markup: True
+    text_size: self.width, None
+    valign: 'middle'
+    height: self.texture_size[1]
+
+
+<ReShootLeafInfoPanel>:
+    cols: 1
+    padding: '20dp', '10dp', '10dp', '10dp'
+    size_hint: None, None
+    height: self.minimum_height
+    width: '300dp'
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    GridLayout:
+        id: fixed_container
+        cols: 1
+        spacing: '5dp'
+        size_hint_y: None
+        height: self.minimum_height
+        ReShootLeafInfoPanelLabel:
+            text: '[u]Hand Side[/u]: %s' % root.format_string(root.hand_side)
+        ReShootLeafInfoPanelLabel:
+            text: '[u]Leaf Number[/u]: %s' % root.format_int(root.leaf_number)
+        ReShootLeafInfoPanelLabel:
+            text: '[u]Page Number[/u]: %s' % root.format_int(root.page_number)
+        ReShootLeafInfoPanelLabel:
+            text: '[u]Page type[/u]: %s' % root.format_string(root.page_type)
+        ReShootLeafInfoPanelLabel:
+            text:
+                '[u]Note[/u]: ' + ('' \
+                if note_input.note_input_displayed \
+                else '' if root.notes else root.format_string(root.notes))
+            halign: 'left'
+    ScrollView:
+        id: scroll_note_label
+        do_scroll_x: False
+        size_hint_y: None
+        scroll_type: ['bars']
+        effect_cls: 'ScrollEffect'
+        bar_width: '10dp'
+        height:
+            min(root.parent.height - fixed_container.height \
+            - note_input.height - root.padding[1] - root.padding[3], \
+            note_label.height) \
+            if root.parent else note_label.height
+        ReShootLeafInfoPanelLabel:
+            id: note_label
+            text:
+                '' if note_input.note_input_displayed else \
+                '[font={}]{}[/font]' \
+                .format(UTF8_FONT, root.format_string(root.notes) if root.notes else '')
+            halign: 'left'
+    LeafNoteInput:
+        id: note_input
+        default_note: root.notes
+        anchor_edit_button: 'left'
+        note_input_target_height:
+            self.note_input_target_height \
+            if self.note_input_displayed else scroll_note_label.height
+        on_submit:
+            root.notes = args[1] if args[1] else None
+            root.dispatch(root.EVENT_NOTE_SUBMIT, root.notes)
+
+
+<ReShootScreen>:
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '10dp', 0
+        ReShootTitleBar:
+            id: title_bar
+        BoxLayout:
+            padding: '10dp', 0, '10dp', '10dp'
+            canvas:
+                Color:
+                    rgb: 0.92, 0.92, 0.92
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            BoxLayout:
+                size_hint_x: None
+                width: '300dp'
+                orientation: 'vertical'
+                padding: 0, menu_bar.height, 0, 0
+                FloatLayout:
+                    ReShootLeafInfoPanel:
+                        id: leaf_info_panel
+                        pos_hint: {'top': 1, 'x': 0}
+            BoxLayout:
+                orientation: 'vertical'
+                ReShootMenuBar:
+                    id: menu_bar
+                SpreadBox:
+                    id: spread_box
+        ReShootSliderBar:
+            id: slider_menu_bar

@@ -1,0 +1,101 @@
+<ColorButton>:
+    canvas.before:
+        Color:
+            rgba: self.color_down if self.state == 'down' else self.color_normal
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<MarkerButton>:
+    canvas:
+        Color:
+            rgba: self.color
+        Triangle:
+            points: [self.x, self.y, self.right, self.y, self.center_x, self.top]
+
+
+<-SortButton>:
+    text_size: self.width - self.arrow_width, self.height
+    valign: 'middle'
+    font_size: '16sp'
+    bold: True
+    color: 0, 0, 0, 1
+    disabled_color: self.color
+    shorten: True
+    shorten_from: 'right'
+    _text_x: int(self.center_x - self.texture_size[0] / 2.0)
+    _text_y: int(self.center_y - self.texture_size[1] / 2.0)
+    canvas:
+        Color:
+            rgba: self.color
+        Rectangle:
+            texture: self.texture
+            size: self.texture_size
+            pos: self._text_x - int(self.arrow_width / 2.0), self._text_y
+        Color:
+            rgba: self.arrow_color
+        Triangle:
+            points: self._arrow_points
+        Color:
+            rgba: (0.2, 0.65, 0.8, 1) if self.state == 'down' else (0, 0, 0, 0)
+        Line:
+            points: self.x, self.y + dp(2), self.right, self.y + dp(2)
+            width: dp(2)
+            cap: 'none'
+
+
+<IconButton>:
+    spacing: '2dp'
+    canvas:
+        Color:
+            rgba: self.color_down if self.state == 'down' else self.color_normal
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Image:
+        source: root.icon
+        size_hint_x: None
+        width: root.icon_width
+        halign: 'right'
+    Label:
+        text: root.text
+        color: root.text_color
+        bold: root.text_bold
+        font_size: root.text_font_size
+        text_size: self.size
+        valign: 'middle'
+        halign: 'center'
+
+
+<RecycleIconButton>:
+    padding: '8dp'
+    icon_width: '48dp'
+
+
+<RadioButton>:
+    size_hint_y: None
+    height: '32dp'
+    spacing: '5dp'
+    CheckBox:
+        size_hint_x: None
+        width: '32dp'
+        active: root.active
+        group: root.group
+        on_active: root.active = args[1]
+    Label:
+        text: root.text
+        text_size: self.size
+        valign: 'middle'
+        shorten: False
+        shorten_from: 'right'
+
+<SpinnerColorButton>:
+    halign: 'left'
+    color_normal: [.9, .9, .9, 1]
+    color_down: [.9, .9, .9, .5]
+    size_hint_y: None
+    color: [0, 0, 0, 1]
+    shorten: True
+    shorten_from: 'right'
+    text_size: self.width, None

@@ -1,0 +1,26 @@
+<CaptureLeaf>:
+    #:set ratio 6./9
+    cols: 1
+    padding: '10dp', 0, '10dp', '10dp'
+    FloatLayout:
+        size_hint_y: None
+        height: spread_menu_bar.height
+        SpreadMenuBar:
+            id: spread_menu_bar
+            x: image_box_container.x
+            y: image_box_container.top
+            size_hint_x: None
+            width: image_box_container.width
+            use_left_menu: False
+    FloatLayout:
+        BoxLayout:
+            id: image_box_container
+            pos_hint: {'x': 0, 'y': 0}
+            size_hint_x: None
+            width: self.parent.width - leaf_info_panel.width
+            ImageZoom:
+                id: page
+        LeafInfoPanel:
+            id: leaf_info_panel
+            pos_hint: {'top': 1}
+            x: image_box_container.right

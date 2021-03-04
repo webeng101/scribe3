@@ -1,0 +1,59 @@
+<HelpCenterScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgb: .91, .91, .91
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 50
+            spacing: 10
+            padding: 15, 5, 5, 0
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'baseline_help_outline_black_48dp.png'
+                size: 32, 32
+                size_hint: None, None
+            BlackLabel:
+                text: '[b]Help Center[/b]'
+                font_size: '27dp'
+                pos_hint: {'center_x':.5}
+                size_hint: (.95, None)
+                height: 50
+                markup: True
+
+        StackLayout:
+            padding: '50dp', '30dp', '30dp', '50dp'
+            GridLayout:
+                cols:2
+                RecycleButtons:
+                    id: rv_menu
+                    viewclass: 'RecycleToggleIconButton'
+                    padding: '10dp', '0dp', '10dp', '0dp'
+                    size_hint_max_x: '220dp'
+                    canvas.after:
+                        Color:
+                            rgb: .75, .75, .75
+                        Line:
+                            points: self.x + self.width, self.y, self.x + self.width, self.y + self.height
+                            width: dp(2)
+                    SelectableGridLayout:
+                        id: menu_view
+                        cols: 1
+                        spacing: '10dp'
+                        default_size: None, dp(40)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                BoxLayout:
+                    RestructuredTextDocument:
+                        id: doc_body
+                        text: root.displayed_text

@@ -1,0 +1,448 @@
+<BookSlipLabel@Label>:
+    bold: True
+    color: 0, 0, 0, 1
+    font_size: '20sp'
+    text_size: self.width, None
+    shorten: True
+    shorten_form: 'right'
+
+
+<BookSlipItem>:
+    spacing: '20dp'
+    Label:
+        text: root.key
+        underline: True
+        font_size: '20sp'
+        text_size: self.size
+        halign: 'right'
+        valign: 'middle'
+        color: 0, 0, 0, 1
+        size_hint_x: None
+        width: '100dp'
+    Label:
+        text: root.text
+        bold: True
+        font_size: '18sp'
+        text_size: self.size
+        halign: 'left'
+        valign: 'middle'
+        color: 0, 0, 0, 1
+        shorten: True
+        shorten_form: 'right'
+
+
+<BookScannedNoMARCSlip>:
+    cols: 1
+    padding: '10dp'
+    size_hint_x: None
+    width: '4.25in'
+    spacing: '30dp'
+    size_hint_y: None
+    height: self.minimum_height
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+        spacing: '2dp'
+        Label:
+            size_hint_y: None
+            height: self.texture_size[1]
+            font_size: '30sp'
+            text: 'SCANNED'
+            color: 0, 0, 0, 1
+            bold: True
+            text_size: self.width, None
+            halign: 'left'
+            valign: 'middle'
+        Label:
+            id: identifier
+            size_hint_y: None
+            height: self.texture_size[1] if self.text else dp(20)
+            font_size: '18sp'
+            color: 0, 0, 0, 1
+            bold: True
+            text_size: self.width, None
+            halign: 'left'
+            valign: 'middle'
+    GridLayout:
+        cols: 1
+        size_hint_y: None
+        height: self.minimum_height
+        row_default_height: '26dp'
+        spacing: '5dp'
+        BookSlipItem:
+            id: date
+            key: 'Date'
+        BookSlipItem:
+            id: time
+            key: 'Time'
+        BookSlipItem:
+            id: operator
+            key: 'Operator'
+        BookSlipItem:
+            id: scanner
+            key: 'Scanner'
+        BookSlipItem:
+            id: isbn
+            key: 'ISBN'
+        BookSlipItem:
+            id: boxid
+            key: 'Boxid'
+        BookSlipItem:
+            id: old_pallet
+            key: 'Old pallet'
+        Widget:
+            size_hint_y: None
+            height: '30dp'
+        BookSlipItem:
+            id: title
+            key: 'Title'
+        BookSlipItem:
+            id: creator
+            key: 'Creator'
+        BookSlipItem:
+            id: pages
+            key: 'Pages'
+    BoxLayout:
+        size_hint_y: None
+        height: '123dp'
+        spacing: '20dp'
+        Image:
+            id: qr_label
+            size_hint_x: None
+            width: '123dp'
+            pos_hint: {'center_y': 0.5}
+            on_pos: self.pos = list(map(int, args[1]))
+        AnchorLayout:
+            anchor_y: 'bottom'
+            Label:
+                id: url
+                size_hint_y: None
+                height: min(qr_label.height, self.texture_size[1] if self.text else dp(20))
+                color: 0, 0, 0, 1
+                text_size: self.width, None
+
+
+<BookScannedSlip>:
+    cols: 1
+    padding: '10dp'
+    size_hint_x: None
+    width: '4.25in'
+    spacing: '20dp'
+    size_hint_y: None
+    height: self.minimum_height
+    default_font_size: sp(20)
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        spacing: '20dp'
+        size_hint_y: None
+        height: self.minimum_height
+        Label:
+            size_hint: None, None
+            size: self.texture_size
+            color: 0, 0, 0, 1
+            font_size: '30sp'
+            text: 'SCANNED'
+            bold: True
+        BookSlipLabel:
+            id: title_identifier
+            font_size: '16sp'
+            pos_hint: {'y': 0.0}
+            halign: 'right'
+    GridLayout:
+        cols: 1
+        padding: '15dp'
+        spacing: '30dp'
+        size_hint_y: None
+        height: self.minimum_height
+        BoxLayout:
+            spacing: '5dp'
+            size_hint_y: None
+            height: self.minimum_height
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: '23dp'
+                BookSlipLabel:
+                    id: datetime
+                    font_size: root.default_font_size
+                BookSlipLabel:
+                    id: operator
+                    font_size: '14sp'
+                BookSlipLabel:
+                    id: scanner
+                    font_size: '14sp'
+                Widget:
+                BookSlipLabel:
+                    id: boxid
+                    markup: True
+                    bold: False
+                    font_size: root.default_font_size
+                BookSlipLabel:
+                    id: original_pallet
+                    markup: True
+                    bold: False
+                    font_size: root.default_font_size
+            Image:
+                id: qr_label
+                size_hint: None, None
+                size: '123dp', '123dp'
+                pos_hint: {'center_y': 0.5}
+                on_pos: self.pos = list(map(int, args[1]))
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: '22dp'
+            BookSlipLabel:
+                id: url
+                bold: False
+                font_size: '14sp'
+                halign: 'right'
+            BookSlipLabel:
+                id: identifier
+                halign: 'right'
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: '26dp'
+            BookSlipLabel:
+                id: title
+            BookSlipLabel:
+                id: creator
+                bold: False
+                markup: True
+            BookSlipLabel:
+                id: pages
+                bold: False
+                markup: True
+                font_size: root.default_font_size
+            BoxLayout:
+                size_hint_y: None
+                height: '150dp'
+                spacing: '50dp'
+                Image:
+                    size_hint_x: 0.5
+                    source: 'archive.png'
+                AnchorLayout:
+                    anchor_x: 'right'
+                    Image:
+                        id: isbn_label
+                        width: '220dp'
+                        size_hint_x: None
+
+
+<BookRejectedSlip>:
+    cols: 1
+    padding: '10dp'
+    size_hint_x: None
+    width: '4.25in'
+    spacing: '10dp'
+    size_hint_y: None
+    height: self.minimum_height
+    default_font_size: sp(20)
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Label:
+        size_hint_y: None
+        height: self.texture_size[1] if self.text else dp(30)
+        font_size: '32sp'
+        text: root.title
+        line_height: '0.9sp'
+        color: 0, 0, 0, 1
+        markup: True
+        text_size: self.width, None
+        halign: 'left'
+    GridLayout:
+        cols: 1
+        padding: '10dp', 0
+        spacing: root.spacing
+        size_hint_y: None
+        height: self.minimum_height
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: '26dp'
+            BookSlipLabel:
+                id: datetime
+                font_size: '22sp'
+            BookSlipLabel:
+                id: operator
+                font_size: '18sp'
+            BookSlipLabel:
+                id: scanner
+                font_size: '18sp'
+        GridLayout:
+            cols: 2
+            size_hint_y: None
+            height: self.minimum_height
+            BookSlipLabel:
+                id: original_pallet
+                markup: True
+                bold: False
+                font_size: root.default_font_size
+            Image:
+                id: qr_label
+                size_hint: None, None
+                size: '90dp', '90dp'
+                pos_hint: {'center_y': 0.5}
+                on_pos: self.pos = list(map(int, args[1]))
+        Label:
+            size_hint_y: None
+            height: max(self.texture_size[1], dp(81)) if self.text else dp(81)
+            font_size: '22sp'
+            text: root.comment
+            color: 0, 0, 0, 1
+            markup: True
+            text_size: self.size
+            valign: 'top'
+        BoxLayout:
+            size_hint_y: None
+            height: '150dp'
+            spacing: '50dp'
+            Image:
+                size_hint_x: 0.5
+                source: 'archive.png'
+            AnchorLayout:
+                anchor_x: 'right'
+                Image:
+                    id: isbn_label
+                    width: '220dp'
+                    size_hint_x: None
+
+
+
+
+<BookDoNotWantSlip>:
+    cols: 1
+    padding: '10dp'
+    size_hint_x: None
+    width: '4.25in'
+    spacing: '10dp'
+    size_hint_y: None
+    height: self.minimum_height
+    default_font_size: sp(20)
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 2
+        size_hint_y: None
+        GridLayout:
+            rows: 2
+            size_hint_y: None
+            Label:
+                size_hint_y: None
+                height: self.texture_size[1] if self.text else dp(30)
+                font_size: '32sp'
+                text: root.title
+                line_height: '0.9sp'
+                color: 0, 0, 0, 1
+                bold: True
+                text_size: self.width, None
+                halign: 'left'
+            Label:
+                size_hint_y: None
+                height: max(self.texture_size[1], dp(81)) if self.text else dp(81)
+                font_size: '22sp'
+                text: root.comment
+                bold: True
+                color: 0, 0, 0, 1
+                markup: True
+                text_size: self.size
+                valign: 'top'
+        BoxLayout:
+            size_hint_max_x: '40dp'
+            Label:
+                size_hint_y: None
+
+                font_size: '50sp'
+                text: root.status_code
+                bold: True
+                color: 0, 0, 0, 1
+                markup: True
+                text_size: self.size
+                valign: 'top'
+    GridLayout:
+        cols: 1
+        padding: '10dp', 0
+        spacing: root.spacing
+        size_hint_y: None
+        height: self.minimum_height
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: '26dp'
+            BookSlipLabel:
+                id: datetime
+                font_size: '22sp'
+            BookSlipLabel:
+                id: operator
+                font_size: '18sp'
+            BookSlipLabel:
+                id: scanner
+                font_size: '18sp'
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: '26dp'
+            BookSlipLabel:
+                id: original_pallet
+                markup: True
+                bold: False
+                font_size: root.default_font_size
+            BookSlipLabel:
+                id: boxid
+                markup: True
+                bold: False
+                font_size: root.default_font_size
+            BookSlipLabel:
+                id: selector
+                markup: True
+                bold: False
+                font_size: root.default_font_size
+
+        BoxLayout:
+            size_hint_y: None
+            height: '150dp'
+            spacing: '50dp'
+            Image:
+                size_hint_x: 0.5
+                source: 'archive.png'
+            AnchorLayout:
+                anchor_x: 'right'
+                Image:
+                    id: qr_label
+                    width: '220dp'
+                    size_hint_x: None
+
+
+
+
+
+
+

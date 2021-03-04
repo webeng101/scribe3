@@ -1,0 +1,27 @@
+<WelcomeSection>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            id:_root
+            BoxLayout:
+                id: _main
+                orientation: 'vertical'
+                padding: 10
+                Image:
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+                    size_hint_y: None
+                    source: 'images/ia_logo_colored.png'
+                    height: 400
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: 150
+                    size_hint_x: None
+                    width: 1000
+                    pos_hint: {'center_x': .6}
+                    BlackLabel:
+                        text: 'Welcome to Scribe3.\n\nThis wizard will guide you through the setup of your Scribe system.\n\nClick on "Next" to begin.'
+                        font_size: '18dp'
+                        shorten: False
+                        multiline: True

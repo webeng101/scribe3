@@ -1,0 +1,76 @@
+<MARCWidget>
+    spacing: '5dp'
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: .75, .75, .75, .9
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: context_area
+        size_hint: (1, None)
+        height: 40
+        spacing: 10
+        canvas.after:
+            Color:
+                rgb: .75, .75, .75
+            Line:
+                points: self.x,self.y,self.x+self.width,self.y
+                width: 1
+        Image:
+            source: 'load_marc.png'
+            size: 40, 40
+            size_hint: None, None
+        BlackLabel:
+            id: context_text
+            text: ''
+            font_size: '24dp'
+            markup: True
+
+    BoxLayout:
+        id: content_canvas
+        orientation: 'vertical'
+
+    GridLayout:
+        id: 'buttons_container'
+        size_hint_max_y: '40dp'
+        rows: 1
+        spacing: '5dp'
+        padding: '10dp', 0
+        width: self.minimum_width
+        IconButton:
+            text: 'Close'
+            icon: 'close_x.png'
+            size_hint_max_x: '130dp'
+            icon_width: '22dp'
+            on_release: root.dispatch(root.EVENT_BUTTON_CLOSED_PRESSED)
+            color_normal: 0.1, 0.1, 0.1, .7
+        IconButton:
+            text: root.home_button_text
+            icon_width: '22dp'
+            icon: 'home.png'
+            size_hint_max_x: '130dp' if root.home_button_text != 'Hidden' else 0
+            opacity: 1 if root.home_button_text != 'Hidden' else 0
+            on_release: root.dispatch(root.EVENT_BUTTON_HOME_PRESSED)
+            color_normal: 0.1, 0.3, 0.8, .7
+        Widget
+        ColorButton:
+            text: root.action_button_1_text
+            icon_width: '22dp'
+            size_hint_max_x: '130dp' if root.action_button_1_text != 'Hidden' else 0
+            opacity: 1 if root.action_button_1_text != 'Hidden' else 0
+            on_release: root.dispatch(root.EVENT_BUTTON_ACTION_1_PRESSED)
+            color_normal: 0, 0.8, 0, .7
+            disabled: root.action_button_1_text == 'Disabled'
+        ColorButton:
+            text: 'Save'
+            text: root.action_button_2_text
+            size_hint_max_x: '130dp' if root.action_button_2_text != 'Hidden' else 0
+            opacity: 1 if root.action_button_2_text != 'Hidden' else 0
+            icon_width: '22dp'
+            on_release: root.dispatch(root.EVENT_BUTTON_ACTION_2_PRESSED)
+            color_normal: 0, 0.5, 0, .7
+            disabled: root.action_button_2_text == 'Disabled'
+

@@ -1,0 +1,23 @@
+<CalibrationWidgetFoldout>:
+    orientation: 'vertical'
+    size_hint: (.33, 1)
+    BlackLabel:
+        text: 'Foldout Camera Port:'
+        size_hint_y: None
+        height: dp(146 - 45)
+    Spinner:
+        id: _foldout_spinner
+        text: '3rd camera not found'
+        size_hint_y: None
+        height: '45dp'
+        on_text: root.calibration_widget.switch_foldout(self)
+    ImageMenuBar:
+        id: image_menu_bar
+        options: ['export', 'view_source']
+        pos_hint: {'right': 1}
+        orientation: 'right'
+    ImageZoom:
+        id: _foldout_image
+    Label:
+        size_hint_y: None
+        height: '40dp'

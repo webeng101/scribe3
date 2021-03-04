@@ -1,0 +1,71 @@
+<ReScribeScreenMenuBar>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: '40dp'
+    BoxLayout:
+        size_hint_y: None
+        height: '40dp'
+        spacing: '2dp'
+        canvas.after:
+            Color:
+                rgb: 0.75, 0.75, 0.75
+            Line:
+                points: self.x, self.y, self.right, self.y
+                width: 1
+        Label:
+            id: title_label
+            text: 'Corrections for {}'.format(root.identifier)
+            color: 0, 0, 0, 1
+            disabled_color: self.color
+            font_size: '24sp'
+            text_size: self.size
+        TooltipImageButton:
+            size_hint_x: None
+            width: '30dp'
+            tooltip: 'Public book notes'
+            source_normal: './images/button_book_notes_normal.png'
+            source_down: './images/button_book_notes_normal.png'
+            on_release:
+                root.dispatch(root.EVENT_OPTION_SELECT, root.OPTION_PUBLIC_NOTES)
+        TooltipImageButton:
+            size_hint_x: None
+            width: '30dp'
+            tooltip: 'Internal book notes'
+            source_normal: './images/button_right_leaf_note_normal.png'
+            source_down: './images/button_right_leaf_note_normal.png'
+            on_release:
+                root.dispatch(root.EVENT_OPTION_SELECT, root.OPTION_INTERNAL_NOTES)
+        TooltipImageButton:
+            size_hint_x: None
+            width: '30dp'
+            disabled: root.upload_button_disabled
+            source_normal: 'button_upload_book_normal.png'
+            source_down: 'button_upload_book_normal.png'
+            tooltip: 'Upload corrections to RePublisher'
+            on_release:
+                root.dispatch(root.EVENT_OPTION_SELECT, root.OPTION_UPLOAD)
+        TooltipImageButton:
+            size_hint_x: None
+            width: '30dp'
+            disabled: root.reshooting_button_disabled
+            source_normal: 'button_next_foldout_normal.png'
+            source_down: 'button_next_foldout_normal.png'
+            tooltip: 'Start re-shooting {}'.format(root.identifier)
+            on_release:
+                root.dispatch(root.EVENT_OPTION_SELECT, root.OPTION_FIRST_LEAF)
+
+
+<ReScribeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '10dp'
+        spacing: '5dp'
+        ReScribeScreenMenuBar:
+            id: menu_bar
+        BoxLayout:
+            spacing: '5dp'
+            BookInfoPanel:
+                id: book_info_panel
+                cover_image: root.cover_image
+            NoteLeafsView:
+                id: note_leafs_view

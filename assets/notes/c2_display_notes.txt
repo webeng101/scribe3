@@ -1,0 +1,14 @@
+[b]C2 System[/b]
+
+The Command and Control (C2) system allows Scribe3 to receive commands from the Scancenter Manager Dashboard, so that managers can perform remote management and, where necessary, diagnose and fix issues. This panel displays the current system status and lets you diagnose issues with the C2 conncection.
+
+[i]Enabled/Disabled[/i]
+This section displays the current state of the client: when disabled, they system is not loaded at all and will require a restart to actually connect. When enabled, it can be disabled immediately. A textual description, as well as a green (enabled) or red (disabled) icon describe the current state.
+
+[i]Connected/Disconnected[/i]
+This option is only available if the system is enabled and displays in a similar fashion the current connection status.
+
+[i]Log window[/i]
+This window lets you see the last activity performed by the C2 system, including connection/disconnection events, as well as the commands received and the length of the response.
+
+

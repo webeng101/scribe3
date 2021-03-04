@@ -1,0 +1,131 @@
+<NumberInput>:
+    size_hint: None, None
+    size: '50dp', '36dp'
+    font_size: '20sp'
+    multiline: False
+    input_type: 'number'
+    write_tab: False
+
+
+<SettingsSwitch>:
+    size_hint_y: None
+    height: '50dp'
+    Label:
+        id: label
+        text: root.label
+        color: 0, 0, 0, 1
+        text_size: self.size
+        valign: 'middle'
+        markup: True
+    MetadataSwitch:
+        id: switch
+        on_active: root.dispatch_on_switch(self)
+        size_hint_x: None
+        width: '250dp'
+
+
+<SettingsInputBox>:
+    size_hint_y: None
+    height: '50dp'
+    BoxLayout:
+        padding: [0, 0, 0, '20dp']
+        Label:
+            id: label
+            text: root.label
+            shorten: True
+            shorten_from: 'right'
+            color: 0, 0, 0, 1
+            text_size: self.size
+            valign: 'middle'
+            markup: True
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: None
+        width: '300dp'
+        RegexTextInput:
+            id: text_input
+            hint_text: root.hint_text
+            size_hint_y: None
+            height: '30dp'
+            multiline: False
+        Label:
+            id: description_label
+            text: root.description
+            color: .5, .5, .5, .8
+            size_hint_y: None
+            height: '20dp'
+            text_size: self.size
+            valign: 'middle'
+
+
+<ShortenSpinnerOption>:
+    text_size: self.width, None
+    halign: 'center'
+    shorten: True
+    shorten_from: 'right'
+
+
+<SpinnerWithLabel>:
+    orientation: root.orientation
+    Label:
+        text: root.label_text
+        color: 0, 0, 0, 1
+    Spinner:
+        text: root.spinner_text
+        text_autoupdate: True
+        sync_height: True
+        text_size: self.width, None
+        halign: 'center'
+        shorten: True
+        shorten_from: 'right'
+        option_cls: 'ShortenSpinnerOption'
+        values: root.spinner_values
+        on_text: root.spinner_text = self.text
+
+
+<LeftAlignedSpinner>:
+    halign: 'left'
+    shorten: True
+    shorten_from: 'right'
+    text_size: self.width, None
+
+
+<LeafNoteInput>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: self.minimum_height
+    spacing: '2dp'
+    TextInput:
+        id: note_input
+        text: root.default_note or '' if root.note_input_displayed else ''
+        size_hint_y: None
+        height:
+            max(root.note_input_min_height, root.note_input_target_height) \
+            if root.note_input_displayed else 0
+        opacity: float(root.note_input_displayed)
+        focus: root.note_input_displayed
+        font_name: UTF8_FONT
+    FloatLayout:
+        size_hint_y: None
+        height: '30dp'
+        ColorButton:
+            text: 'Cancel'
+            size_hint_max_x: '80dp'
+            pos_hint: {'right': 1, 'y': 0}
+            disabled: not root.note_input_displayed
+            opacity: float(root.note_input_displayed)
+            on_release: root.note_input_displayed = not root.note_input_displayed
+        ColorButton:
+            text:
+                'Save' if root.note_input_displayed else 'Add note' \
+                if root.default_note is None else 'Edit note'
+            size_hint_max_x: '80dp'
+            pos_hint:
+                {'right': 1.0, 'y': 0} \
+                if root.anchor_edit_button == 'right' and not root.note_input_displayed \
+                else \
+                {'x': 0, 'y': 0}
+            on_release:
+                root.submit_data(note_input.text) \
+                if root.note_input_displayed else None
+                root.note_input_displayed = not root.note_input_displayed

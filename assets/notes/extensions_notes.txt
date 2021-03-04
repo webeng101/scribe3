@@ -1,0 +1,17 @@
+[b]About extensions[/b]
+
+Extensions are Scribe3 apps that can be developed and dropped-in independent of the main Scribe3 runtime.
+
+[i]How to use[/i]
+Just click on the extension you want to use.
+
+[i]Installing new extensions[/i]
+If you are using the [font=assets/fonts/Courier-New]ia-scribe[/font] Debian/Ubuntu package, you are going to be limited to the bundled extensions for the time being.
+If you are running Scribe3 from source, you can install new extensions by dropping a compliant python module in the [font=assets/fonts/Courier-New]extensions/[/font] folder.
+
+[i]Notes[/i]
+Use the 'EXIT APP' button to exit a running extension.
+
+Loading mechanics: extensions modules are dynamically loaded at app initialization. Extensions that fail to adhere to the interface, contain errors or cannot otherwise be imported will be ignored. Only callables in __init__.py are called during extensions setup, with the main runtime being called when the user clicks. If the main runtime fails gracefully, it is handled and a popup is shown.
+
+Both users and developers should be cognizant that Extensions UI elements are scheduled on the main application thread, and can therefore crash Scribe3.

@@ -1,0 +1,77 @@
+#:import UTF8_FONT ia_scribe.scribe_globals.UTF8_FONT
+
+
+<LeafInfoPanelItem>:
+    size_hint_y: None
+    height: self.texture_size[1]
+    text_size: self.width, None
+    valign: 'middle'
+    color: 0, 0, 0, 1
+    disabled_color: self.color
+    markup: True
+
+
+<LeafInfoPanel>:
+    cols: 1
+    padding:
+        ['20dp', '10dp', '10dp', '10dp'] \
+        if self.halign == 'left' else ['10dp', '10dp', '20dp', '10dp']
+    size_hint: None, None
+    height: self.minimum_height
+    width: '200dp'
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        id: fixed_container
+        cols: 1
+        spacing: '5dp'
+        size_hint_y: None
+        height: self.minimum_height
+        LeafInfoPanelItem:
+            text: '[u]Leaf[/u]: ' + self.format_int(root.leaf_number)
+            halign: root.halign
+        LeafInfoPanelItem:
+            text: '[u]Capture Time[/u]: ' + self.format_time(root.capture_time)
+            halign: root.halign
+        LeafInfoPanelItem:
+            text: '[u]Blurriness[/u]: ' + self.format_float(root.blurriness)
+            halign: root.halign
+        LeafInfoPanelItem:
+            text:
+                '[u]Note[/u]:' + ('' \
+                if note_input.note_input_displayed \
+                else '' if root.notes else ' NULL')
+            halign: root.halign
+    ScrollView:
+        id: scroll_note_label
+        do_scroll_x: False
+        size_hint_y: None
+        scroll_type: ['bars']
+        effect_cls: 'ScrollEffect'
+        bar_width: '10dp'
+        height:
+            min(root.parent.height - fixed_container.height \
+            - note_input.height - root.padding[1] - root.padding[3], \
+            note_label.height) \
+            if root.parent else note_label.height
+        LeafInfoPanelItem:
+            id: note_label
+            text:
+                '' if note_input.note_input_displayed else \
+                '[font={}]{}[/font]' \
+                .format(UTF8_FONT, self.format_string(root.notes) if root.notes else '')
+            halign: root.halign
+    LeafNoteInput:
+        id: note_input
+        default_note: root.notes
+        anchor_edit_button: root.halign
+        note_input_target_height:
+            self.note_input_target_height \
+            if self.note_input_displayed else scroll_note_label.height
+        on_submit:
+            root.notes = args[1] if args[1] else None
+            root.dispatch('on_note_submit', root.notes)

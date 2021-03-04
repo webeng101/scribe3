@@ -1,0 +1,77 @@
+<LabelAppContainer>:
+    title: 'Slip printing extension'
+    LabelAppScreen:
+        id: _slip_app_screen
+        name: 'slip_app_screen'
+        task_scheduler: root.task_scheduler
+        library: root.library
+
+
+<LabelAppScreen>:
+    BoxLayout:
+        canvas:
+            Color:
+                rgb: 0.92, 0.92, 0.92
+            Rectangle:
+                pos: self.x, self.y
+                size: self.width, self.height
+        padding: 10
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 40
+            spacing: 10
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'label_black.png'
+                size: 40, 40
+                size_hint: None, None
+            BlackLabel:
+                id: _title_label
+                text: 'Print slip'
+                font_size: '28dp'
+
+
+        GridLayout:
+            rows: 2
+
+            BlackLabel:
+                text: 'Input IA identifier you would like to print the slip for'
+                font_size: '25sp'
+                pos_hint: {'center_y': 0.5}
+                halign: 'center'
+                valign: 'middle'
+
+
+            GridLayout:
+
+                halign: 'center'
+                valign: 'middle'
+                cols: 2
+                pos_hint: {'center_y': 0.5}
+                padding: '20dp'
+                orientation: 'vertical'
+
+                GridLayout:
+                    rows: 2
+                    size_hint_y: None
+
+                    spacing: '5dp'
+                    TextInput:
+                        id: identifier_input
+                        hint_text: 'Identifier'
+                        multiline: False
+                        font_size: '20dp'
+                    ColorButton:
+                        id: _button
+                        text: 'Load'
+                        disabled: not bool(identifier_input.text)
+                        pos_hint: {'center_x': 0.5}
+                        on_release: root.load_identifier(identifier_input.text)
+                        font_size: '20dp'
+

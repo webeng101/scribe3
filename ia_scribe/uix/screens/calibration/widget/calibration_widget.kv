@@ -1,0 +1,87 @@
+<CalibrationWidget>:
+    orientation: 'horizontal'
+    spacing: '30dp'
+    padding: '20dp', 0, '20dp', 0
+    FloatLayout:
+        FloatLayout:
+            id: box_header
+            size_hint_y: None
+            height: '120dp'
+            pos_hint: {'center_x': 0.5, 'y': 0.8}
+            Image:
+                id: img_calibration_camera
+                pos_hint: {'center_x': 0.5, 'y': 0}
+                size_hint_y: None
+                source: 'images/calibration_camera.png'
+                height: '120dp'
+        BoxLayout:
+            size_hint_y: 0.85
+            pos_hint: {'x': 0, 'y': 0}
+            BoxLayout:
+                orientation: 'vertical'
+                ImageMenuBar:
+                    id: left_image_menu_bar
+                    options: ['export', 'view_source']
+                ImageZoom:
+                    id: _left_image
+                    default_anchor_x: 'right'
+                    default_zoom_pos_hint: 0.1, 0.1
+                Label:
+                    id: lb_left_camera
+                    text: 'LEFT: ' + root.left_port
+                    color: .75, .75, .75, 1
+                    size_hint_y: None
+                    height: 40
+
+            BoxLayout:
+                id: box_bottons
+                disabled: True
+                orientation: 'vertical'
+                size_hint_x: None
+                width: 86+10+10
+                padding: [10, 110]
+                spacing: 10
+                Button:
+                    background_normal: 'images/ia-scribe-reshoot-button.png'
+                    background_down: 'images/ia-scribe-reshoot-button.png'
+                    background_disabled_normal: self.background_normal
+                    background_disabled_down: self.background_down
+                    size_hint: (None, None)
+                    size: (86, 114)
+                    on_release: root.reshoot_button()
+                Button:
+                    id: btn_swap
+                    background_normal: 'images/ia-scribe-flip-button.png'
+                    background_down: 'images/ia-scribe-flip-button.png'
+                    background_disabled_normal: self.background_normal
+                    background_disabled_down: self.background_down
+                    size_hint: (None, None)
+                    size: (86, 114)
+                    on_release: root.swap_button()
+                Button:
+                    background_normal: 'images/calibration_done.png'
+                    background_down: 'images/calibration_done.png'
+                    background_disabled_normal: self.background_normal
+                    background_disabled_down: self.background_down
+                    size_hint: (None, None)
+                    size: (86, 114)
+                    on_release: root.done_button()
+
+            BoxLayout:
+                id: box_right
+                orientation: 'vertical'
+                ImageMenuBar:
+                    id: right_image_menu_bar
+                    options: ['export', 'view_source']
+                    pos_hint: {'right': 1}
+                    orientation: 'right'
+                ImageZoom:
+                    id: _right_image
+                    source: root.loading_image
+                    default_anchor_x: 'left'
+                    default_zoom_pos_hint: 0.9, 0.1
+                Label:
+                    text: 'RIGHT: ' + root.right_port
+                    color: .75, .75, .75, 1
+                    size_hint_y: None
+                    height: 40

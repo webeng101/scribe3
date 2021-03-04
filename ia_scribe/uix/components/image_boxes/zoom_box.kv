@@ -1,0 +1,10 @@
+<ZoomBox>:
+    border_width: '2dp'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, float(not self.disabled)
+        Mesh:
+            texture: self.texture
+            indices: [0, 1, 2, 3]
+            vertices: self._vertices
+            mode: 'triangle_fan'

@@ -1,0 +1,46 @@
+<SingleCalibrationWidget>:
+    orientation: 'horizontal'
+    spacing: '30dp'
+    padding: '20dp', 0, '20dp', 0
+    FloatLayout:
+        FloatLayout:
+            id: box_header
+            size_hint_y: None
+            height: '120dp'
+            pos_hint: {'center_x': 0.5, 'y': 0.8}
+        BoxLayout:
+            size_hint_y: 0.95
+            pos_hint: {'x': 0, 'y': 0}
+            BoxLayout:
+                orientation: 'vertical'
+                ImageMenuBar:
+                    id: image_menu_bar
+                ImageZoom:
+                    id: _cam_image
+                    source: root.loading_image
+                Label:
+                    id: lb_camera
+                    text: 'SINGLE: ' + root.cam_port
+                    color: .75, .75, .75, 1
+                    size_hint_y: None
+                    height: '40dp'
+            BoxLayout:
+                id: box_bottons
+                disabled: True
+                orientation: 'vertical'
+                size_hint_x: None
+                width: dp(86 + 10 + 10)
+                padding: '10dp', '110dp'
+                spacing: '10dp'
+                Button:
+                    background_normal: 'images/ia-scribe-reshoot-button.png'
+                    background_down: 'images/ia-scribe-reshoot-button.png'
+                    size_hint: (None, None)
+                    size: '86dp', '114dp'
+                    on_release: root.reshoot_button()
+                Button:
+                    background_normal: 'images/calibration_done.png'
+                    background_down: 'images/calibration_done.png'
+                    size_hint: (None, None)
+                    size: '86dp', '114dp'
+                    on_release: root.done_button()

@@ -1,0 +1,24 @@
+<StakhanovWidget>:
+    orientation: 'horizontal'
+    spacing: '5dp'
+    canvas:
+        Color:
+            rgba: 1,1,1,0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    TabbedPanel:
+        do_default_tab: False
+        id: tp
+
+<StakhanovTaskList@TabbedPanelItem>:
+    GridLayout:
+        cols:1
+        size_hint_x: 1
+        size_hint_y: 1
+        SimpleList:
+            size_hint_x: 1
+            size_hint_y: 1
+            id: simple_list_widget
+

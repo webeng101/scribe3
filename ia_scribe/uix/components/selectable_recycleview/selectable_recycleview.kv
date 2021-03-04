@@ -1,0 +1,37 @@
+<SelectableResultsContainer>:
+    size_hint_y: None
+    height: self.minimum_height
+
+<ConcreteSelectableResultView>:
+    canvas:
+        Color:
+            rgba: [0.5, 0.5, 0.5, .2]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint_y: None
+    height: '100dp'
+    spacing: '5dp'
+    padding: '2dp'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: str(root.data)
+            color: 0, 0, 0, 1
+            text_size: self.width, None
+            bold:True
+    BoxLayout:
+        size_hint_max_x: '120dp'
+        id: buttons
+        padding: '5dp', '5dp'
+        BoxLayout:
+            spacing: 2
+            orientation: 'vertical'
+            width: '50dp'
+            size_hint_min_x: '60dp'
+            size_hint_max_x: '70dp'
+            size_hint_max_y: '30dp'
+            ColorButton:
+                id: select_button
+                text: 'Select'
+                on_release: root.select_result()

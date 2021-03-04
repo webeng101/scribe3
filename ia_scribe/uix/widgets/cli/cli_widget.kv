@@ -1,0 +1,35 @@
+<CLIWidget>:
+    padding: '10dp'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '2dp'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        TextInput:
+            text: root.log
+            size_hint: 1, 1
+            #text_size: self.width, None
+            multiline: True
+            font_name: 'CourierNewTTScribe'
+            font_hinting: 'mono'
+            readonly: True
+            foreground_color: 0, 1, 0, 1
+            background_color: 0,0,0, 1
+            on_text: root._on_text(self)
+        GridLayout:
+            rows: 1
+            size_hint_y: None
+            height: '40dp'
+            spacing: '5dp'
+            TextInput:
+                id: command_box
+                multiline: False
+                focus: True
+                foreground_color: 0, 1, 0, 1
+                background_color: 0,0,0, 1
+                font_name: 'CourierNewTTScribe'
+                font_hinting: 'mono'

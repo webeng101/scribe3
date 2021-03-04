@@ -1,0 +1,214 @@
+<UserSwitchScreen>:
+    BoxLayout:
+        padding: 10
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (.95, None)
+            height: 40
+            spacing: 10
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            Image:
+                source: 'images/user.png'
+                size: 40, 40
+                size_hint: None, None
+            BlackLabel:
+                id: _title_label
+                text: 'Change operator'
+                font_size: '28dp'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (.60, .6)
+            pos_hint: {'center_x': 0.5}
+            spacing: 10
+            padding: 10
+            canvas.after:
+                Color:
+                    rgb: .75,.75,.75
+                Line:
+                    points: self.x,self.y,self.x+self.width,self.y
+                    width: 1
+            BoxLayout:
+                orientation: 'vertical'
+                BlackLabel:
+                    id: _title_label
+                    text: 'Recent operators'
+                    font_size: '24'
+                    halign: 'center'
+                    valign: 'center'
+                RecentOperatorsWidget:
+                    id: recent_operators_rv
+                    data: root.recent_operators_list
+        BoxLayout:
+            padding: 10
+            size_hint_max_y: '400dp'
+            LoginForm:
+                id: _login_form
+                task_scheduler: root.task_scheduler
+        BoxLayout:
+            size_hint_y: None
+            height: 70
+            spacing: 10
+            padding: 0, 0, 50, 0
+
+<RecentOperatorsWidget>:
+    viewclass: 'UserTileView'
+    effect_cls: 'ScrollEffect'
+    scroll_type: ['bars']
+    bar_width: '10dp'
+    bar_color: 0.5, 0.5, 0.5, 0.9
+    bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+    scroll_wheel_distance: '50dp'
+    UserTileContainer:
+        cols: 5
+        spacing: 30
+        height: self.minimum_height
+
+<UserTileContainer>:
+    default_size: dp(130), dp(150)
+    size_hint_y: None
+    height: self.minimum_height
+
+<UserTileView>:
+    bgcol:  1, 1, 1, 0
+    BoxLayout:
+        size_hint: 1, 1
+        canvas:
+            Color:
+                rgba: root.bgcol
+            Rectangle:
+                pos: self.pos
+                size: self.width, self.height
+        GridLayout:
+            cols: 1
+            id: _main
+            orientation: 'vertical'
+            padding: 0
+            AsyncImage:
+                source: root.user_image
+                size_hint_min_y: '80dp'
+                nocache: True
+            BlackLabel:
+                text: root.username
+                font_size: '18dp'
+                shorten: False
+                multiline: True
+                halign: 'center'
+                valign: 'center'
+                size_hint_min_y: '20dp'
+            BlackLabel:
+                text: root.email
+                font_size: '12dp'
+                shorten: False
+                multiline: True
+                halign: 'center'
+                valign: 'center'
+                size_hint_min_y: '40dp'
+
+<UserInfoPopup>:
+    canvas.before:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    padding: '10dp', '10dp', '10dp', '10dp'
+    orientation: 'horizontal'
+    AsyncImage:
+        source: root.user_image
+        nocache: True
+        size_hint_max_x: '120dp'
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: '10dp'
+        size_hint_x: 1
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'vertical'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                InfoBox:
+                    size_hint_y: None
+                    title: 'Username'
+                    value: root.username
+                InfoBox:
+                    size_hint_y: None
+                    title: 'Email'
+                    value: root.email
+            IconButton:
+                padding: 8
+                text: 'Delete user'
+                icon: 'baseline_delete_forever_white_48dp.png'
+                icon_width: '22dp'
+                size_hint_max_y: '30dp'
+                size_hint_max_x: '120dp'
+                color_normal: 0.5, 0, 0, 1
+                on_release: root.do_delete()
+
+
+<LoginForm>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: None, None
+            size: 400, 300
+            pos_hint: {'center_x': .5}
+            orientation: 'vertical'
+            spacing: 20
+            BlackLabel:
+                text: 'Archive.org Login'
+                font_size: 24
+                height: 60
+                halign: 'center'
+            BoxLayout:
+                canvas.after:
+                    Rectangle:
+                        source: 'images/user.png'
+                        pos: self.pos[0]+2, self.pos[1]+4
+                        size: 30, 30
+                EmailTextInput:
+                    multiline: False
+                    padding: 40, 10, 10, 10
+                    id: _login_email_input
+                    hint_text: 'Email'
+                    metadata_key: 'Email'
+            BoxLayout:
+                canvas.after:
+                    Rectangle:
+                        source: 'images/password.png'
+                        pos: self.pos[0]+6, self.pos[1]+6
+                        size: 22, 22
+                MetadataTextInput:
+                    multiline: False
+                    metadata_key: 'password'
+                    padding: 40, 10, 10, 10
+                    id: _login_password_input
+                    hint_text: 'Password'
+                    password: True
+                    on_text_validate: root.login()
+            BoxLayout:
+                Widget:
+                BlackLabel:
+                    id: lb_forgot_pwd
+                    canvas.before:
+                        Color:
+                            rgba: .1, .1, .1, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.width, 1
+                    text: ' Forgot your password?'
+                    text_size: self.size
+                    size_hint_x: None
+                    width: 170
+                    shorten: False
+            ColorButton:
+                text: 'Log in'
+                color_normal: 0, 0.28, 0.42, .5
+                color_down: 0, 0.28, 0.42, 1
+                on_release: root.login()
+
+        Widget

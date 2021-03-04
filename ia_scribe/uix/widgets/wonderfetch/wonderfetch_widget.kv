@@ -1,0 +1,74 @@
+<WonderfetchDialog>:
+    id: ttt
+    orientation: 'vertical'
+    padding: '10dp'
+    spacing: '5dp'
+    size_hint: 0.5, 0.4
+    title: 'Wonderfetch'
+    size_hint_min: '540dp', '300dp'
+    ScreenManager:
+        id: sm
+
+<WonderfetchResultPopup>:
+    size_hint: (0.9, 0.9) if gr_dd.children else (0.6, 0.4)
+    auto_dismiss: False
+    title: 'Wonderfetch'
+    GridLayout:
+        cols: 1
+        padding: '10dp'
+        spacing: '10dp'
+        height: self.minimum_height
+        Label:
+            id: lb_content
+            font_size: '30sp'
+            height: '40dp'
+            size_hint_y: None
+        Label:
+            id: lb_additional_content
+            font_size: '20sp'
+            height: '40dp' if self.text else 0
+            size_hint_y: None
+        GridLayout:
+            cols: 1
+            id: _extend
+        GridLayout:
+            cols: 1
+            id: gr_dd
+            size_hint_y: 1.0 if gr_dd.children else None
+            height: self.height if gr_dd.children else 0
+        GridLayout:
+            rows: 1
+            spacing: '5dp'
+            size_hint_y: None
+            height: '40dp'
+            ColorButton:
+                text: 'Close'
+                on_release: root.on_btn_close()
+            ColorButton:
+                id: button_print_slip
+                disabled: True
+                text: 'Print slip'
+                on_release: root.btn_print_do_not_want_slip()
+            ColorButton:
+                id: btn_confirm
+                text: 'Confirm'
+                on_release: root.on_btn_confirm()
+
+
+<WonderfetchNotificationPopup>:
+    size_hint: 0.6, 0.4
+    auto_dismiss: False
+    title: 'Wonderfetch Notification'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '40dp'
+        Label:
+            id: lb_content
+            font_size: '30sp'
+        Label:
+            font_size: '30sp'
+        ColorButton:
+            id: btn_confirm
+            text: 'OK'
+            on_release: root.dismiss()

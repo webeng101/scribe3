@@ -1,0 +1,61 @@
+#:import UTF8_FONT ia_scribe.scribe_globals.UTF8_FONT
+
+<EntryLabel@Label>:
+    color: 1, 1, 1, 1
+    disabled_color: self.color
+    text_size: self.size
+    valign: 'middle'
+    halign: 'left'
+    markup: True
+
+<SimpleListRow>:
+    text_color: 1, 1, 1, 1
+    padding: 0, '2dp'
+    canvas:
+        Color:
+            rgba: self.color_down if self.selected else self.color_normal
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols:2
+        AsyncImage:
+            source: root.image
+            size_hint_max_x: '100dp'
+        GridLayout:
+            cols:1
+            EntryLabel:
+                text: root.key
+                bold: True
+                font_size: '20sp'
+                color: root.text_color
+            EntryLabel:
+                text: root.value
+
+<SimpleList>:
+    cols: 1
+    spacing: '5dp'
+    canvas:
+        Color:
+            rgba: 1,1,1,0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    RecycleView:
+        id: rv
+        effect_cls: 'ScrollEffect'
+        scroll_type: ['bars']
+        bar_width: '15dp'
+        bar_color: 0.5, 0.5, 0.5, 0.9
+        bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+        scroll_wheel_distance: '50dp'
+        viewclass: 'SimpleListRow'
+        SimpleListContainer:
+            default_size: None, dp(100)
+            default_size_hint: 1, None
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: '15dp', 0
+            spacing: '5dp'
+            right_count: 0

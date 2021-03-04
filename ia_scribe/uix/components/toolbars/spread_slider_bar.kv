@@ -1,0 +1,73 @@
+<SpreadSliderBar>:
+    size_hint_y: None
+    height: '50dp'
+    spacing: '5dp'
+    padding: 0, '5dp', 0, '5dp'
+    BoxLayout:
+        size_hint_x: None
+        width: contact_toggle_button.width if root.contact_switch_present else 0
+        TooltipImageToggleButton:
+            id: contact_toggle_button
+            tooltip: 'Toggle contact switch'
+            size_hint_x: None
+            width: '42dp' if root.contact_switch_present else 0
+            source_normal: './images/contact_switch.png'
+            source_down: './images/contact_switch_down.png'
+            state: root.contact_switch_toggle_state
+            on_state: root.contact_switch_toggle_state = args[1]
+    BoxLayout:
+        size_hint_x: None
+        width: autoshoot_toggle_button.width + autoshoot_input.width
+        TooltipImageToggleButton:
+            id: autoshoot_toggle_button
+            tooltip: 'Toggle auto-shoot'
+            size_hint_x: None
+            width: '50dp'
+            source_normal: './images/autoshoot_transparent_scaled.png'
+            source_down: './images/autoshoot_white_down.png'
+            state: root.autoshoot_state
+            on_state: root.autoshoot_state = args[1]
+        NumberInput:
+            id: autoshoot_input
+            min_value: root.autoshoot_min
+            max_value: root.autoshoot_max
+            value: root.autoshoot_value
+            value_type: float
+            tooltip: 'Auto-shoot interval'
+            pos_hint: {'center_y': 0.5}
+            disabled: root.autoshoot_state == 'down'
+            on_value: root.autoshoot_value = args[1]
+    TooltipImageButton:
+        id: prev_button
+        tooltip: 'Previous spread'
+        size_hint_x: None
+        width: '65dp'
+        source_normal: './images/button_previous_page_normal.png'
+        source_down: './images/button_previous_page_normal.png'
+        on_release: root.slider_value = max(root.slider_min, root.slider_value - 1)
+    MarkedTooltipSlider:
+        id: slider
+        max: root.slider_max
+        min: root.slider_min
+        value: root.slider_value
+        step: 1
+        tooltip: root.slider_tooltip
+        on_value: root.slider_value = args[1]
+        on_value_up: root.dispatch('on_slider_value_up', self.value)
+    TooltipImageButton:
+        id: next_button
+        tooltip: 'Next spread'
+        size_hint_x: None
+        width: '65dp'
+        source_normal: './images/button_next_page_normal.png'
+        source_down: './images/button_next_page_normal.png'
+        on_release: root.slider_value = min(root.slider_max, root.slider_value + 1)
+
+    ImageButton:
+        id: scan_button
+        size_hint_x: None
+        width: '110dp'
+        source_normal: './images/button_shoot_normal.png'
+        source_down: './images/button_shoot_normal.png'
+        disabled: root.scan_button_disabled
+        on_release: root.dispatch('on_option_select', 'capture_spread')

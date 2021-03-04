@@ -1,0 +1,736 @@
+#:import scribe_globals ia_scribe.scribe_globals
+
+
+<BookMetadataItem>:
+    orientation: 'vertical'
+    BoxLayout:
+        spacing: '5dp'
+        size_hint_y: 0.65
+        Label:
+            id: key_label
+            text: root.key
+            size_hint_x: None
+            width: '130dp'
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            shorten: True
+            color: 0, 0, 0, 1
+            disabled_color: self.color
+        TextInput:
+            text: root.text
+            on_text: root.text = args[1]
+            multiline: False
+            write_tab: False
+            font_size: '15sp'
+            font_name: scribe_globals.UTF8_FONT
+            focus: root.focus
+            on_focus: root.focus = args[1]
+            readonly: root.readonly
+            disabled_foreground_color: 0, 0, 0, 1
+        ImageButton:
+            id: delete_button
+            source_normal: 'button_delete_book_normal.png'
+            source_down: 'button_delete_book_normal.png'
+            size_hint_x: None
+            width: '26dp' if root.use_delete_button else 0
+            on_release: root._on_delete_button_release()
+    Label:
+        text: root.message
+        color: 1, 0, 0, 1
+        size_hint_y: 0.35
+        text_size: self.size
+        valign: 'middle'
+        font_size: '13sp'
+        shorten: True
+        padding_x: key_label.width + dp(5)
+
+
+<SeparatorLabelItem>:
+    padding_x: '100dp'
+    valign: 'middle'
+    underline: True
+    font_size: '18sp'
+
+
+<BookMetadataView>:
+    id: rv
+    effect_cls: 'ScrollEffect'
+    viewclass: 'BookMetadataItem'
+    bar_width: '10dp'
+    scroll_type: ['bars']
+    bar_color: 0.5, 0.5, 0.5, 0.9
+    bar_inactive_color: 0.7, 0.7, 0.7, 0.7
+    scroll_wheel_distance: '50dp'
+    BookMetadataLayout:
+        cols: 1
+        default_size: None, dp(46)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        spacing: '2dp'
+        padding: 0, 0, '10dp', 0
+
+
+<BookMetadataScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        size_hint_min_y: '770dp'
+        size_hint_min_x: '1390dp'
+        canvas:
+            Color:
+                rgb: 0.92, 0.92, 0.92
+            Rectangle:
+                pos: self.x + dp(10), self.y + dp(10)
+                size: self.width - dp(20), self.height - dp(20)
+        GridLayout:
+            cols:2
+            size_hint_max_y: '80dp'
+            AnchorLayout:
+                size_hint_y: None
+                height: '60dp'
+                anchor_x: 'center'
+                IconButton:
+                    text: '{} Metadata'.format(root.object_type)
+                    icon: '{}.png'.format(root.object_type)
+                    icon_width: '90dp'
+                    text_font_size: '25sp'
+                    text_color: 0, 0, 0, 1
+                    color_normal: 1, 1, 1, 0
+                    color_down: 1, 1, 1, 0
+                    size_hint_x: None
+                    width: '260dp'
+                    on_release: root.input_disabled = not root.input_disabled
+            AnchorLayout:
+                size_hint_y: None
+                height: '40dp'
+                anchor_x: 'right'
+                GridLayout:
+                    rows: 1
+                    spacing: '5dp'
+                    padding: '10dp', 0
+                    size_hint_x: None
+                    col_default_width: '130dp'
+                    width: self.minimum_width
+                    IconButton:
+                        padding: 8
+                        icon: 'done.png'
+                        text: 'Save & Done'
+                        icon_width: '22dp'
+                        width: '130dp'
+                        on_release: root.save_metadata_and_done()
+                        color_normal: 0, 0.8, 0, .7
+                    IconButton:
+                        padding: 8
+                        text: 'Save'
+                        icon: 'save.png'
+                        icon_width: '22dp'
+                        width: '130dp'
+                        on_release: root.save_metadata()
+                        color_normal: 0, 0.5, 0, .7
+                    IconButton:
+                        padding: 8
+                        text: 'Reload'
+                        icon: 'reload.png'
+                        icon_width: '22dp'
+                        width: '130dp'
+                        on_release: root.reload()
+                        color_normal: 0.1, 0.3, 0.8, .7
+                    IconButton:
+                        padding: 8
+                        text: 'Reject'
+                        icon: 'reject.png'
+                        icon_width: '22dp'
+                        width: '130dp'
+                        color_normal: 0.5, 0, 0, 1
+                        on_release: root.reject_button_action()
+                    IconButton:
+                        padding: 8
+                        text: 'Cancel'
+                        icon: 'close_x.png'
+                        icon_width: '22dp'
+                        width: '130dp'
+                        on_release: root.cance_from_user()
+                        color_normal: 0.1, 0.1, 0.1, .7
+        GridLayout:
+            cols: 2
+            padding: '10dp'
+            spacing: '80dp'
+            GridLayout:
+                cols: 1
+                spacing: '5dp'
+                size_hint_x: 0.4
+                GridLayout:
+                    cols: 1
+                    spacing: '10dp'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    GridLayout:
+                        id: preloaded_panel
+                        cols: 1
+                        spacing: '2dp'
+                        padding: '10dp'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        canvas:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        Label:
+                            text: 'Load metadata'
+                            size_hint_y: None
+                            height: '30dp'
+                            valign: 'top'
+                            text_size: self.size
+                            underline: True
+                            font_size: '18sp'
+                            color: 0, 0, 0, 1
+                            disabled_color: self.color
+                        BoxLayout:
+                            spacing: '5dp'
+                            size_hint_y: None
+                            height: '36dp'
+                            TextInput:
+                                id: preloaded_id_input
+                                font_size: '20sp'
+                                write_tab: False
+                                multiline: False
+                                on_text_validate: load_metadata_button.trigger_action()
+                            IconButton:
+                                padding: 8
+                                icon: 'load_metadata.png'
+                                id: load_metadata_button
+                                disabled: not preloaded_id_input.text
+                                text: 'Load Metadata'
+                                size_hint_x: None
+                                width: '150dp'
+                                on_release:
+                                    root.start_load_metadata(preloaded_id_input.text, volume_input.text)
+                        BoxLayout:
+                            spacing: '5dp'
+                            size_hint_y: None
+                            height: '30dp'
+                            CheckBoxLabel:
+                                allow_no_selection: False
+                                active: True
+                                group: str(id(self.parent))
+                                text: 'Internet Archive Identifier'
+                                size_hint_min_x: '210dp'
+                                on_active: root._search_option = 'identifier'
+                                text_color: [0,0,0,1]
+                            CheckBoxLabel:
+                                allow_no_selection: False
+                                group: str(id(self.parent))
+                                text: 'ISBN'
+                                size_hint_min_x: '50dp'
+                                on_active: root._search_option = 'isbn'
+                                text_color: [0,0,0,1]
+                            BoxLayout:
+                                size_hint_min_x: '170dp'
+                                CheckBoxLabel:
+                                    allow_no_selection: False
+                                    group: str(id(self.parent.parent))
+                                    text: 'Catalog :'
+                                    size_hint_min_x: '99dp'
+                                    on_active: root._search_option = 'openlibrary'
+                                    text_color: [0,0,0,1]
+                                    pos_hint: {'right': 1}
+                                LeftAlignedSpinner:
+                                    id: catalog_spinner
+                                    on_text: root.current_catalog = self.text
+                                    pos_hint: {'left': 1}
+                                    background_color: 0, 0, 0, 0
+                                    color: 0, 0, 0, 1.0
+                                    bold: True
+                                    option_cls: 'SpinnerColorButton'
+                                    canvas.after:
+                                        Color:
+                                            rgba: 0, 0, 0, 0.9
+                                        Line:
+                                            points: self.x, self.y +6, self.x+self.width, self.y +6
+                                            width: 1
+                        BoxLayout:
+                            spacing: '5dp'
+                            size_hint_y: None
+                            height: '36dp'
+                            Label:
+                                text: 'Query a MARC catalog over IA\'s z39.50.'
+                                text_size: self.width, None
+                                color: 0, 0, 0, 1
+                                disabled_color: self.color
+                            IconButton:
+                                padding: 8
+                                icon: 'load_marc.png'
+                                size_hint_x: None
+                                width: '150dp'
+                                text: 'Fetch a MARC'
+                                on_release: root.start_marc_search(preloaded_id_input.text)
+                GridLayout:
+                    id: dwwi_and_marc_panel
+                    cols: 1
+                    spacing: '5dp'
+                    padding: '10dp'
+                    size_hint_y: None
+                    height: self.minimum_height if self.children else 0
+                    canvas:
+                        Color:
+                            rgba: 0.85, 0.85, 0.85, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                GridLayout:
+                    id: global_book_settings_panel
+                    cols: 1
+                    spacing: '5dp'
+                    padding: '10dp'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    canvas:
+                        Color:
+                            rgba: 0.85, 0.85, 0.85, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: 'Global book settings'
+                        size_hint_y: None
+                        height: '30dp'
+                        valign: 'top'
+                        text_size: self.size
+                        underline: True
+                        font_size: '18sp'
+                        color: 0, 0, 0, 1
+                        disabled_color: self.color
+                    BoxLayout:
+                        spacing: '5dp'
+                        size_hint_y: None
+                        height: '36dp'
+                        Label:
+                            text: 'Collection String:'
+                            font_size: '16sp'
+                            color: 0, 0, 0, 1
+                            disabled_color: self.color
+                            size_hint_x: None
+                            text_size: self.size
+                            width: '130dp'
+                            valign: 'middle'
+                            halign: 'left'
+                        LeftAlignedSpinner:
+                            id: collections_spinner
+                            text_autoupdate: True
+                            sync_height: True
+                            background_color: 0, 0, 0, 0
+                            background_disabled_normal: ''
+                            color: 0, 0, 0, 1.0
+                            bold: True
+                            underline: False
+                            values: root.formatted_collection_sets
+                            on_text: root.refresh_collection_star()
+                            on_release: root.refresh_collection_star()
+                            option_cls: 'SpinnerColorButton'
+                            canvas.after:
+                                Color:
+                                    rgba: 0, 0, 0, 0.9
+                                Line:
+                                    points: self.x, self.y +10, self.x+self.width, self.y +10
+                                    width: 1
+                        TooltipImageButton:
+                            source_normal: 'twotone_star_border_black_48dp.png' if not self.default else 'baseline_star_black_48dp.png'
+                            source_down: 'twotone_star_border_black_48dp.png' if not self.default else 'baseline_star_black_48dp.png'
+                            size_hint_x: None
+                            pos_hint: {'center_y': 0.5}
+                            width: '26dp'
+                            on_release: root.set_default_collection_set()
+                            tooltip: 'Set default'
+                            default: root.is_current_rcs_default
+                        TooltipImageButton:
+                            source_normal: 'button_plus_sign_normal.png'
+                            source_down: 'button_plus_sign_normal.png'
+                            size_hint_x: None
+                            pos_hint: {'center_y': 0.5}
+                            width: '26dp'
+                            on_release: root.add_collection_set()
+                            tooltip: 'Add a new RCS'
+                    BoxLayout:
+                        size_hint_y: None
+                        height: '25dp'
+                        canvas.after:
+                            Color:
+                                rgb: .75,.75,.75
+                            Line:
+                                points: self.x, self.y, self.x+self.width, self.y
+                                width: 1
+                        Label:
+                            text: root.collection_string
+                            color: 0, 0, 0, 1
+                            size_hint_x: 1
+                            text_size: self.width, None
+                            valign: 'middle'
+                            italic: True
+                            shorten: True
+                            shorten_from: 'right'
+                    AnchorLayout:
+                        size_hint_y: None
+                        height: '36dp'
+                        anchor_x: 'left'
+                        GridLayout:
+                            rows: 1
+                            spacing: '5dp'
+                            size_hint_x: None
+                            width: self.minimum_width
+                            Label:
+                                text: 'PPI:'
+                                font_size: '16sp'
+                                color: 0, 0, 0, 1
+                                disabled_color: self.color
+                                size_hint_x: None
+                                text_size: self.size
+                                width: '130dp'
+                                valign: 'middle'
+                            NumberInput:
+                                id: ppi_input
+                                size_hint_x: None
+                                width: '130dp'
+                                min_value: 1
+                                value: 1
+
+                GridLayout:
+                    id: modern_book_settings_panel
+                    cols: 1
+                    spacing: '5dp'
+                    padding: '10dp'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    canvas:
+                        Color:
+                            rgba: 0.85, 0.85, 0.85, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: 'Modern books'
+                        size_hint_y: None
+                        height: '30dp'
+                        valign: 'top'
+                        text_size: self.size
+                        underline: True
+                        font_size: '18sp'
+                        color: 0, 0, 0, 1
+                        disabled_color: self.color
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: '100dp'
+                        spacing: '20dp'
+                        BoxLayout:
+                            orientation:'horizontal'
+                            spacing: '10dp'
+                            BoxLayout:
+                                spacing: '5dp'
+                                size_hint_x: .5
+                                width: self.minimum_width
+                                Label:
+                                    text: 'BoxID:'
+                                    font_size: '16sp'
+                                    color: 0, 0, 0, 1
+                                    disabled_color: self.color
+                                    size_hint_x: None
+                                    text_size: self.size
+                                    width: '50dp'
+                                    valign: 'middle'
+                                RegexTextInput:
+                                    regex: root.BOXID_VALIDATION_REGEX
+                                    max_length: True
+                                    id: box_id_input
+                                    size_hint_min_x: '120dp'
+                                    font_size: '20sp'
+                                    multiline: False
+                                    write_tab: False
+                            BoxLayout:
+                                spacing: '5dp'
+                                size_hint_x: .5
+                                width: self.minimum_width
+                                Label:
+                                    text: 'Old pallet:'
+                                    font_size: '16sp'
+                                    color: 0, 0, 0, 1
+                                    disabled_color: self.color
+                                    size_hint_x: None
+                                    text_size: self.size
+                                    width: '80dp'
+                                    valign: 'middle'
+                                RegexTextInput:
+                                    regex: root.OLD_PALLET_VALIDATION_REGEX
+                                    max_length: True
+                                    id: box_id2_input
+                                    size_hint_min_x: '120dp'
+                                    font_size: '20sp'
+                                    multiline: False
+                                    write_tab: False
+                        BoxLayout:
+                            spacing: '5dp'
+                            size_hint_x: None
+                            width: self.minimum_width
+                            Label:
+                                text: 'Volume:'
+                                font_size: '16sp'
+                                color: 0, 0, 0, 1
+                                disabled_color: self.color
+                                size_hint_x: None
+                                text_size: self.size
+                                width: '60dp'
+                                valign: 'middle'
+                            TextInput:
+                                id: volume_input
+                                size_hint_min_x: '100dp'
+                                font_size: '20sp'
+                                multiline: False
+                                write_tab: False
+                    BoxLayout:
+                        spacing: '5dp'
+                        size_hint_y: None
+                        height: '36dp'
+                        Label:
+                            text:
+                                'Discover if we need a book and automatically ' \
+                                'retrieve for it if so.'
+                            text_size: self.width, None
+                            color: 0, 0, 0, 1
+                            disabled_color: self.color
+
+                AnchorLayout:
+                    anchor_y: 'bottom'
+                    GridLayout:
+                        cols: 1
+                        spacing: '2dp'
+                        padding: '10dp'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        canvas:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        Label:
+                            text: 'Book information'
+                            size_hint_y: None
+                            height: '30dp'
+                            valign: 'top'
+                            text_size: self.size
+                            underline: True
+                            font_size: '18sp'
+                            color: 0, 0, 0, 1
+                            disabled_color: self.color
+                        GridLayout:
+                            cols: 1
+                            row_default_height: '26dp'
+                            row_force_default: True
+                            size_hint_y: None
+                            height: self.minimum_height
+                            BoxLayout:
+                                spacing: '5dp'
+                                BlackLabel:
+                                    text: 'Path:'
+                                    size_hint_x: None
+                                    width: '130dp'
+                                    font_size: '16sp'
+                                    valign: 'middle'
+                                BlackLabel:
+                                    id: path_label
+                                    valign: 'middle'
+                                    shorten_from: 'left'
+                                ImageButton:
+                                    size_hint_x: None
+                                    width: '26dp'
+                                    source_normal: 'button_open_normal.png'
+                                    source_down: 'button_open_normal.png'
+                                    on_release: root.open_book_path()
+                            BoxLayout:
+                                spacing: '5dp'
+                                BlackLabel:
+                                    text: 'Metasource:'
+                                    size_hint_x: None
+                                    width: '130dp'
+                                    font_size: '16sp'
+                                    valign: 'middle'
+                                BlackLabel:
+                                    bold:True
+                                    id: metasource_label
+                                    valign: 'middle'
+                            BoxLayout:
+                                spacing: '5dp'
+                                BlackLabel:
+                                    text: 'MarcXML:'
+                                    size_hint_x: None
+                                    width: '130dp'
+                                    font_size: '16sp'
+                                    valign: 'middle'
+                                BlackLabel:
+                                    bold:True
+                                    id: marc_xml_label
+                                    valign: 'middle'
+                            BoxLayout:
+                                spacing: '5dp'
+                                BlackLabel:
+                                    text: 'MarcBIN:'
+                                    size_hint_x: None
+                                    width: '130dp'
+                                    font_size: '16sp'
+                                    valign: 'middle'
+                                BlackLabel:
+                                    bold:True
+                                    id: marc_bin_label
+                                    valign: 'middle'
+                            BoxLayout:
+                                spacing: '5dp'
+                                BlackLabel:
+                                    text: 'Slip:'
+                                    size_hint_x: None
+                                    width: '130dp'
+                                    font_size: '16sp'
+                                    valign: 'middle'
+                                BlackLabel:
+                                    bold:True
+                                    id: slip_present_label
+                                    valign: 'middle'
+                                ImageButton:
+                                    id: display_slip_button
+                                    size_hint_x: None
+                                    width: '26dp'
+                                    source_normal: 'button_open_normal.png'
+                                    source_down: 'button_open_normal.png'
+                                    on_release: root.show_slip()
+            GridLayout:
+                cols: 1
+                spacing: '10dp'
+                size_hint_x: 0.6
+                BoxLayout:
+                    spacing: '5dp'
+                    padding: '10dp'
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    canvas:
+                        Color:
+                            rgba: 0.85, 0.85, 0.85, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: 'Identifier'
+                        size_hint_y: None
+                        height: '30dp'
+                        valign: 'top'
+                        text_size: self.size
+                        underline: True
+                        font_size: '18sp'
+                        color: 0, 0, 0, 1
+                        disabled_color: self.color
+                    BoxLayout:
+                        size_hint_y: None
+                        height: '36dp'
+                        spacing: '5dp'
+                        RegexTextInput:
+                            regex: '^[a-zA-Z0-9][a-zA-Z0-9\.\-_]{4,99}$'
+                            id: identifier_input
+                            multiline: False
+                            font_size: '20sp'
+                            write_tab: False
+
+                        IconButton:
+                            padding: 8
+                            size_hint_x: None
+                            icon: 'done.png'
+                            icon_width: '22dp'
+                            width: '105dp'
+                            pos_hint: {'top': 1}
+                            disabled: bool(identifier_input.text)
+                            text: 'Generate'
+                            on_release:
+                                root.generate_identifier()
+
+                        IconButton:
+                            padding: 8
+                            size_hint_x: None
+                            icon: 'printer.png'
+                            icon_width: '22dp'
+                            width: '90dp'
+                            pos_hint: {'top': 1}
+                            disabled: not bool(identifier_input.text)
+                            text: 'Reprint'
+                            disabled: not root.can_reprint_slip
+                            on_release:
+                                root.start_print_slip(identifier_input.text)
+
+                        TooltipIconButton:
+                            padding: 8
+                            size_hint_x: None
+                            icon: 'label.png'
+                            icon_width: '22dp'
+                            width: '145dp'
+                            pos_hint: {'top': 1}
+                            text: 'Print & reserve'
+                            tooltip: 'This will close this window'
+                            disabled: not bool(identifier_input.text)
+                            on_release:
+                                root.start_print_slip_and_upload(identifier_input.text)
+
+                        TooltipIconButton:
+                            padding: 8
+                            size_hint_x: None
+                            icon: 'baseline_cloud_upload_white_48dp.png'
+                            icon_width: '22dp'
+                            width: '90dp'
+                            pos_hint: {'top': 1}
+                            text: 'Upload'
+                            color_normal: [0.05, 0.2, 0.8, .8]
+                            color_down: [0.05, 0.2, .8, 1]
+                            on_release:
+                                root.start_print_slip_and_upload(identifier_input.text, 'do_queue_processing')
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: '5dp'
+                    padding: '10dp'
+                    canvas:
+                        Color:
+                            rgba: 0.85, 0.85, 0.85, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    BookMetadataView:
+                        id: metadata_form
+                        canvas.before:
+                            Color:
+                                rgba: 0.92, 0.92, 0.92, 0
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                    BoxLayout:
+                        id: metadata_form_buttons
+                        size_hint_y: None
+                        height: '30dp'
+                        spacing: '10dp'
+                        padding: 0, 0, '10dp', 0
+                        ColorButton:
+                            text: 'Show All'
+                            size_hint_x: None
+                            width: '130dp'
+                            on_release:
+                                self.text = 'Show Basic' if not metadata_form.use_basic_view else 'Show All'
+                            on_release:
+                                metadata_form.use_basic_view = not metadata_form.use_basic_view
+                        Widget:
+                        ImageButton:
+                            id: add_new_field_button
+                            source_normal: 'button_plus_sign_normal.png'
+                            source_down: 'button_plus_sign_normal.png'
+                            size_hint_x: None
+                            pos_hint: {'center_y': 0.5}
+                            width: '26dp'
+                            on_release: root.open_new_metadata_field_popup()
+
